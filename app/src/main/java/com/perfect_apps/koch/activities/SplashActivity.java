@@ -1,48 +1,69 @@
 package com.perfect_apps.koch.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends LocalizationActivity {
 
     @BindView(R.id.fakeView) View view;
-    private Animation fade0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        // set default language of activity
+        setDefaultLanguage("en");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(checkFirstTimeOpenApp() == 0){
+            setLanguage(Locale.getDefault().getLanguage());
+        }else {
+            if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 4){
+                setLanguage("ar");
+            }else if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 5) {
+                setLanguage("en");
+            }else {
+                setLanguage(Locale.getDefault().getLanguage());
+            }
         }
 
-        return super.onOptionsItemSelected(item);
+        setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+
+        Animation fade0 = AnimationUtils.loadAnimation(this, R.anim.fade_in_enter);
+
+        view.startAnimation(fade0);
+        fade0.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // do some thing
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    private int checkFirstTimeOpenApp(){
+        return new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE);
     }
 }
