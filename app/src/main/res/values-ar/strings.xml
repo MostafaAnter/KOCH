@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">الإعدادات</string>
+    <string name="client">دخول العملاء</string>
+    <string name="service_provider">دخول مذود الخدمة</string>
+    <string name="username">أسم المستخدم</string>
+    <string name="password">الرقم السرى</string>
 </resources>
