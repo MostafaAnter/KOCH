@@ -4,15 +4,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
 
 import com.perfect_apps.koch.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SplashActivity extends AppCompatActivity {
+
+    @BindView(R.id.fakeView) View view;
+    private Animation fade0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
     }
 
     @Override
