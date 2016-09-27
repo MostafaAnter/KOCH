@@ -6,4 +6,8 @@
     <string name="username">أسم المستخدم</string>
     <string name="password">الرقم السرى</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="are">هل</string>
+    <string name="register_free_now">سجل مجانا الأن</string>
+    <string name="sign_up">تسجيل عضوية</string>
+    <string name="you_new_visitor">أنت زائر جديد</string>
 </resources>

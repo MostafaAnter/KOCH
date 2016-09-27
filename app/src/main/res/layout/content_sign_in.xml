@@ -156,13 +156,13 @@
                 style="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Are"
+                android:text="@string/are"
                 android:textColor="@color/red" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  you new visitor?" />
+                android:text="@string/you_new_visitor" />
         </LinearLayout>
 
         <LinearLayout
@@ -191,13 +191,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign up"
+                    android:text="@string/sign_up"
                     android:textColor="@color/red" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Register free now" />
+                    android:text="@string/register_free_now" />
 
             </LinearLayout>
 
