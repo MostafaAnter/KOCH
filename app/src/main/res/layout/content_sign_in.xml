@@ -118,7 +118,7 @@
                 android:layout_height="38dp"
                 android:contentDescription="@null"
                 android:padding="5dp"
-                android:src="@drawable/log_user" />
+                android:src="@drawable/ic_lock_outline_black_24dp" />
             <!-- INPUT -->
             <EditText
                 android:id="@+id/password_input"
