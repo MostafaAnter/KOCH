@@ -14,4 +14,10 @@
     <string name="koch_app" translatable="false">KOCH APP</string>
     <string name="title_activity_sign_up" translatable="false">SignUpActivity</string>
     <string name="register_example">Registeration pattern</string>
+    <string name="provider_name">Provider Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="email">Email</string>
+    <string name="enter_email">Enter Email</string>
 </resources>

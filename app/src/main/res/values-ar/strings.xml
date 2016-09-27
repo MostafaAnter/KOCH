@@ -11,4 +11,5 @@
     <string name="sign_up">تسجيل عضوية</string>
     <string name="you_new_visitor">"  هذه زيارتك الأولى؟"</string>
     <string name="register_example">نموذج تسجيل العضوية</string>
+    <string name="provider_name">أسم المذود</string>
 </resources>

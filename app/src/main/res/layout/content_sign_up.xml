@@ -22,27 +22,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@color/white"
             android:elevation="3dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            tools:targetApi="lollipop"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            tools:targetApi="lollipop">
 
             <ImageView
-                android:contentDescription="@null"
                 android:layout_width="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_height="wrap_content"
-                android:src="@drawable/regi_ti_icon"/>
+                android:contentDescription="@null"
+                android:src="@drawable/regi_ti_icon" />
 
             <TextView
+                android:id="@+id/text1"
+                style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register_example"
-                style="?android:attr/textAppearanceMedium"
-                android:textColor="@color/red"/>
+                android:textColor="@color/red" />
 
 
         </LinearLayout>
@@ -50,11 +51,147 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginRight="@dimen/activity_horizontal_margin_plus">
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text2"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/provider_name" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_your_name"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:text="" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text3"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/phone_number" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_phone_number"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:text="" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text4"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/email" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/username_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_email"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:text="" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>
