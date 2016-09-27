@@ -4,10 +4,10 @@
     <string name="client">دخول العملاء</string>
     <string name="service_provider">دخول مذود الخدمة</string>
     <string name="username">أسم المستخدم</string>
-    <string name="password">الرقم السرى</string>
+    <string name="password">كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
     <string name="are">هل</string>
     <string name="register_free_now">سجل مجانا الأن</string>
     <string name="sign_up">تسجيل عضوية</string>
-    <string name="you_new_visitor">"  أنت زأئر جديد؟"</string>
+    <string name="you_new_visitor">"  هذه زيارتك الأولى؟"</string>
 </resources>

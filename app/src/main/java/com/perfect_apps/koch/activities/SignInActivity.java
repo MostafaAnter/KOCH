@@ -33,6 +33,7 @@ public class SignInActivity extends LocalizationActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLanguage("ar");
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
         setToolbar();
