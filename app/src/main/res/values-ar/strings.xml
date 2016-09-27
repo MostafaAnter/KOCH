@@ -5,4 +5,5 @@
     <string name="service_provider">دخول مذود الخدمة</string>
     <string name="username">أسم المستخدم</string>
     <string name="password">الرقم السرى</string>
+    <string name="login">تسجيل الدخول</string>
 </resources>

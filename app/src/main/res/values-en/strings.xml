@@ -5,4 +5,5 @@
     <string name="service_provider">Service Provider</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
