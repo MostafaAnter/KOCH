@@ -1,5 +1,6 @@
 package com.perfect_apps.koch.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -53,7 +54,8 @@ public class SplashActivity extends LocalizationActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 // do some thing
-
+                startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                finish();
             }
 
             @Override
