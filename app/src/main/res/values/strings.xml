@@ -12,4 +12,6 @@
     <string name="sign_up">Sign up</string>
     <string name="register_free_now">Register free now</string>
     <string name="koch_app" translatable="false">KOCH APP</string>
+    <string name="title_activity_sign_up" translatable="false">SignUpActivity</string>
+    <string name="register_example">Registeration pattern</string>
 </resources>
