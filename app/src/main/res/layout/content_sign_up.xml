@@ -25,7 +25,9 @@
             android:background="@color/white"
             android:elevation="3dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:targetApi="lollipop"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <ImageView
                 android:contentDescription="@null"
@@ -42,6 +44,15 @@
                 style="?android:attr/textAppearanceMedium"
                 android:textColor="@color/red"/>
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus">
 
         </LinearLayout>
     </LinearLayout>
