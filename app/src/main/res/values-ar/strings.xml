@@ -9,5 +9,5 @@
     <string name="are">هل</string>
     <string name="register_free_now">سجل مجانا الأن</string>
     <string name="sign_up">تسجيل عضوية</string>
-    <string name="you_new_visitor">أنت زائر جديد</string>
+    <string name="you_new_visitor">"  أنت زأئر جديد؟"</string>
 </resources>
