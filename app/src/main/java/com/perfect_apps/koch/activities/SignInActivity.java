@@ -1,5 +1,6 @@
 package com.perfect_apps.koch.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -79,5 +80,7 @@ public class SignInActivity extends LocalizationActivity {
     }
 
 
-
+    public void signUp(View view) {
+        startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+    }
 }

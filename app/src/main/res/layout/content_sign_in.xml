@@ -182,7 +182,8 @@
             android:layout_marginLeft="?android:attr/listPreferredItemHeightSmall"
             android:layout_marginRight="?android:attr/listPreferredItemHeightSmall"
             android:background="@drawable/border_shape_gray"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="signUp">
 
             <ImageView
                 android:layout_width="wrap_content"
