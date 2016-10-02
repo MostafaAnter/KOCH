@@ -206,8 +206,10 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/editTextHeight"
                 android:layout_weight="1"
+                android:layoutDirection="ltr"
                 android:background="@drawable/border_shape_gray"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:targetApi="jelly_bean_mr1">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -237,9 +239,11 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="@dimen/editTextHeight"
+                android:layoutDirection="ltr"
                 android:layout_weight="1"
                 android:background="@drawable/border_shape_gray"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:targetApi="jelly_bean_mr1">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -591,7 +595,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:minHeight="@dimen/vertical_margin"
             android:orientation="horizontal"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
@@ -604,21 +609,24 @@
                 android:background="#00000000"
                 android:hint=""
                 android:text="@string/logo"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:gravity="center_vertical"/>
 
             <ImageView
                 android:layout_width="45dp"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:contentDescription="@null"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/regi_photo"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/editTextHeight"
+            android:minHeight="@dimen/vertical_margin"
             android:orientation="horizontal"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
@@ -627,8 +635,10 @@
 
             <ImageView
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
-                android:layout_margin="10dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/pro_soc_face"/>
 
@@ -644,13 +654,14 @@
                 android:layout_height="match_parent"
                 android:background="#00000000"
                 android:hint="@string/enter_url_here"
-                android:padding="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
                 android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/editTextHeight"
             android:orientation="horizontal"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
@@ -659,8 +670,10 @@
 
             <ImageView
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
-                android:layout_margin="10dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/pro_soc_twitter"/>
 
@@ -676,13 +689,14 @@
                 android:layout_height="match_parent"
                 android:background="#00000000"
                 android:hint="@string/enter_url_here"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/editTextHeight"
             android:orientation="horizontal"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
@@ -691,8 +705,10 @@
 
             <ImageView
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
-                android:layout_margin="10dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/pro_soc_instgram"/>
 
@@ -708,7 +724,8 @@
                 android:layout_height="match_parent"
                 android:background="#00000000"
                 android:hint="@string/enter_url_here"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="" />
         </LinearLayout>
 
@@ -821,7 +838,7 @@
             android:layout_height="32dp"
             android:layout_marginLeft="?android:attr/listPreferredItemHeight"
             android:layout_marginRight="?android:attr/listPreferredItemHeight"
-            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_green_radius_button"
