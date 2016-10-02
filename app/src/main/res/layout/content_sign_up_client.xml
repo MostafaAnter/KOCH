@@ -22,7 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@color/white"
             android:elevation="3dp"
             android:gravity="center_vertical"
@@ -51,7 +50,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -102,10 +101,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -153,10 +152,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -203,10 +202,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -256,10 +255,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -288,7 +287,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
@@ -327,9 +326,9 @@
 
             <ImageView
                 android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_height="35dp"
                 android:contentDescription="@null"
-                android:padding="10dp"
+                android:padding="1dp"
                 android:src="@drawable/regi_photo"/>
         </LinearLayout>
 
@@ -339,7 +338,7 @@
             android:layout_height="32dp"
             android:layout_marginLeft="?android:attr/listPreferredItemHeight"
             android:layout_marginRight="?android:attr/listPreferredItemHeight"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_green_radius_button"
