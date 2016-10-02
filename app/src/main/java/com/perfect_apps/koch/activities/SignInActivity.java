@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class SignInActivity extends LocalizationActivity {
     @BindView(R.id.text3) TextView textView3;
     @BindView(R.id.text4) TextView textView4;
 
+    private int signUpPageFlage = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,7 @@ public class SignInActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setToolbar();
         changeTextFont();
+        setRadioButtons();
     }
 
     private void setToolbar() {
@@ -79,8 +83,40 @@ public class SignInActivity extends LocalizationActivity {
 
     }
 
+    private void setRadioButtons(){
+
+        if (radioButton1.isChecked()){
+            signUpPageFlage = 1;
+
+        }else if (radioButton2.isChecked()){
+            signUpPageFlage = 2;
+        }
+
+        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    signUpPageFlage = 1;
+                }
+            }
+        });
+
+        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    signUpPageFlage = 2;
+                }
+            }
+        });
+    }
+
 
     public void signUp(View view) {
-        startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+        if (signUpPageFlage == 1){
+            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+        }else if (signUpPageFlage == 2){
+            startActivity(new Intent(SignInActivity.this, SignUpClientActivity.class));
+        }
     }
 }
