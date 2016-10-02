@@ -12,4 +12,25 @@
     <string name="you_new_visitor">"  هذه زيارتك الأولى؟"</string>
     <string name="register_example">نموذج تسجيل العضوية</string>
     <string name="provider_name">أسم المذود</string>
+    <string name="about_me">نبذة تعريفية</string>
+    <string name="delivery_service">خدمة توصيل الطلبات</string>
+    <string name="enter_email">ضع البريد الالكتروني</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="enter_password_again">تأكيد كلمة المرور</string>
+    <string name="enter_phone_number">ضع الهاتف</string>
+    <string name="enter_url_here">ضع الرابط هنا</string>
+    <string name="enter_your_name">ضع الأسم هنا</string>
+    <string name="first_service">الخدمة الأولى</string>
+    <string name="fourth_service">الخدمة الرابعة</string>
+    <string name="logo">صورة الشعار</string>
+    <string name="other_service">خدمات أخرى</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="repeat_password">تأكيد رقم المرور</string>
+    <string name="second_service">الخدمة الثانية</string>
+    <string name="services">الخدمات المقدمة</string>
+    <string name="short_description">نبذه تعريفية</string>
+    <string name="there_is_delivery_service">يوجد خدمة توصيل</string>
+    <string name="work_hour">ساعات العمل</string>
+    <string name="work_hour_number">ضع ساعات العمل</string>
+    <string name="third_service">الخدمة الثالثة</string>
 </resources>
