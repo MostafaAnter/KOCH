@@ -786,6 +786,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
@@ -799,6 +800,17 @@
                 android:text="" />
         </RelativeLayout>
 
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginLeft="?android:attr/listPreferredItemHeight"
+            android:layout_marginRight="?android:attr/listPreferredItemHeight"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_green_radius_button"
+            android:text="@string/sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
