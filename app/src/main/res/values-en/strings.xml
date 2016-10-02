@@ -30,4 +30,6 @@
     <string name="there_is_delivery_service">There is delivery service</string>
     <string name="logo">Logo</string>
     <string name="enter_url_here">Enter Url here</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="enter_password_again">Enter password again</string>
 </resources>
