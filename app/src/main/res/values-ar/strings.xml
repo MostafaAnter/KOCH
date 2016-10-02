@@ -33,4 +33,5 @@
     <string name="work_hour">ساعات العمل</string>
     <string name="work_hour_number">ضع ساعات العمل</string>
     <string name="third_service">الخدمة الثالثة</string>
+    <string name="upload_personal_picture">إدراج صورة شخصية</string>
 </resources>

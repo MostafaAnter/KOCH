@@ -33,4 +33,5 @@
     <string name="repeat_password">Repeat password</string>
     <string name="enter_password_again">Enter password again</string>
     <string name="work_hour_number">Work hour number</string>
+    <string name="upload_personal_picture">upload personal picture</string>
 </resources>

@@ -36,5 +36,6 @@
     <string name="enter_url_here">Enter Url here</string>
     <string name="repeat_password">Repeat password</string>
     <string name="enter_password_again">Enter password again</string>
-    <string name="title_activity_sign_up_client">SignUpClientActivity</string>
+    <string name="title_activity_sign_up_client" translatable="false">SignUpClientActivity</string>
+    <string name="upload_personal_picture">upload personal picture</string>
 </resources>
