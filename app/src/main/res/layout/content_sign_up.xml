@@ -182,7 +182,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/username_input"
+                android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -300,7 +300,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/short_description_input"
+                android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
                 android:background="#00000000"
@@ -350,7 +350,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/work_hour_number_input"
+                android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -409,7 +409,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_shape_gray_with_more_radius">
                     <EditText
-                        android:id="@+id/first_service_input"
+                        android:id="@+id/editText6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00000000"
@@ -429,7 +429,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_shape_gray_with_more_radius">
                     <EditText
-                        android:id="@+id/second_service_input"
+                        android:id="@+id/editText7"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00000000"
@@ -453,7 +453,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_shape_gray_with_more_radius">
                     <EditText
-                        android:id="@+id/third_service_input"
+                        android:id="@+id/editText8"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00000000"
@@ -473,7 +473,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_shape_gray_with_more_radius">
                     <EditText
-                        android:id="@+id/fourth_service_input"
+                        android:id="@+id/editText9"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00000000"
@@ -527,7 +527,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/other_service_input"
+                android:id="@+id/editText10"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
                 android:background="#00000000"
@@ -630,7 +630,7 @@
                 />
 
             <EditText
-                android:id="@+id/facebook_url_input"
+                android:id="@+id/editText11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -662,7 +662,7 @@
                 />
 
             <EditText
-                android:id="@+id/twitter_url_input"
+                android:id="@+id/editText12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -694,7 +694,7 @@
                 />
 
             <EditText
-                android:id="@+id/insta_url_input"
+                android:id="@+id/editText13"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -741,7 +741,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/editText14"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -790,7 +790,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <EditText
-                android:id="@+id/password_again_input"
+                android:id="@+id/editText15"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"

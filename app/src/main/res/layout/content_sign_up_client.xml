@@ -188,7 +188,7 @@
             android:background="@drawable/border_shape_gray_with_more_radius">
 
             <EditText
-                android:id="@+id/username_input"
+                android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -214,7 +214,7 @@
                 android:src="@drawable/ic_chevron_left_black_24dp" />
 
             <TextView
-                android:id="@+id/text11"
+                android:id="@+id/text5"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
             android:background="@drawable/border_shape_gray_with_more_radius">
 
             <EditText
-                android:id="@+id/password_input"
+                android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -264,7 +264,7 @@
                 android:src="@drawable/ic_chevron_left_black_24dp" />
 
             <TextView
-                android:id="@+id/text12"
+                android:id="@+id/text6"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -288,7 +288,7 @@
             android:background="@drawable/border_shape_gray_with_more_radius">
 
             <EditText
-                android:id="@+id/password_again_input"
+                android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -306,7 +306,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:background="@drawable/border_shape_gray_with_more_radius">
             <TextView
-                android:id="@+id/text10"
+                android:id="@+id/text7"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
