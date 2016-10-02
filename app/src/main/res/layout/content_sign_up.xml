@@ -581,6 +581,128 @@
             style="?android:attr/textAppearanceMedium"
             android:text="@string/there_is_delivery_service"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <TextView
+                android:id="@+id/text10"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint=""
+                android:text="@string/logo"
+                android:padding="10dp"
+                android:gravity="center_vertical"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/regi_photo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/pro_soc_face"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                />
+
+            <EditText
+                android:id="@+id/facebook_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_url_here"
+                android:padding="10dp"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/pro_soc_twitter"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                />
+
+            <EditText
+                android:id="@+id/twitter_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_url_here"
+                android:padding="10dp"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/pro_soc_instgram"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                />
+
+            <EditText
+                android:id="@+id/insta_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/enter_url_here"
+                android:padding="10dp"
+                android:text="" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

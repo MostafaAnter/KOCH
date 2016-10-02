@@ -32,4 +32,6 @@
     <string name="other_service">Other Service</string>
     <string name="delivery_service">Delivery Service</string>
     <string name="there_is_delivery_service">There is delivery service</string>
+    <string name="logo">Logo</string>
+    <string name="enter_url_here">Enter Url here</string>
 </resources>
