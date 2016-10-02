@@ -27,17 +27,18 @@ public class SplashActivity extends LocalizationActivity {
         // set default language of activity
         setDefaultLanguage("en");
 
-        if(checkFirstTimeOpenApp() == 0){
-            setLanguage(Locale.getDefault().getLanguage());
-        }else {
-            if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 4){
-                setLanguage("ar");
-            }else if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 5) {
-                setLanguage("en");
-            }else {
-                setLanguage(Locale.getDefault().getLanguage());
-            }
-        }
+//        if(checkFirstTimeOpenApp() == 0){
+//            setLanguage(Locale.getDefault().getLanguage());
+//        }else {
+//            if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 4){
+//                setLanguage("ar");
+//            }else if (new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_LANGUAGE) == 5) {
+//                setLanguage("en");
+//            }else {
+//                setLanguage(Locale.getDefault().getLanguage());
+//            }
+//        }
+        setLanguage("ar");
 
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);

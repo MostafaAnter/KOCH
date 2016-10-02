@@ -32,7 +32,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     // localization activity
-    compile 'com.akexorcist:localizationactivity:1.1.1'
+    compile 'com.akexorcist:localizationactivity:1.0.9'
     // segmented view
     compile 'info.hoang8f:android-segmented:1.0.6'
 }

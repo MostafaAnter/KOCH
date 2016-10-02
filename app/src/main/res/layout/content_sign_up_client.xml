@@ -90,11 +90,12 @@
             <EditText
                 android:id="@+id/editText1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:background="#00000000"
                 android:hint="@string/enter_your_name"
                 android:inputType="textPersonName"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="" />
         </RelativeLayout>
 
@@ -140,11 +141,12 @@
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:background="#00000000"
                 android:hint="@string/enter_phone_number"
                 android:inputType="textPersonName"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="" />
         </RelativeLayout>
 
@@ -190,11 +192,12 @@
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:background="#00000000"
                 android:hint="@string/enter_email"
                 android:inputType="textPersonName"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="" />
         </RelativeLayout>
         <LinearLayout
@@ -239,12 +242,13 @@
             <EditText
                 android:id="@+id/editText4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:background="#00000000"
                 android:hint="@string/password"
                 android:textAlignment="viewStart"
                 android:inputType="textPassword"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text=""
                 tools:ignore="RtlCompat" />
         </RelativeLayout>
@@ -292,12 +296,13 @@
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="35dp"
                 android:background="#00000000"
                 android:hint="@string/enter_password_again"
                 android:textAlignment="viewStart"
                 android:inputType="textPassword"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text=""
                 tools:ignore="RtlCompat" />
         </RelativeLayout>
