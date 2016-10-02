@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:scrollbarStyle="insideOverlay"
     android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -17,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <LinearLayout
@@ -191,6 +191,395 @@
                 android:padding="10dp"
                 android:text="" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_weight="1"
+                android:background="@drawable/border_shape_gray"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_expand_more_black_24dp" />
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/activity_horizontal_margin"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_weight="1"
+                android:background="@drawable/border_shape_gray"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_expand_more_black_24dp" />
+                
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text5"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/about_me" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/short_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                android:background="#00000000"
+                android:isScrollContainer="true"
+                android:hint="@string/short_description"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:gravity="top"
+                android:text="" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text6"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/work_hour" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/work_hour_number_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:hint="@string/work_hour_number"
+                android:inputType="number"
+                android:padding="10dp"
+                android:text="" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text7"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/services" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_shape_gray_with_more_radius">
+                    <EditText
+                        android:id="@+id/first_service_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:hint="@string/first_service"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_shape_gray_with_more_radius">
+                    <EditText
+                        android:id="@+id/second_service_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:hint="@string/second_service"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_shape_gray_with_more_radius">
+                    <EditText
+                        android:id="@+id/third_service_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:hint="@string/third_service"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_shape_gray_with_more_radius">
+                    <EditText
+                        android:id="@+id/fourth_service_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:hint="@string/fourth_service"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:text="" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text8"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/other_service" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_with_more_radius">
+            <EditText
+                android:id="@+id/other_service_input"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                android:background="#00000000"
+                android:hint="@string/other_service"
+                android:inputType="number"
+                android:gravity="top"
+                android:isScrollContainer="true"
+                android:padding="10dp"
+                android:text="" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
+
+            <TextView
+                android:id="@+id/text9"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delivery_service" />
+
+            <TextView
+                style="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red" />
+                  </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkbox1"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:textColor="@android:color/darker_gray"
+            android:onClick="onCheckboxClicked"
+            style="?android:attr/textAppearanceMedium"
+            android:text="@string/there_is_delivery_service"/>
 
     </LinearLayout>
 

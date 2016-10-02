@@ -17,4 +17,15 @@
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="email">Email</string>
     <string name="enter_email">Enter Email</string>
+    <string name="about_me">About me</string>
+    <string name="short_description">Short description</string>
+    <string name="work_hour">Work hour</string>
+    <string name="services">Services</string>
+    <string name="first_service">First Service</string>
+    <string name="second_service">Second Service</string>
+    <string name="third_service">Third</string>
+    <string name="fourth_service">Fourth Service</string>
+    <string name="other_service">Other Service</string>
+    <string name="delivery_service">Delivery Service</string>
+    <string name="there_is_delivery_service">There is delivery service</string>
 </resources>

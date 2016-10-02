@@ -42,4 +42,7 @@ public class SignUpActivity extends LocalizationActivity {
         toolbar.setSubtitle("");
     }
 
+    public void onCheckboxClicked(View view) {
+
+    }
 }
