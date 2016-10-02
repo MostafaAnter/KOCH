@@ -600,8 +600,8 @@
                 android:gravity="center_vertical"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:contentDescription="@null"
                 android:src="@drawable/regi_photo"/>
@@ -801,7 +801,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginLeft="?android:attr/listPreferredItemHeight"

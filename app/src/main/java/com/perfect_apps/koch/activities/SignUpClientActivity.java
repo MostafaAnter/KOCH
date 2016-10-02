@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -31,6 +32,9 @@ public class SignUpClientActivity extends LocalizationActivity {
     @BindView(R.id.editText3) EditText editText3;
     @BindView(R.id.editText4) EditText editText4;
     @BindView(R.id.editText5) EditText editText5;
+
+    @BindView(R.id.button1) Button button1;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class SignUpClientActivity extends LocalizationActivity {
         editText3.setTypeface(font);
         editText4.setTypeface(font);
         editText5.setTypeface(font);
+
+        button1.setTypeface(font);
 
     }
 

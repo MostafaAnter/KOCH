@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,6 +47,12 @@ public class SignUpActivity extends LocalizationActivity {
     @BindView(R.id.editText13) EditText editText13;
     @BindView(R.id.editText14) EditText editText14;
     @BindView(R.id.editText15) EditText editText15;
+
+    @BindView(R.id.checkbox1)
+    CheckBox checkBox1;
+
+    @BindView(R.id.button1)
+    Button button1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +114,9 @@ public class SignUpActivity extends LocalizationActivity {
         editText13.setTypeface(font);
         editText14.setTypeface(font);
         editText15.setTypeface(font);
+
+        checkBox1.setTypeface(font);
+        button1.setTypeface(font);
 
 
     }
