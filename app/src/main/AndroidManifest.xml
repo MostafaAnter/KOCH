@@ -26,7 +26,16 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".activities.SignInActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.perfect_apps.koch.activities.SignInActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SignUpClientActivity"
+            android:label="@string/title_activity_sign_up_client"
             android:parentActivityName=".activities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
