@@ -39,4 +39,12 @@ public interface ApiInterface {
 
     @POST("login/client")
     Call<ResponseBody> loginClient(@Field("email") String email, @Field("password") String password);
+
+    @POST("info/client")
+    Call<ResponseBody> getClientInfo(@Field("user_id") String user_id);
+
+    @POST("info/provider")
+    Call<ResponseBody> getProviderInfo(@Field("user_id") String user_id);
+
+
 }
