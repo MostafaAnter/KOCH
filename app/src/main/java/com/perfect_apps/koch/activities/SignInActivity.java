@@ -112,11 +112,12 @@ public class SignInActivity extends LocalizationActivity {
 
 
     public void signUp(View view) {
-        if (signUpPageFlage == 1){
-            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
-        }else if (signUpPageFlage == 2){
-            startActivity(new Intent(SignInActivity.this, SignUpClientActivity.class));
-        }
+//        if (signUpPageFlage == 1){
+//            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+//        }else if (signUpPageFlage == 2){
+//            startActivity(new Intent(SignInActivity.this, SignUpClientActivity.class));
+//        }
+        startActivity(new Intent(SignInActivity.this, ClientProfileActivity.class));
     }
 
     public void signIn(View view) {

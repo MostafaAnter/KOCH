@@ -242,7 +242,7 @@ public class ProviderProfileActivity extends LocalizationActivity
             for (int i = 0; i < tabChildsCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    Typeface makOnWayFont = Typeface.createFromAsset(getAssets(), "fonts/daisy.ttf");
+                    Typeface makOnWayFont = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
                     ((TextView) tabViewChild).setTypeface(makOnWayFont);
                 }
             }
