@@ -38,4 +38,8 @@
     <string name="call_us">أتصل بنا!</string>
     <string name="language">اللغة</string>
     <string name="share_app">مشاركة التطبيق</string>
+    <string name="chats">المحادثات</string>
+    <string name="info">البيانات</string>
+    <string name="sent_request">الطلبات المرسلة</string>
+    <string name="requests">الطلبات الوارده</string>
 </resources>

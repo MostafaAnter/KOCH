@@ -38,4 +38,8 @@
     <string name="share_app">Share App</string>
     <string name="language">Language</string>
     <string name="call_us">Call Us!</string>
+    <string name="info">Info</string>
+    <string name="chats">Chats</string>
+    <string name="sent_request">Sent requests</string>
+    <string name="requests">Requestes</string>
 </resources>
