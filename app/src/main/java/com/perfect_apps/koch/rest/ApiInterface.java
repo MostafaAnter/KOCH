@@ -33,4 +33,10 @@ public interface ApiInterface {
                                         @Field("other_services") String other_services, @Field("facebook_url") String facebook_url,
                                         @Field("twitter_url") String twitter_url, @Field("picassa_url") String picassa_url,
                                         @Part("image") RequestBody image);
+
+    @POST("login/provider")
+    Call<ResponseBody> loginProvider(@Field("email") String email, @Field("password") String password);
+
+    @POST("login/client")
+    Call<ResponseBody> loginClient(@Field("email") String email, @Field("password") String password);
 }
