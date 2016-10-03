@@ -143,6 +143,7 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_green_button"
             android:text="@string/login"
+            android:onClick="signIn"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

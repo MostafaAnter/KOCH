@@ -42,6 +42,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.perfect_apps.koch.activities.SignInActivity" />
         </activity>
+        <activity
+            android:name=".activities.ProviderProfileActivity"
+            android:label="@string/title_activity_provider_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ClientProfileActivity"
+            android:label="@string/title_activity_client_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ProviderHomeActivity"
+            android:label="@string/title_activity_provider_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ClientHomeActivity"
+            android:label="@string/title_activity_client_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

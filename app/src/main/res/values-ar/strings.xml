@@ -34,4 +34,8 @@
     <string name="work_hour_number">ضع ساعات العمل</string>
     <string name="third_service">الخدمة الثالثة</string>
     <string name="upload_personal_picture">إدراج صورة شخصية</string>
+    <string name="about_koch">عن التطبيق</string>
+    <string name="call_us">أتصل بنا!</string>
+    <string name="language">اللغة</string>
+    <string name="share_app">مشاركة التطبيق</string>
 </resources>

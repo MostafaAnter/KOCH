@@ -38,4 +38,15 @@
     <string name="enter_password_again">Enter password again</string>
     <string name="title_activity_sign_up_client" translatable="false">SignUpClientActivity</string>
     <string name="upload_personal_picture">upload personal picture</string>
+    <string name="title_activity_provider_profile" translatable="false">ProviderProfileActivity</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="title_activity_client_profile" translatable="false">ClientProfileActivity</string>
+    <string name="title_activity_provider_home" translatable="false">ProviderHomeActivity</string>
+    <string name="title_activity_client_home" translatable="false">ClientHomeActivity</string>
+    <string name="about_koch">About KOCH</string>
+    <string name="share_app">Share App</string>
+    <string name="language">Language</string>
+    <string name="call_us">Call Us!</string>
 </resources>

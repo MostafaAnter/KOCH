@@ -34,4 +34,8 @@
     <string name="enter_password_again">Enter password again</string>
     <string name="work_hour_number">Work hour number</string>
     <string name="upload_personal_picture">upload personal picture</string>
+    <string name="about_koch">About KOCH</string>
+    <string name="share_app">Share App</string>
+    <string name="language">Language</string>
+    <string name="call_us">Call Us!</string>
 </resources>
