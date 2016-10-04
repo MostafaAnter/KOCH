@@ -1,5 +1,7 @@
 package com.perfect_apps.koch.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,8 @@ import android.view.MenuItem;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
 
 import butterknife.BindView;
@@ -80,6 +84,7 @@ public class ProviderHomeActivity extends LocalizationActivity
         } else if (id == R.id.nav_share_app) {
 
         } else if (id == R.id.nav_translate) {
+            showSingleChoiceListLangaugeAlertDialog();
 
         } else if (id == R.id.nav_call_us) {
 
@@ -116,4 +121,49 @@ public class ProviderHomeActivity extends LocalizationActivity
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
+
+
+    private String mCheckedItem;
+
+    public void showSingleChoiceListLangaugeAlertDialog() {
+        final String[] list = new String[]{getString(R.string.language_arabic), getString(R.string.language_en)};
+        int checkedItemIndex ;
+
+        switch (getLanguage()){
+            case "en":
+                checkedItemIndex = 1;
+                break;
+            default:
+                checkedItemIndex = 0;
+
+        }
+        mCheckedItem = list[checkedItemIndex];
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.language))
+                .setSingleChoiceItems(list,
+                        checkedItemIndex,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mCheckedItem = list[which];
+                                if (which == 0) {
+                                    setLanguage("ar");
+                                    changeFirstTimeOpenAppState(4);
+                                    dialog.dismiss();
+                                } else if (which == 1) {
+                                    setLanguage("en");
+                                    changeFirstTimeOpenAppState(5);
+                                    dialog.dismiss();
+                                }
+                            }
+                        })
+                .show();
+    }
+
+    private void changeFirstTimeOpenAppState(int language){
+        new KochPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
+        new KochPrefStore(this).addPreference(Constants.PREFERENCE_LANGUAGE, language);
+    }
+
 }
