@@ -64,7 +64,7 @@ public class ProviderProfileActivity extends LocalizationActivity
         tabLayout.setupWithViewPager(viewPager);
         setTabLayoutColor();
         changeTabsFont();
-        setupTabIcons();
+        //setupTabIcons();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
