@@ -4,9 +4,11 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by mostafa_anter on 10/3/16.
@@ -46,5 +48,19 @@ public interface ApiInterface {
     @POST("info/provider")
     Call<ResponseBody> getProviderInfo(@Field("user_id") String user_id);
 
+    @POST("set_location/provider")
+    Call<ResponseBody> addProviderLocation(@Field("email") String email, @Field("password") String password,
+                                           @Field("lat") double lat, @Field("lng") double lng,
+                                           @Field("name") String locationName);
 
+    @POST("set_location/client")
+    Call<ResponseBody> addClientLocation(@Field("email") String email, @Field("password") String password,
+                                         @Field("lat") double lat, @Field("lng") double lng,
+                                         @Field("name") String locationName);
+
+    @GET("get_location/client")
+    Call<ResponseBody> getClientLocation(@Query("email") String email, @Query("password") String password);
+
+    @GET("get_location/provider")
+    Call<ResponseBody> getProviderLocation(@Query("email") String email, @Query("password") String password);
 }
