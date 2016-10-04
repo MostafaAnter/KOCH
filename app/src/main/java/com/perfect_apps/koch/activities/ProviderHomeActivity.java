@@ -21,25 +21,20 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProviderHomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
     private NavigationView navigationView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ButterKnife.bind(this);
+        setToolbar();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,6 +45,18 @@ public class ProviderHomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
+
+        /*
+        * hide title
+        * */
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
     }
 
     @Override

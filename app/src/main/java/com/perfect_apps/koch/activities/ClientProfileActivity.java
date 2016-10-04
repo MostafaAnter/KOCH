@@ -45,6 +45,7 @@ public class ClientProfileActivity extends LocalizationActivity
     TabLayout tabLayout;
     @BindView(R.id.viewpager)
     ViewPager viewPager;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private int[] tabIcons = {
             R.drawable.pro_data_black,
@@ -57,8 +58,7 @@ public class ClientProfileActivity extends LocalizationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_profile);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setToolbar();
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -75,6 +75,18 @@ public class ClientProfileActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
+
+        /*
+        * hide title
+        * */
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
     }
 
     @Override
