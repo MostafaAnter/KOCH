@@ -72,7 +72,7 @@
             app:tabBackground="@drawable/tab_selectable_background"
             app:tabGravity="fill"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@android:color/black"
+            app:tabTextColor="#90909c"
             app:tabMode="fixed" />
 
     </android.support.design.widget.AppBarLayout>

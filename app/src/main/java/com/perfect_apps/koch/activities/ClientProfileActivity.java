@@ -2,6 +2,7 @@ package com.perfect_apps.koch.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -52,9 +54,9 @@ public class ClientProfileActivity extends LocalizationActivity
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     private int[] tabIcons = {
-            R.drawable.pro_data_black,
-            R.drawable.pro_chat_black,
-            R.drawable.client_orders_black
+            R.drawable.my_data,
+            R.drawable.my_chat,
+            R.drawable.my_order
     };
 
     @Override
@@ -66,9 +68,9 @@ public class ClientProfileActivity extends LocalizationActivity
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
         setTabLayoutColor();
         changeTabsFont();
-      //setupTabIcons();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,6 +93,31 @@ public class ClientProfileActivity extends LocalizationActivity
         //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
+        ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
+        ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
+        ImageView messagesIc = (ImageView) toolbar.findViewById(R.id.messages);
+
+        backIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        profileIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        messagesIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
