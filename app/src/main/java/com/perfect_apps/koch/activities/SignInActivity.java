@@ -19,18 +19,27 @@ import butterknife.ButterKnife;
 
 public class SignInActivity extends LocalizationActivity {
 
-    @BindView(R.id.radioButton1) RadioButton radioButton1;
-    @BindView(R.id.radioButton2) RadioButton radioButton2;
+    @BindView(R.id.radioButton1)
+    RadioButton radioButton1;
+    @BindView(R.id.radioButton2)
+    RadioButton radioButton2;
 
-    @BindView(R.id.username_input) EditText userNameInput;
-    @BindView(R.id.password_input) EditText passwordInput;
+    @BindView(R.id.username_input)
+    EditText userNameInput;
+    @BindView(R.id.password_input)
+    EditText passwordInput;
 
-    @BindView(R.id.loginButton) Button loginButton;
+    @BindView(R.id.loginButton)
+    Button loginButton;
 
-    @BindView(R.id.text1) TextView textView1;
-    @BindView(R.id.text2) TextView textView2;
-    @BindView(R.id.text3) TextView textView3;
-    @BindView(R.id.text4) TextView textView4;
+    @BindView(R.id.text1)
+    TextView textView1;
+    @BindView(R.id.text2)
+    TextView textView2;
+    @BindView(R.id.text3)
+    TextView textView3;
+    @BindView(R.id.text4)
+    TextView textView4;
 
     private int signUpPageFlage = 0;
 
@@ -64,7 +73,7 @@ public class SignInActivity extends LocalizationActivity {
         toolbar.setSubtitle("");
     }
 
-    private void changeTextFont(){
+    private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         //Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
 
@@ -82,19 +91,19 @@ public class SignInActivity extends LocalizationActivity {
 
     }
 
-    private void setRadioButtons(){
+    private void setRadioButtons() {
 
-        if (radioButton1.isChecked()){
+        if (radioButton1.isChecked()) {
             signUpPageFlage = 1;
 
-        }else if (radioButton2.isChecked()){
+        } else if (radioButton2.isChecked()) {
             signUpPageFlage = 2;
         }
 
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     signUpPageFlage = 1;
                 }
             }
@@ -103,7 +112,7 @@ public class SignInActivity extends LocalizationActivity {
         radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     signUpPageFlage = 2;
                 }
             }
@@ -112,19 +121,20 @@ public class SignInActivity extends LocalizationActivity {
 
 
     public void signUp(View view) {
-//        if (signUpPageFlage == 1){
-//            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
-//        }else if (signUpPageFlage == 2){
-//            startActivity(new Intent(SignInActivity.this, SignUpClientActivity.class));
-//        }
-        startActivity(new Intent(SignInActivity.this, ClientProfileActivity.class));
+        if (signUpPageFlage == 1) {
+            startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+        } else if (signUpPageFlage == 2) {
+            startActivity(new Intent(SignInActivity.this, SignUpClientActivity.class));
+        }
     }
 
     public void signIn(View view) {
-        if (signUpPageFlage == 1){
+        if (signUpPageFlage == 1) {
             startActivity(new Intent(SignInActivity.this, ProviderHomeActivity.class));
-        }else if (signUpPageFlage == 2){
+            finish();
+        } else if (signUpPageFlage == 2) {
             startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
+            finish();
         }
     }
 }

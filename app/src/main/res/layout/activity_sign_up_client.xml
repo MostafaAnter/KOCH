@@ -27,6 +27,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:text="@string/koch_app"
+                android:textStyle="bold"
                 android:textColor="@color/textPrimary" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
