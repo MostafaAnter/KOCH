@@ -42,4 +42,10 @@
     <string name="info">البيانات</string>
     <string name="sent_request">الطلبات المرسلة</string>
     <string name="requests">الطلبات الوارده</string>
+    <string name="dilvary_service">"خدمة التوصيل / "</string>
+    <string name="country">الدولة</string>
+    <string name="language_arabic">عربي</string>
+    <string name="language_en">انجليزى</string>
+    <string name="town">"المدينه / "</string>
+    <string name="work_hours">"ساعات العمل / "</string>
 </resources>

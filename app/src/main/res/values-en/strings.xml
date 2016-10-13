@@ -44,4 +44,8 @@
     <string name="requests">Requestes</string>
     <string name="language_arabic">Arabic</string>
     <string name="language_en">English</string>
+    <string name="work_hours">"work hours / "</string>
+    <string name="dilvary_service">"Drivary service / "</string>
+    <string name="country">"Country / "</string>
+    <string name="town">"Town / "</string>
 </resources>
