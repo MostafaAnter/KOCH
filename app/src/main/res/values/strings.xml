@@ -60,4 +60,7 @@
     <string name="dilvary_service">"Drivary service / "</string>
     <string name="country">"Country / "</string>
     <string name="town">"Town / "</string>
+    <string name="about_services">about services.?</string>
+    <string name="about_us">about us.?</string>
+    <string name="edit_my_data">Edit my data</string>
 </resources>

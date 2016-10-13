@@ -38,6 +38,7 @@
 
 
                 <TextView
+                    android:id="@+id/text1"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
                     </com.zcw.togglebutton.ToggleButton>
 
                     <TextView
+                        android:id="@+id/text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/vertical_margin"
@@ -93,6 +95,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -143,6 +146,7 @@
                     android:src="@drawable/pro_phone" />
 
                 <TextView
+                    android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -169,6 +173,7 @@
                     android:src="@drawable/pro_email" />
 
                 <TextView
+                    android:id="@+id/text5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -202,13 +207,15 @@
                 android:src="@drawable/pro_time" />
 
             <TextView
+                android:id="@+id/text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/work_hours"
-                android:textColor="@color/red"/>
+                android:textColor="@color/red" />
 
             <TextView
+                android:id="@+id/text7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -219,7 +226,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -238,13 +245,15 @@
                 android:src="@drawable/pro_delevry" />
 
             <TextView
+                android:id="@+id/text8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/dilvary_service"
-                android:textColor="@color/red"/>
+                android:textColor="@color/red" />
 
             <TextView
+                android:id="@+id/text9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -252,9 +261,10 @@
 
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -277,12 +287,15 @@
                     android:src="@drawable/pro_location_black" />
 
                 <TextView
+                    android:id="@+id/text10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/country"
-                    android:textColor="@color/red"/>
+                    android:textColor="@color/red" />
+
                 <TextView
+                    android:id="@+id/text11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -305,13 +318,15 @@
                 android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <TextView
+                    android:id="@+id/text12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/town"
-                    android:textColor="@color/red"/>
+                    android:textColor="@color/red" />
 
                 <TextView
+                    android:id="@+id/text13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -324,6 +339,124 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/editTextHeight"
+            android:background="@drawable/border_shape_gray_fath"
+            android:gravity="center_vertical">
 
+            <TextView
+                android:id="@+id/text14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us"
+                android:padding="8dp"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                style="?android:attr/textAppearanceMedium"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
+            android:text="some text , some test dsfjlskaj jalkfdjslfkjlfkjsdlkfjslkfjslfkjsdlksjflksjfjdslkfjdslkjfsfjlksfjldsk"/>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/editTextHeight"
+            android:background="@drawable/border_shape_gray_fath"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/text16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_services"
+                android:padding="8dp"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                style="?android:attr/textAppearanceMedium"/>
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/text17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
+            android:text="some text , some test dsfjlskaj jalkfdjslfkjlfkjsdlkfjslkfjslfkjsdlksjflksjfjdslkfjdslkjfsfjlksfjldsk"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="@dimen/editTextHeight"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/vertical_margin"
+            android:paddingRight="@dimen/vertical_margin">
+
+
+            <ImageView
+                android:layout_width="@dimen/editTextHeight"
+                android:layout_height="@dimen/editTextHeight"
+                android:padding="5dp"
+                android:src="@drawable/regi_ti_icon" />
+
+            <TextView
+                android:id="@+id/text18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/edit_my_data"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="@dimen/editTextHeight"
+                android:layout_height="@dimen/editTextHeight"
+                android:padding="5dp"
+                android:src="@drawable/pro_soc_twitter" />
+
+            <ImageView
+                android:layout_width="@dimen/editTextHeight"
+                android:layout_height="@dimen/editTextHeight"
+                android:padding="5dp"
+                android:src="@drawable/pro_soc_instgram" />
+
+            <ImageView
+                android:layout_width="@dimen/editTextHeight"
+                android:layout_height="@dimen/editTextHeight"
+                android:padding="5dp"
+                android:src="@drawable/pro_soc_face" />
+
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
