@@ -354,10 +354,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_us"
-                android:padding="8dp"
                 android:textColor="@color/red"
                 android:textStyle="bold"
-                style="?android:attr/textAppearanceMedium"/>
+                android:padding="5dp"/>
 
         </LinearLayout>
 
@@ -385,10 +384,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_services"
-                android:padding="8dp"
+                android:padding="5dp"
                 android:textColor="@color/red"
-                android:textStyle="bold"
-                style="?android:attr/textAppearanceMedium"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
