@@ -48,4 +48,7 @@
     <string name="language_en">انجليزى</string>
     <string name="town">"المدينه / "</string>
     <string name="work_hours">"ساعات العمل / "</string>
+    <string name="about_services">الخدمات المقدمة</string>
+    <string name="about_us">من نحن .؟</string>
+    <string name="edit_my_data">تعديل بياناتي</string>
 </resources>

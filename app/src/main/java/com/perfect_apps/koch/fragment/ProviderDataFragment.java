@@ -75,4 +75,10 @@ public class ProviderDataFragment extends Fragment{
         textView18.setTypeface(fontBold);
 
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        changeTextFont();
+    }
 }
