@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/content_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -414,7 +413,8 @@
             android:minHeight="@dimen/editTextHeight"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/vertical_margin"
-            android:paddingRight="@dimen/vertical_margin">
+            android:paddingRight="@dimen/vertical_margin"
+            android:paddingBottom="?android:attr/listPreferredItemHeight">
 
 
             <ImageView
