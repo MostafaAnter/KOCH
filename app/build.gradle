@@ -43,4 +43,6 @@ dependencies {
     compile 'com.zcw:togglebutton-library:1.0.0'
     // circle image view
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    // recyclerView
+    compile 'com.android.support:recyclerview-v7:24.2.1'
 }
