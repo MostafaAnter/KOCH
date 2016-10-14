@@ -126,6 +126,13 @@ public class ProviderChatsFragment extends Fragment{
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save currently selected layout manager.
+        savedInstanceState.putSerializable(KEY_LAYOUT_MANAGER, mCurrentLayoutManagerType);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
         int scrollPosition = 0;
 

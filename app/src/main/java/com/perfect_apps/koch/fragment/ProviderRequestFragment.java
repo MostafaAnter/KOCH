@@ -123,6 +123,13 @@ public class ProviderRequestFragment extends Fragment{
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save currently selected layout manager.
+        savedInstanceState.putSerializable(KEY_LAYOUT_MANAGER, mCurrentLayoutManagerType);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
