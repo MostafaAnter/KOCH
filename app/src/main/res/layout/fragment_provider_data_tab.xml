@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_sign_in"
@@ -15,7 +16,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -413,8 +415,7 @@
             android:minHeight="@dimen/editTextHeight"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/vertical_margin"
-            android:paddingRight="@dimen/vertical_margin"
-            android:paddingBottom="?android:attr/listPreferredItemHeight">
+            android:paddingRight="@dimen/vertical_margin" >
 
 
             <ImageView
@@ -458,4 +459,4 @@
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
