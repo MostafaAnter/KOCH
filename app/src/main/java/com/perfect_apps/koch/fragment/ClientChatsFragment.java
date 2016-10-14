@@ -115,6 +115,16 @@ public class ClientChatsFragment extends Fragment{
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            initiateRefresh();
+            if (!mSwipeRefresh.isRefreshing())
+                mSwipeRefresh.setRefreshing(true);
+        }
+    }
+
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
         int scrollPosition = 0;
 
