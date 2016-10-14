@@ -68,6 +68,7 @@
                 android:layout_height="15dp"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:layout_gravity="bottom"
                 android:src="@drawable/client_order_date"/>
         </LinearLayout>
 

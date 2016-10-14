@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.InboxItemsAdapter;
 import com.perfect_apps.koch.models.InboxItem;
+import com.perfect_apps.koch.utils.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,10 @@ public class ProviderChatsFragment extends Fragment{
         mAdapter = new InboxItemsAdapter(mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
 
         //noinspection ResourceAsColor
