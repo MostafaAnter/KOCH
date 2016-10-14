@@ -45,4 +45,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // recyclerView
     compile 'com.android.support:recyclerview-v7:24.2.1'
+    // map service
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
 }
