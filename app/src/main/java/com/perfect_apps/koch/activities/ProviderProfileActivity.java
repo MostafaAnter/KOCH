@@ -108,6 +108,8 @@ public class ProviderProfileActivity extends LocalizationActivity
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TabLayout.Tab tab = tabLayout.getTabAt(0);
+                tab.select();
 
             }
         });
@@ -115,7 +117,8 @@ public class ProviderProfileActivity extends LocalizationActivity
         messagesIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TabLayout.Tab tab = tabLayout.getTabAt(1);
+                tab.select();
             }
         });
     }
