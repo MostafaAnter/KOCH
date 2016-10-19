@@ -106,6 +106,10 @@ OnMapReadyCallback{
         messagesIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ProviderHomeActivity.this, ProviderProfileActivity.class);
+                intent.putExtra("messageTab", true);
+                startActivity(intent);
+
 
             }
         });
