@@ -63,4 +63,7 @@
     <string name="about_services">about services.?</string>
     <string name="about_us">about us.?</string>
     <string name="edit_my_data">Edit my data</string>
+    <string name="edit">Edit</string>
+    <string name="exit">Exit</string>
+    <string name="see_service_providers">See service providers</string>
 </resources>
