@@ -14,17 +14,25 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.utils.MapStateManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by mostafa_anter on 10/3/16.
  */
 
-public class ClientDataFragment extends Fragment implements OnMapReadyCallback {
+public class ClientDataFragment extends Fragment {
+
+    @BindView(R.id.map)
+    MapView mapView;
+
     private GoogleMap mMap;
     private static final int GPS_ERRORDIALOG_REQUEST = 9001;
 
@@ -36,6 +44,7 @@ public class ClientDataFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clint_data_tab, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -44,13 +53,8 @@ public class ClientDataFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
         // for map
         if (servicesOK()) {
-            initMap();
+            mapView.onCreate(savedInstanceState);
         }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
     }
 
     // setup map
@@ -70,33 +74,34 @@ public class ClientDataFragment extends Fragment implements OnMapReadyCallback {
         return false;
     }
 
-    private void initMap() {
-        if (mMap == null) {
-            SupportMapFragment mapFrag =
-                    (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
-            mapFrag.getMapAsync(this);
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        if (mMap != null) {
-            MapStateManager mgr = new MapStateManager(getActivity());
-            mgr.saveMapState(mMap);
-        }
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        MapStateManager mgr = new MapStateManager(getActivity());
-        CameraPosition position = mgr.getSavedCameraPosition();
-        if (position != null && mMap != null) {
-            CameraUpdate update = CameraUpdateFactory.newCameraPosition(position);
-            mMap.moveCamera(update);
-            mMap.setMapType(mgr.getSavedMapType());
-        }
+        mapView.onResume();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
 }

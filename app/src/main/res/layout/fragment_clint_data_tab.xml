@@ -1,13 +1,22 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_sign_in"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="none"
+    >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_provider_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -180,11 +189,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment
+
+
+        <com.google.android.gms.maps.MapView
             android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="400dp">
+        </com.google.android.gms.maps.MapView>
+
+
 
         <Button
             android:id="@+id/button1"
@@ -202,3 +215,4 @@
 
 
 </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
