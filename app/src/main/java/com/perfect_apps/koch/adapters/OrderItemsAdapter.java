@@ -1,5 +1,7 @@
 package com.perfect_apps.koch.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.activities.RequestDetailActivity;
 import com.perfect_apps.koch.models.InboxItem;
 import com.perfect_apps.koch.models.OrderItem;
 
@@ -17,36 +20,39 @@ import java.util.List;
  */
 
 public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.ViewHolder> {
-private static final String TAG = "CustomAdapter";
+    private static final String TAG = "CustomAdapter";
 
-private List<OrderItem> mDataSet;
+    private List<OrderItem> mDataSet;
+    private  Context mContext;
 
-/**
- * Provide a reference to the type of views that you are using (custom ViewHolder)
- */
-public static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Provide a reference to the type of views that you are using (custom ViewHolder)
+     */
+    public  class ViewHolder extends RecyclerView.ViewHolder {
 
-    public ViewHolder(View v) {
-        super(v);
-        // Define click listener for the ViewHolder's View.
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-            }
-        });
+        public ViewHolder(View v) {
+            super(v);
+            // Define click listener for the ViewHolder's View.
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    mContext.startActivity(new Intent(mContext, RequestDetailActivity.class));
+                }
+            });
+
+        }
+
 
     }
-
-
-}
 
     /**
      * Initialize the dataset of the Adapter.
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public OrderItemsAdapter(List<OrderItem> dataSet) {
+    public OrderItemsAdapter(Context mContext, List<OrderItem> dataSet) {
+        this.mContext = mContext;
         mDataSet = dataSet;
     }
 

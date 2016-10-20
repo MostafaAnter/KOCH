@@ -75,7 +75,7 @@ public class ProviderRequestFragment extends Fragment{
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new OrderItemsAdapter(mDataset);
+        mAdapter = new OrderItemsAdapter(getActivity(), mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 
