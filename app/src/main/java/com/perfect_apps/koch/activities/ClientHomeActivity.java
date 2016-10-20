@@ -1,6 +1,7 @@
 package com.perfect_apps.koch.activities;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -16,22 +17,46 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
+import com.perfect_apps.koch.utils.MapHelper;
+import com.perfect_apps.koch.utils.MapStateManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ClientHomeActivity extends LocalizationActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private NavigationView navigationView;
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.text1)
+    TextView textView1;
+    @BindView(R.id.text2)
+    TextView textView2;
+    @BindView(R.id.button1)
+    Button button1;
+
+    private GoogleMap mMap;
+    private static final int GPS_ERRORDIALOG_REQUEST = 9001;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +65,11 @@ public class ClientHomeActivity extends LocalizationActivity
         ButterKnife.bind(this);
 
         setToolbar();
+
+        // for map
+        if (servicesOK()) {
+            initMap();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,6 +80,15 @@ public class ClientHomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
+        changeFontOfText();
+    }
+
+    private void changeFontOfText() {
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
+        textView1.setTypeface(font);
+        textView2.setTypeface(font);
+        button1.setTypeface(font);
     }
 
     private void setToolbar() {
@@ -84,7 +123,9 @@ public class ClientHomeActivity extends LocalizationActivity
         messagesIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ClientHomeActivity.this, ClientProfileActivity.class);
+                intent.putExtra("messageTab", true);
+                startActivity(intent);
             }
         });
     }
@@ -121,15 +162,15 @@ public class ClientHomeActivity extends LocalizationActivity
     }
 
     //change font of drawer
-    private void changeFontOfNavigation(){
+    private void changeFontOfNavigation() {
         Menu m = navigationView.getMenu();
-        for (int i=0;i<m.size();i++) {
+        for (int i = 0; i < m.size(); i++) {
             MenuItem mi = m.getItem(i);
 
             //for aapplying a font to subMenu ...
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
                     MenuItem subMenuItem = subMenu.getItem(j);
                     applyFontToMenuItem(subMenuItem);
                 }
@@ -143,7 +184,7 @@ public class ClientHomeActivity extends LocalizationActivity
     private void applyFontToMenuItem(MenuItem mi) {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
 
@@ -151,9 +192,9 @@ public class ClientHomeActivity extends LocalizationActivity
 
     public void showSingleChoiceListLangaugeAlertDialog() {
         final String[] list = new String[]{getString(R.string.language_arabic), getString(R.string.language_en)};
-        int checkedItemIndex ;
+        int checkedItemIndex;
 
-        switch (getLanguage()){
+        switch (getLanguage()) {
             case "en":
                 checkedItemIndex = 1;
                 break;
@@ -185,9 +226,59 @@ public class ClientHomeActivity extends LocalizationActivity
                 .show();
     }
 
-    private void changeFirstTimeOpenAppState(int language){
+    private void changeFirstTimeOpenAppState(int language) {
         new KochPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
         new KochPrefStore(this).addPreference(Constants.PREFERENCE_LANGUAGE, language);
     }
 
+    // setup map
+    public boolean servicesOK() {
+        int isAvailable = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+
+        if (isAvailable == ConnectionResult.SUCCESS) {
+            return true;
+        } else if (GooglePlayServicesUtil.isUserRecoverableError(isAvailable)) {
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(isAvailable, this, GPS_ERRORDIALOG_REQUEST);
+            dialog.show();
+        } else {
+            Toast.makeText(this, "Can't connect to Google Play services", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+    private void initMap() {
+        if (mMap == null) {
+            SupportMapFragment mapFrag =
+                    (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFrag.getMapAsync(this);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mMap != null) {
+            MapStateManager mgr = new MapStateManager(this);
+            mgr.saveMapState(mMap);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MapStateManager mgr = new MapStateManager(this);
+        CameraPosition position = mgr.getSavedCameraPosition();
+        if (position != null && mMap != null) {
+            CameraUpdate update = CameraUpdateFactory.newCameraPosition(position);
+            mMap.moveCamera(update);
+            mMap.setMapType(mgr.getSavedMapType());
+        }
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        MapHelper.setUpMarker(mMap, new LatLng(30.044091, 31.236086), R.drawable.map_user_marker);
+    }
 }
