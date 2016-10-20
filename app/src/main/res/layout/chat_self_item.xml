@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeightLarge"
     android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:layoutDirection="rtl"
+    android:minHeight="?android:attr/listPreferredItemHeightLarge"
     android:orientation="horizontal"
     tools:ignore="UnusedAttribute">
 
@@ -21,11 +21,12 @@
             android:layout_width="?android:attr/listPreferredItemHeight"
             android:layout_height="?android:attr/listPreferredItemHeightLarge"
             android:layout_gravity="center_vertical"
-            android:padding="5dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:src="@drawable/log_user"
-            app:civ_border_width="1dp"
-            app:civ_border_color="#FFFFFF"/>
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="1dp" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="20dp"
@@ -38,34 +39,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:padding="10dp"
-        android:maxWidth="170dp"
-        android:text=""
+        android:background="@drawable/green_background_of_chat"
         android:gravity="center_vertical"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/green_background_of_chat" />
+        android:maxWidth="170dp"
+        android:padding="10dp"
+        android:text=""
+        android:textColor="#FFFFFF" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <ImageView
-            android:contentDescription="@null"
-            android:id="@+id/showFlag"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:src="@drawable/client_order_seen"/>
-        <TextView
-            android:id="@+id/timestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:text="10:00 AM"/>
-
-    </LinearLayout>
-
+    <ImageView
+        android:id="@+id/showFlag"
+        android:layout_width="20dp"
+        android:layout_margin="3dp"
+        android:layout_height="30dp"
+        android:contentDescription="@null"
+        android:src="@drawable/client_order_seen" />
 
 </LinearLayout>
