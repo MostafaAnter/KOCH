@@ -10,12 +10,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RequestDetailActivity extends AppCompatActivity {
+public class RequestDetailActivity extends LocalizationActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.text1) TextView textView1;
     @BindView(R.id.text2) TextView textView2;
@@ -33,7 +34,7 @@ public class RequestDetailActivity extends AppCompatActivity {
     @BindView(R.id.button2) Button button2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_detail);
         ButterKnife.bind(this);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.ConversationAdapter;
 import com.perfect_apps.koch.interfaces.OnLoadMoreListener;
@@ -23,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ConversationActivity extends AppCompatActivity {
+public class ConversationActivity extends LocalizationActivity {
     private static final String TAG = "ConversationActivity";
 
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -45,7 +46,7 @@ public class ConversationActivity extends AppCompatActivity {
     protected List<ConversationItem> mDataSet;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         ButterKnife.bind(this);
