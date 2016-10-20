@@ -56,4 +56,8 @@
     <string name="see_service_providers">See service providers</string>
     <string name="your_location_detected">Your location detected by GPS</string>
     <string name="send_request">Send Request</string>
+    <string name="address">Address!</string>
+    <string name="cost">Cost</string>
+    <string name="details">Details</string>
+    <string name="request_detail">Request detail</string>
 </resources>
