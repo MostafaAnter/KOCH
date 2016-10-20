@@ -74,7 +74,7 @@ public class ClientChatsFragment extends Fragment{
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new InboxItemsAdapter(mDataset);
+        mAdapter = new InboxItemsAdapter(getActivity(), mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 

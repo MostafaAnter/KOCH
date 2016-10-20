@@ -10,10 +10,12 @@
     tools:showIn="@layout/activity_conversation">
 
     <ImageView
+        android:contentDescription="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bg"
-        android:scaleType="matrix"
+        android:scaleType="fitXY"
+        android:isScrollContainer="false"
         />
 
 
@@ -59,6 +61,7 @@
             android:layout_height="@dimen/editTextHeight"
             android:layout_weight="1"
             android:inputType="text"
+            android:padding="3dp"
             android:layout_margin="5dp"
             android:background="@drawable/border_shape_green_radius_chat" />
 
