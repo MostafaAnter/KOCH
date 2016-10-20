@@ -1,12 +1,15 @@
 package com.perfect_apps.koch.fragment;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -18,7 +21,9 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.utils.MapHelper;
 import com.perfect_apps.koch.utils.MapStateManager;
 
 import butterknife.BindView;
@@ -28,10 +33,18 @@ import butterknife.ButterKnife;
  * Created by mostafa_anter on 10/3/16.
  */
 
-public class ClientDataFragment extends Fragment {
+public class ClientDataFragment extends Fragment implements OnMapReadyCallback{
 
     @BindView(R.id.map)
     MapView mapView;
+
+    @BindView(R.id.text1) TextView textView1;
+    @BindView(R.id.text2) TextView textView2;
+    @BindView(R.id.text3) TextView textView3;
+    @BindView(R.id.text4) TextView textView4;
+    @BindView(R.id.text5) TextView textView5;
+
+    @BindView(R.id.button1) Button button1;
 
     private GoogleMap mMap;
     private static final int GPS_ERRORDIALOG_REQUEST = 9001;
@@ -54,7 +67,22 @@ public class ClientDataFragment extends Fragment {
         // for map
         if (servicesOK()) {
             mapView.onCreate(savedInstanceState);
+            mapView.onResume();
+            mapView.getMapAsync(this);
         }
+
+        changeFontOfText();
+    }
+
+    private void changeFontOfText(){
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/normal.ttf");
+        textView1.setTypeface(font);
+        textView2.setTypeface(font);
+        textView3.setTypeface(font);
+        textView4.setTypeface(font);
+        textView5.setTypeface(font);
+        button1.setTypeface(font);
+
     }
 
     // setup map
@@ -104,4 +132,9 @@ public class ClientDataFragment extends Fragment {
         mapView.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        MapHelper.setUpMarker(mMap, new LatLng(30.044091, 31.236086), R.drawable.map_user_marker);
+    }
 }

@@ -45,6 +45,7 @@
                             android:src="@drawable/regi_ti_icon" />
 
                         <TextView
+                            android:id="@+id/text1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
@@ -73,7 +74,7 @@
                             android:src="@drawable/user_avatar" />
 
                         <TextView
-                            android:id="@+id/text1"
+                            android:id="@+id/text2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -103,6 +104,7 @@
                             android:src="@drawable/client_logout" />
 
                         <TextView
+                            android:id="@+id/text3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
@@ -138,7 +140,7 @@
                         android:src="@drawable/pro_phone" />
 
                     <TextView
-                        android:id="@+id/text2"
+                        android:id="@+id/text4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -167,7 +169,7 @@
                         android:src="@drawable/pro_email" />
 
                     <TextView
-                        android:id="@+id/text3"
+                        android:id="@+id/text5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -197,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
+                android:layout_marginBottom="?actionBarSize"
                 android:background="@drawable/border_shape_green_radius_button"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"

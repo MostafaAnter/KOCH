@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.perfect_apps.koch.R;
 
 /**
  * Created by mostafa_anter on 10/20/16.
@@ -39,7 +38,7 @@ public class MapHelper {
      */
     public static void updateZoom(GoogleMap mMap, LatLng myLatLng) {
         // Zoom to the given bounds
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 5));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
     }
 
     public static void drawCircle(GoogleMap mMap, LatLng ll) {
