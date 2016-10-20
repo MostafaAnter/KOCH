@@ -132,7 +132,7 @@ public class ClientChatsFragment extends Fragment{
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
             initiateRefresh();
-            if (!mSwipeRefresh.isRefreshing())
+            if (mSwipeRefresh != null &&!mSwipeRefresh.isRefreshing())
                 mSwipeRefresh.setRefreshing(true);
         }
     }

@@ -81,6 +81,11 @@ public class ClientProfileActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
+        if (getIntent().getBooleanExtra("messageTab", false)){
+            TabLayout.Tab tab = tabLayout.getTabAt(1);
+            tab.select();
+        }
     }
 
     private void setToolbar() {
@@ -108,14 +113,16 @@ public class ClientProfileActivity extends LocalizationActivity
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TabLayout.Tab tab = tabLayout.getTabAt(0);
+                tab.select();
             }
         });
 
         messagesIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TabLayout.Tab tab = tabLayout.getTabAt(1);
+                tab.select();
             }
         });
     }
