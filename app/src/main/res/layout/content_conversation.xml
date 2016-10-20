@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_conversation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.perfect_apps.koch.activities.ConversationActivity"
     tools:showIn="@layout/activity_conversation">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        android:scaleType="matrix"
+        />
+
+
+<RelativeLayout
+    android:id="@+id/content_conversation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -45,10 +58,12 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/editTextHeight"
             android:layout_weight="1"
+            android:inputType="text"
             android:layout_margin="5dp"
             android:background="@drawable/border_shape_green_radius_chat" />
 
         <ImageView
+            android:contentDescription="@null"
             android:layout_width="30dip"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -57,3 +72,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+</FrameLayout>

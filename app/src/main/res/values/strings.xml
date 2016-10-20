@@ -67,5 +67,6 @@
     <string name="exit">Exit</string>
     <string name="see_service_providers">See service providers</string>
     <string name="your_location_detected">Your location detected by GPS</string>
-    <string name="title_activity_conversation">ConversationActivity</string>
+    <string name="title_activity_conversation" translatable="false">ConversationActivity</string>
+    <string name="send_request">Send Request</string>
 </resources>

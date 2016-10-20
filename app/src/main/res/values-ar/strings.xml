@@ -55,4 +55,5 @@
     <string name="exit">خروج</string>
     <string name="see_service_providers">مشاهدة مذودى الخدمة</string>
     <string name="your_location_detected">تم تحديد موقعك بواسطة GPS</string>
+    <string name="send_request">إرسال طلب</string>
 </resources>
