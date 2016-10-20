@@ -5,7 +5,6 @@
     android:id="@+id/content_provider_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.perfect_apps.koch.activities.ProviderHomeActivity"
     tools:showIn="@layout/app_bar_provider_home">
@@ -15,5 +14,64 @@
         android:layout_height="match_parent"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:targetApi="lollipop">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:contentDescription="@null"
+            android:padding="3dp"
+            android:src="@drawable/pro_location_black" />
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="متواجد الان فى الاسكندرية"
+            android:textColor="@color/red" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightLarge"
+        android:layout_gravity="bottom"
+        android:background="#EEF2F3"
+        android:elevation="3dp"
+        android:layout_marginBottom="?android:attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:targetApi="lollipop">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:contentDescription="@null"
+            android:src="@drawable/map_gps" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_location_detected"
+            android:textColor="@color/red" />
+
+
+    </LinearLayout>
+
 
 </FrameLayout>

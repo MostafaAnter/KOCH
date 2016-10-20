@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -29,10 +30,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
+import com.perfect_apps.koch.utils.MapHelper;
 import com.perfect_apps.koch.utils.MapStateManager;
 
 import butterknife.BindView;
@@ -43,6 +46,8 @@ public class ProviderHomeActivity extends LocalizationActivity
 OnMapReadyCallback{
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.text1) TextView textView1;
+    @BindView(R.id.text2) TextView textView2;
 
     private NavigationView navigationView;
 
@@ -72,6 +77,14 @@ OnMapReadyCallback{
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
+        changeFontOfText();
+    }
+
+    private void changeFontOfText(){
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
+        textView1.setTypeface(font);
+        textView2.setTypeface(font);
     }
 
     private void setToolbar() {
@@ -268,5 +281,6 @@ OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        MapHelper.setUpMarker(mMap, new LatLng(30.044091, 31.236086), R.drawable.map_user_marker);
     }
 }

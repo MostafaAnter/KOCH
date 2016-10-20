@@ -66,4 +66,5 @@
     <string name="edit">Edit</string>
     <string name="exit">Exit</string>
     <string name="see_service_providers">See service providers</string>
+    <string name="your_location_detected">Your location detected by GPS</string>
 </resources>
