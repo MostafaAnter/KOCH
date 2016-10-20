@@ -69,7 +69,7 @@
     <string name="your_location_detected">Your location detected by GPS</string>
     <string name="title_activity_conversation" translatable="false">ConversationActivity</string>
     <string name="send_request">Send Request</string>
-    <string name="title_activity_request_detail">RequestDetailActivity</string>
+    <string name="title_activity_request_detail" translatable="false">RequestDetailActivity</string>
     <string name="address">Address!</string>
     <string name="cost">Cost</string>
     <string name="details">Details</string>
