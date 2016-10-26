@@ -60,4 +60,6 @@
     <string name="cost">Cost</string>
     <string name="details">Details</string>
     <string name="request_detail">Request detail</string>
+    <string name="country1">Country</string>
+    <string name="city">City</string>
 </resources>

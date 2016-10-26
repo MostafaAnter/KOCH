@@ -2,21 +2,36 @@ package com.perfect_apps.koch.activities;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.adapters.CitiesAdapter;
+import com.perfect_apps.koch.adapters.CountriesAdapter;
+import com.perfect_apps.koch.models.Cities;
+import com.perfect_apps.koch.models.CitiesResponse;
+import com.perfect_apps.koch.models.Countries;
+import com.perfect_apps.koch.models.CountriesResponse;
+import com.perfect_apps.koch.rest.ApiClient;
+import com.perfect_apps.koch.rest.ApiInterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends LocalizationActivity {
     @BindView(R.id.text1) TextView textView1;
@@ -54,6 +69,21 @@ public class SignUpActivity extends LocalizationActivity {
     @BindView(R.id.button1)
     Button button1;
 
+    @BindView(R.id.spinner1)
+    Spinner spinner1;
+    @BindView(R.id.spinner2)
+    Spinner spinner2;
+
+
+
+    private String countryId;
+    private String cityId;
+
+
+    // initiate inter face for use retrofit
+    private ApiInterface apiService =
+            ApiClient.getClient().create(ApiInterface.class);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +91,10 @@ public class SignUpActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setToolbar();
         changeTextFont();
+        getCountries();
+
+        populateSpinner1(new ArrayList<Countries>());
+        populateSpinner2(new ArrayList<Cities>());
     }
 
     private void setToolbar() {
@@ -121,7 +155,99 @@ public class SignUpActivity extends LocalizationActivity {
 
     }
 
+    private void populateSpinner1(List<Countries> mlist) {
+
+        CountriesAdapter spinnerArrayAdapter = new CountriesAdapter(this, R.layout.spinner_item, mlist);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner1.setAdapter(spinnerArrayAdapter);
+
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                //String selectedItemText = (String) parent.getItemAtPosition(position);
+                Countries selectedItem = (Countries) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    // doSome things
+                    countryId = selectedItem.getId();
+                    cityId = null;
+                    getCities(countryId);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner2(List<Cities> mlist) {
+
+        CitiesAdapter spinnerArrayAdapter = new CitiesAdapter(this, R.layout.spinner_item, mlist);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner2.setAdapter(spinnerArrayAdapter);
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                //String selectedItemText = (String) parent.getItemAtPosition(position);
+                Cities selectedItem = (Cities) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    // doSome things
+                    cityId = selectedItem.getId();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
     public void onCheckboxClicked(View view) {
+
+    }
+
+    private void getCountries(){
+        Call<CountriesResponse> call = apiService.getCountries();
+        call.enqueue(new Callback<CountriesResponse>() {
+            int tryTime = 0;
+            @Override
+            public void onResponse(Call<CountriesResponse> call, Response<CountriesResponse> response) {
+                populateSpinner1(response.body().getCountries());
+            }
+
+            @Override
+            public void onFailure(Call<CountriesResponse> call, Throwable t) {
+                if (tryTime < 1){
+                    getCountries();
+                    tryTime++;
+                }
+
+            }
+        });
+    }
+
+    private void getCities(String countryId){
+        Call<CitiesResponse> call = apiService.getCities(countryId);
+        call.enqueue(new Callback<CitiesResponse>() {
+            @Override
+            public void onResponse(Call<CitiesResponse> call, Response<CitiesResponse> response) {
+                populateSpinner2(response.body().getCities());
+            }
+
+            @Override
+            public void onFailure(Call<CitiesResponse> call, Throwable t) {
+
+            }
+        });
 
     }
 }

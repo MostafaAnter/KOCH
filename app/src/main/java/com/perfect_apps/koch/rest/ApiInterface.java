@@ -1,5 +1,11 @@
 package com.perfect_apps.koch.rest;
 
+import com.perfect_apps.koch.models.CitiesResponse;
+import com.perfect_apps.koch.models.Countries;
+import com.perfect_apps.koch.models.CountriesResponse;
+
+import java.util.List;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -63,4 +69,12 @@ public interface ApiInterface {
 
     @GET("get_location/provider")
     Call<ResponseBody> getProviderLocation(@Query("email") String email, @Query("password") String password);
+
+    @GET("registration/lists/countries")
+    Call<CountriesResponse> getCountries();
+
+    @GET("registration/lists/cities")
+    Call<CitiesResponse> getCities(@Query("country") String countryId);
+
+
 }

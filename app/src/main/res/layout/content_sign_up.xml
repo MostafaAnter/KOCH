@@ -220,7 +220,7 @@
                     android:src="@drawable/ic_expand_more_black_24dp" />
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spinner1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -254,7 +254,7 @@
                     android:src="@drawable/ic_expand_more_black_24dp" />
                 
                 <Spinner
-                    android:id="@+id/spinner1"
+                    android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
