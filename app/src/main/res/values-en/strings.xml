@@ -64,4 +64,5 @@
     <string name="city">City</string>
     <string name="error">Error</string>
     <string name="password_not_equal">Passwod not similar to password confirmation</string>
+    <string name="wait">Wait...</string>
 </resources>

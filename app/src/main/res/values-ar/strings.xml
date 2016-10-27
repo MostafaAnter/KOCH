@@ -30,7 +30,7 @@
     <string name="services">الخدمات المقدمة</string>
     <string name="short_description">نبذه تعريفية</string>
     <string name="there_is_delivery_service">يوجد خدمة توصيل</string>
-    <string name="work_hour">ساعات العمل</string>
+    <string name="work_hour">ساعات العمل مثال (من 9 إلى 12)</string>
     <string name="work_hour_number">ضع ساعات العمل</string>
     <string name="third_service">الخدمة الثالثة</string>
     <string name="upload_personal_picture">إدراج صورة شخصية</string>
@@ -59,7 +59,10 @@
     <string name="cost">التكلفة</string>
     <string name="details">التفاصيل</string>
     <string name="request_detail">تفاصيل الطلب</string>
-    <string name="work_hours">"ساعات العمل مثال (من 9 ل 12 ) / "</string>
+    <string name="work_hours">"ساعات العمل / "</string>
     <string name="city">المدينة</string>
     <string name="country1">الدولة</string>
+    <string name="wait">أنتظر...</string>
+    <string name="password_not_equal">خانات الرقم السري غير متطابقة</string>
+    <string name="error">خطأ</string>
 </resources>

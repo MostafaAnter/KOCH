@@ -12,6 +12,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".app.AppController"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -21,6 +22,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD4qZN7jIoaEFE9QnSHjlIspag3t8oveGM" />
+
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/myTheme" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/myTheme" />
 
         <activity
             android:name=".activities.SplashActivity"

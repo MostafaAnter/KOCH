@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -17,16 +18,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.CitiesAdapter;
 import com.perfect_apps.koch.adapters.CountriesAdapter;
+import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.models.Cities;
-import com.perfect_apps.koch.models.CitiesResponse;
 import com.perfect_apps.koch.models.Countries;
-import com.perfect_apps.koch.models.CountriesResponse;
-import com.perfect_apps.koch.rest.ApiClient;
-import com.perfect_apps.koch.rest.ApiInterface;
+import com.perfect_apps.koch.parser.JsonParser;
+import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 
 import java.io.File;
@@ -38,9 +47,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.iwf.photopicker.PhotoPicker;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SignUpActivity extends LocalizationActivity implements View.OnClickListener{
     @BindView(R.id.text1) TextView textView1;
@@ -111,12 +117,6 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     private Uri image;
 
 
-
-
-    // initiate inter face for use retrofit
-    private ApiInterface apiService =
-            ApiClient.getClient().create(ApiInterface.class);
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +127,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         getCountries();
 
         pickPhoto.setOnClickListener(this);
+        button1.setOnClickListener(this);
 
         populateSpinner1(new ArrayList<Countries>());
         populateSpinner2(new ArrayList<Cities>());
@@ -291,38 +292,170 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     }
 
     private void getCountries(){
-        Call<CountriesResponse> call = apiService.getCountries();
-        call.enqueue(new Callback<CountriesResponse>() {
-            int tryTime = 0;
-            @Override
-            public void onResponse(Call<CountriesResponse> call, Response<CountriesResponse> response) {
-                populateSpinner1(response.body().getCountries());
+
+        /**
+        * this section for fetch country
+        */
+        String urlBrands = Constants.countriesListURL;
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(urlBrands);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // do some thing
+                populateSpinner1(JsonParser.parseCountriesFeed(data));
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onFailure(Call<CountriesResponse> call, Throwable t) {
-                if (tryTime < 1){
-                    getCountries();
-                    tryTime++;
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    urlBrands, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    List<Countries> spinnerItemList = JsonParser.parseCountriesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner1(spinnerItemList);
+                    }
+                    Log.d("response", response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("response", "Error: " + error.getMessage());
+                }
+            }){
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+                        if (cacheEntry == null) {
+                            cacheEntry = new Cache.Entry();
+                        }
+                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+                        long now = System.currentTimeMillis();
+                        final long softExpire = now + cacheHitButRefreshed;
+                        final long ttl = now + cacheExpired;
+                        cacheEntry.data = response.data;
+                        cacheEntry.softTtl = softExpire;
+                        cacheEntry.ttl = ttl;
+                        String headerValue;
+                        headerValue = response.headers.get("Date");
+                        if (headerValue != null) {
+                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        headerValue = response.headers.get("Last-Modified");
+                        if (headerValue != null) {
+                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        cacheEntry.responseHeaders = response.headers;
+                        final String jsonString = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers));
+                        return Response.success(jsonString, cacheEntry);
+                    } catch (UnsupportedEncodingException e) {
+                        return Response.error(new ParseError(e));
+                    }
                 }
 
-            }
-        });
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+            };
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
+
     }
 
     private void getCities(String countryId){
-        Call<CitiesResponse> call = apiService.getCities(countryId);
-        call.enqueue(new Callback<CitiesResponse>() {
-            @Override
-            public void onResponse(Call<CitiesResponse> call, Response<CitiesResponse> response) {
-                populateSpinner2(response.body().getCities());
+
+        // We first check for cached request
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(Constants.citiesListURL + countryId);
+        if (entry != null) {
+            // fetch the data from cache
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // do some thing
+                populateSpinner2(JsonParser.parseCitiesFeed(data));
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onFailure(Call<CitiesResponse> call, Throwable t) {
+        } else {
+            // making fresh volley request and getting json
+            StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                    Constants.citiesListURL + countryId, new Response.Listener<String>() {
 
-            }
-        });
+                @Override
+                public void onResponse(String response) {
+                    List<Cities> spinnerItemList = JsonParser.parseCitiesFeed(response);
+                    if (spinnerItemList != null) {
+                        populateSpinner2(spinnerItemList);
+                    }
+                    Log.d("response", response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("response", "Error: " + error.getMessage());
+                }
+            }){
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    try {
+                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+                        if (cacheEntry == null) {
+                            cacheEntry = new Cache.Entry();
+                        }
+                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
+                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+                        long now = System.currentTimeMillis();
+                        final long softExpire = now + cacheHitButRefreshed;
+                        final long ttl = now + cacheExpired;
+                        cacheEntry.data = response.data;
+                        cacheEntry.softTtl = softExpire;
+                        cacheEntry.ttl = ttl;
+                        String headerValue;
+                        headerValue = response.headers.get("Date");
+                        if (headerValue != null) {
+                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        headerValue = response.headers.get("Last-Modified");
+                        if (headerValue != null) {
+                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
+                        }
+                        cacheEntry.responseHeaders = response.headers;
+                        final String jsonString = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers));
+                        return Response.success(jsonString, cacheEntry);
+                    } catch (UnsupportedEncodingException e) {
+                        return Response.error(new ParseError(e));
+                    }
+                }
+
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+            };
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReq);
+        }
 
     }
 
@@ -331,6 +464,9 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         switch (v.getId()){
             case R.id.pickPhoto:
                 pickPhoto();
+                break;
+            case R.id.button1:
+                register();
                 break;
         }
     }
@@ -342,14 +478,15 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         }
 
     }
+
     private boolean registerConditionsIsOk(){
 
         try {
             name = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
             mobile = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
-            email = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
-            password = URLEncoder.encode(editText14.getText().toString().trim(), "UTF-8");
-            password_confirmation = URLEncoder.encode(editText15.getText().toString().trim(), "UTF-8");
+            email = editText3.getText().toString().trim();
+            password = editText14.getText().toString().trim();
+            password_confirmation = editText15.getText().toString().trim();
             desc = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
             working_hours = URLEncoder.encode(editText5.getText().toString().trim(), "UTF-8");
             service_1 = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
