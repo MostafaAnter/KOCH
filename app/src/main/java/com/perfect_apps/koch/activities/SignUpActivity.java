@@ -504,6 +504,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
+                            finish();
 //                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
 //                            intent.putExtra("email", email);
 //                            intent.putExtra("password", password);
