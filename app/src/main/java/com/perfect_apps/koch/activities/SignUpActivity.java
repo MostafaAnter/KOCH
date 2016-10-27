@@ -1,6 +1,7 @@
 package com.perfect_apps.koch.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,10 +20,14 @@ import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.android.volley.Cache;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
@@ -37,15 +42,23 @@ import com.perfect_apps.koch.models.Countries;
 import com.perfect_apps.koch.parser.JsonParser;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
+import com.perfect_apps.koch.utils.Utils;
+import com.perfect_apps.koch.utils.VolleyMultipartRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
 
 public class SignUpActivity extends LocalizationActivity implements View.OnClickListener{
@@ -475,6 +488,159 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
         if (registerConditionsIsOk()){
 
+            if (Utils.isOnline(this)) {
+
+                // make request
+                final SweetDialogHelper sdh = new SweetDialogHelper(this);
+                sdh.showMaterialProgress(getString(R.string.wait));
+                String tag_string_req = "string_req";
+                String url = Constants.registerProviderURL;
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        sdh.dismissDialog();
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject result = new JSONObject(resultResponse);
+                            Log.d("response", resultResponse);
+//                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
+//                            intent.putExtra("email", email);
+//                            intent.putExtra("password", password);
+//                            startActivity(intent);
+//                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
+                                JSONObject jsonObjectError = errorMessageObject.optJSONObject("errors");
+                                errorServerMessage = jsonObjectError.toString();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        // show error message
+                        sdh.showErrorMessage(getString(R.string.error), errorServerMessage);
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        if(name != null && !name.trim().isEmpty())
+                            params.put("name", name);
+                        if(email != null && !email.trim().isEmpty())
+                            params.put("email", email);
+                        if(password != null&& !password.trim().isEmpty())
+                            params.put("password", password);
+                        if(password_confirmation != null && !password_confirmation.trim().isEmpty())
+                            params.put("password_confirmation", password_confirmation);
+                        if(countryId != null && !countryId.trim().isEmpty())
+                            params.put("country_id", countryId);
+                        if(cityId != null && !cityId.trim().isEmpty())
+                            params.put("city_id", cityId);
+                        if(delivery != null && !delivery.trim().isEmpty())
+                            params.put("delivery", delivery);
+                        if(desc != null && !desc.trim().isEmpty())
+                            params.put("desc", desc);
+                        if(mobile != null && !mobile.trim().isEmpty())
+                            params.put("mobile", mobile);
+                        if(working_hours != null && !working_hours.trim().isEmpty())
+                            params.put("working_hours", working_hours);
+                        if(service_1 != null && !service_1.trim().isEmpty())
+                            params.put("service_1", service_1);
+                        if(service_2 != null && !service_2.trim().isEmpty())
+                            params.put("service_2", service_2);
+                        if(service_3 != null && !service_3.trim().isEmpty())
+                            params.put("service_3", service_3);
+                        if(service_4 != null && !service_4.trim().isEmpty())
+                            params.put("service_4", service_4);
+                        if(other_services != null && !other_services.trim().isEmpty())
+                            params.put("other_services", other_services);
+                        if(facebook_url != null && !facebook_url.trim().isEmpty())
+                            params.put("facebook_url", facebook_url);
+                        if(twitter_url != null && !twitter_url.trim().isEmpty())
+                            params.put("twitter_url", twitter_url);
+                        if(picassa_url != null && !picassa_url.trim().isEmpty())
+                            params.put("picassa_url", picassa_url);
+
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                            params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(SignUpActivity.this,
+                                    image), "image/jpeg"));
+
+                        return params;
+                    }
+                };
+
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                multipartRequest.setRetryPolicy(policy);
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+
+
+            }else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("ناسف...")
+                        .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                        .show();
+            }
         }
 
     }
@@ -536,6 +702,18 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         }
         if (service_1 == null || service_1.trim().isEmpty()){
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.first_service));
+            return false;
+        }
+        if (service_2 == null || service_2.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.second_service));
+            return false;
+        }
+        if (service_3 == null || service_3.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.third_service));
+            return false;
+        }
+        if (service_4 == null || service_4.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.fourth_service));
             return false;
         }
         if (delivery == null || delivery.trim().isEmpty()){
