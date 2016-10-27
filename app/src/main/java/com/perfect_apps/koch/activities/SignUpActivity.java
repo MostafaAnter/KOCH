@@ -1,6 +1,8 @@
 package com.perfect_apps.koch.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -9,10 +11,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.CitiesAdapter;
 import com.perfect_apps.koch.adapters.CountriesAdapter;
@@ -22,17 +27,22 @@ import com.perfect_apps.koch.models.Countries;
 import com.perfect_apps.koch.models.CountriesResponse;
 import com.perfect_apps.koch.rest.ApiClient;
 import com.perfect_apps.koch.rest.ApiInterface;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.iwf.photopicker.PhotoPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpActivity extends LocalizationActivity {
+public class SignUpActivity extends LocalizationActivity implements View.OnClickListener{
     @BindView(R.id.text1) TextView textView1;
     @BindView(R.id.text2) TextView textView2;
     @BindView(R.id.text3) TextView textView3;
@@ -61,6 +71,8 @@ public class SignUpActivity extends LocalizationActivity {
     @BindView(R.id.editText13) EditText editText13;
     @BindView(R.id.editText14) EditText editText14;
     @BindView(R.id.editText15) EditText editText15;
+    @BindView(R.id.imageView1)ImageView imageView1;
+    @BindView(R.id.pickPhoto)LinearLayout pickPhoto;
 
     @BindView(R.id.checkbox1)
     CheckBox checkBox1;
@@ -74,9 +86,31 @@ public class SignUpActivity extends LocalizationActivity {
     Spinner spinner2;
 
 
-
+    // parameter i'll post
+    private String name;
+    private String mobile;
+    private String email;
+    private String password;
+    private String password_confirmation;
+    private String desc;
     private String countryId;
     private String cityId;
+    private String working_hours;
+    private String service_1;
+    private String service_2;
+    private String service_3;
+    private String service_4;
+    private String other_services;
+    private String delivery = "0";
+
+    //Not required
+
+    private String facebook_url;
+    private String twitter_url;
+    private String picassa_url;
+    private Uri image;
+
+
 
 
     // initiate inter face for use retrofit
@@ -91,6 +125,8 @@ public class SignUpActivity extends LocalizationActivity {
         setToolbar();
         changeTextFont();
         getCountries();
+
+        pickPhoto.setOnClickListener(this);
 
         populateSpinner1(new ArrayList<Countries>());
         populateSpinner2(new ArrayList<Cities>());
@@ -211,7 +247,47 @@ public class SignUpActivity extends LocalizationActivity {
     }
 
     public void onCheckboxClicked(View view) {
+        if (checkBox1.isChecked()){
+            delivery = "1";
+        }else {
+            delivery = "0";
+        }
 
+    }
+
+    // for pick photo
+    public void pickPhoto() {
+        PhotoPicker.builder()
+                .setPhotoCount(1)
+                .setShowCamera(true)
+                .setShowGif(true)
+                .setPreviewEnabled(false)
+                .start(this, PhotoPicker.REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
+            if (data != null) {
+                ArrayList<String> photos =
+                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                Uri uri = Uri.fromFile(new File(photos.get(0)));
+                image = uri;
+                setSelectedPhotoInsideCircleShap(uri);
+            }
+        }
+    }
+
+    private void setSelectedPhotoInsideCircleShap(Uri uri){
+        Glide.with(this)
+                .load(uri)
+                .centerCrop()
+                .thumbnail(0.1f)
+                .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+                .error(R.drawable.__picker_ic_broken_image_black_48dp)
+                .into(imageView1);
     }
 
     private void getCountries(){
@@ -247,6 +323,96 @@ public class SignUpActivity extends LocalizationActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.pickPhoto:
+                pickPhoto();
+                break;
+        }
+    }
+
+    private void register(){
+
+        if (registerConditionsIsOk()){
+
+        }
+
+    }
+    private boolean registerConditionsIsOk(){
+
+        try {
+            name = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
+            mobile = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
+            email = URLEncoder.encode(editText3.getText().toString().trim(), "UTF-8");
+            password = URLEncoder.encode(editText14.getText().toString().trim(), "UTF-8");
+            password_confirmation = URLEncoder.encode(editText15.getText().toString().trim(), "UTF-8");
+            desc = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
+            working_hours = URLEncoder.encode(editText5.getText().toString().trim(), "UTF-8");
+            service_1 = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
+            service_2 = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
+            service_3 = URLEncoder.encode(editText8.getText().toString().trim(), "UTF-8");
+            service_4 = URLEncoder.encode(editText9.getText().toString().trim(), "UTF-8");
+            other_services = URLEncoder.encode(editText10.getText().toString().trim(), "UTF-8");
+            facebook_url = URLEncoder.encode(editText11.getText().toString().trim(), "UTF-8");
+            twitter_url = URLEncoder.encode(editText12.getText().toString().trim(), "UTF-8");
+            picassa_url = URLEncoder.encode(editText13.getText().toString().trim(), "UTF-8");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        if (name == null || name.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_your_name));
+            return false;
+        }
+        if ( mobile == null ||  mobile.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
+            return false;
+        }
+        if (email == null || email.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
+            return false;
+        }
+        if (password == null || password.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
+            return false;
+        }
+        if (desc == null || desc.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.short_description));
+            return false;
+        }
+        if (countryId == null || countryId.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.country1));
+            return false;
+        }
+        if (cityId == null || cityId.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.city));
+            return false;
+        }
+        if (working_hours == null || working_hours.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.work_hour));
+            return false;
+        }
+        if (service_1 == null || service_1.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.first_service));
+            return false;
+        }
+        if (delivery == null || delivery.trim().isEmpty()){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.delivery_service));
+            return false;
+        }
+        if (!password.equalsIgnoreCase(password_confirmation)){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password_not_equal));
+            return false;
+        }
+
+
+
+        return true;
 
     }
 }

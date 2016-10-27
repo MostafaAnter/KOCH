@@ -62,4 +62,6 @@
     <string name="request_detail">Request detail</string>
     <string name="country1">Country</string>
     <string name="city">City</string>
+    <string name="error">Error</string>
+    <string name="password_not_equal">Passwod not similar to password confirmation</string>
 </resources>

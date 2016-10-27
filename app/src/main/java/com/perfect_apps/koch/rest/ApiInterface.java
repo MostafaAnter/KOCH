@@ -6,6 +6,7 @@ import com.perfect_apps.koch.models.CountriesResponse;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,22 +25,22 @@ public interface ApiInterface {
 
     @Multipart
     @POST("register/client")
-    Call<ResponseBody> registerClient(@Field("name") String name, @Field("mobile") String mobile,
-                                      @Field("email") String email, @Field("password") String password,
-                                      @Field("password_confirmation") String password_confirmation,
-                                      @Field("desc") String desc, @Part("image") RequestBody image);
+    Call<ResponseBody> registerClient(@Part("name") RequestBody name, @Part("mobile") RequestBody mobile,
+                                      @Part("email") RequestBody email, @Part("password") RequestBody password,
+                                      @Part("password_confirmation") RequestBody password_confirmation,
+                                      @Part("desc") RequestBody desc, @Part("image")MultipartBody.Part image);
 
     @Multipart
     @POST("register/provider")
-    Call<ResponseBody> registerProvider(@Field("name") String name, @Field("mobile") String mobile,
-                                        @Field("email") String email, @Field("password") String password,
-                                        @Field("password_confirmation") String password_confirmation,
-                                        @Field("desc") String desc, @Field("country_id") int country_id,
-                                        @Field("city_id") int city_id, @Field("working_hours") String working_hours,
-                                        @Field("service_1") String service_1, @Field("service_2") String service_2,
-                                        @Field("service_3") String service_3, @Field("service_4") String service_4,
-                                        @Field("other_services") String other_services, @Field("facebook_url") String facebook_url,
-                                        @Field("twitter_url") String twitter_url, @Field("picassa_url") String picassa_url,
+    Call<ResponseBody> registerProvider(@Part("name") RequestBody name, @Part("mobile") RequestBody mobile,
+                                        @Part("email") RequestBody email, @Part("password") RequestBody password,
+                                        @Part("password_confirmation") RequestBody password_confirmation,
+                                        @Part("desc") RequestBody desc, @Part("country_id") RequestBody country_id,
+                                        @Part("city_id") RequestBody city_id, @Part("working_hours") RequestBody working_hours,
+                                        @Part("service_1") RequestBody service_1, @Part("service_2") RequestBody service_2,
+                                        @Part("service_3") RequestBody service_3, @Part("service_4") RequestBody service_4,
+                                        @Part("other_services") RequestBody other_services, @Part("facebook_url") RequestBody facebook_url,
+                                        @Part("twitter_url") RequestBody twitter_url, @Part("picassa_url") RequestBody picassa_url,
                                         @Part("image") RequestBody image);
 
     @POST("login/provider")
