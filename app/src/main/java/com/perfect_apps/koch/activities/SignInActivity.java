@@ -1,9 +1,11 @@
 package com.perfect_apps.koch.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -12,10 +14,26 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
+import com.perfect_apps.koch.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SignInActivity extends LocalizationActivity {
 
@@ -42,6 +60,9 @@ public class SignInActivity extends LocalizationActivity {
     TextView textView4;
 
     private int signUpPageFlage = 0;
+
+    private String email;
+    private String password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,11 +151,177 @@ public class SignInActivity extends LocalizationActivity {
 
     public void signIn(View view) {
         if (signUpPageFlage == 1) {
-            startActivity(new Intent(SignInActivity.this, ProviderHomeActivity.class));
-            finish();
+            providerLogin();
         } else if (signUpPageFlage == 2) {
-            startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
-            finish();
+            clientLogin();
+        }
+    }
+
+    private void providerLogin() {
+        if (Utils.isOnline(this)) {
+            if (attempData()) {
+                // Set up a progress dialog
+                final SweetDialogHelper sdh = new SweetDialogHelper(this);
+                sdh.showMaterialProgress(getString(R.string.wait));
+
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = Constants.providerLoginUrl;
+
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        sdh.dismissDialog();
+
+                        parseFeed(response);
+
+                        Log.d("response", response);
+
+                        startActivity(new Intent(SignInActivity.this, ProviderHomeActivity.class));
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        // show error message
+                       sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("email", email);
+                        params.put("password", password);
+                        return params;
+
+                    }
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private void clientLogin() {
+        if (Utils.isOnline(this)) {
+            if (attempData()) {
+                // Set up a progress dialog
+                final SweetDialogHelper sdh = new SweetDialogHelper(this);
+                sdh.showMaterialProgress(getString(R.string.wait));
+
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = Constants.clientLoginUrl;
+
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        sdh.dismissDialog();
+                        parseFeed(response);
+                        Log.d("response", response);
+                        startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        // show error message
+                        sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("email", email);
+                        params.put("password", password);
+                        return params;
+
+                    }
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private boolean attempData(){
+        email = userNameInput.getText().toString().trim();
+        password = passwordInput.getText().toString().trim();
+
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("البريد الالكترونى غير صالح")
+                    .show();
+            return false;
+        }
+
+
+        if (email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("قم بإكمال تسجيل البيانات")
+                    .show();
+            return false;
+        }
+
+
+    }
+
+    private void parseFeed(String feed){
+        try {
+            JSONObject jsonObject =  new JSONObject(feed);
+            JSONObject itemObject = jsonObject.optJSONObject("item");
+            String id = itemObject.optString("id");
+            String name = itemObject.optString("name");
+            String email = itemObject.optString("email");
+            String image = itemObject.optString("image_full_path");
+            String user_password = itemObject.optString("user_password");
+            JSONObject groupObject = itemObject.optJSONObject("group");
+            String groupId = groupObject.optString("id");
+
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userId, id);
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userEmail, email);
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userAvatarUrl, image);
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userName, name);
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userPassword, user_password);
+            new KochPrefStore(SignInActivity.this).addPreference(Constants.userGroupId, groupId);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

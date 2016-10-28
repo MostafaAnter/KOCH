@@ -65,4 +65,5 @@
     <string name="error">Error</string>
     <string name="password_not_equal">Passwod not similar to password confirmation</string>
     <string name="wait">Wait...</string>
+    <string name="try_again">Try again</string>
 </resources>

@@ -65,4 +65,5 @@
     <string name="wait">أنتظر...</string>
     <string name="password_not_equal">خانات الرقم السري غير متطابقة</string>
     <string name="error">خطأ</string>
+    <string name="try_again">حاول مرة اخرى</string>
 </resources>

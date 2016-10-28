@@ -20,4 +20,17 @@ public class Constants {
     public static final String registerProviderURL = BuildConfig.API_BASE_URL + "register/provider";
     public static final String countriesListURL = BuildConfig.API_BASE_URL + "registration/lists/countries";
     public static final String citiesListURL = BuildConfig.API_BASE_URL + "registration/lists/cities?country=";
+    public static final String providerLoginUrl = BuildConfig.API_BASE_URL + "login/provider";
+    public static final String clientLoginUrl = BuildConfig.API_BASE_URL + "login/client";
+
+
+    /**
+     * user preferences
+     */
+    public static final String userId = "userId";
+    public static final String userName = "userName";
+    public static final String userEmail = "userEmail";
+    public static final String userPassword = "userPassword";
+    public static final String userAvatarUrl = "userAvatar";
+    public static final String userGroupId = "groupId";
 }

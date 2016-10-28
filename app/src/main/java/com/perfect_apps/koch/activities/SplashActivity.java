@@ -54,8 +54,19 @@ public class SplashActivity extends LocalizationActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 // do some thing
-                startActivity(new Intent(SplashActivity.this, SignInActivity.class));
-                finish();
+                if (new KochPrefStore(SplashActivity.this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("2")){
+                    // provider
+                    startActivity(new Intent(SplashActivity.this, ProviderHomeActivity.class));
+                    finish();
+                }else if (new KochPrefStore(SplashActivity.this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")){
+                    // client
+                    startActivity(new Intent(SplashActivity.this, ClientHomeActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                    finish();
+                }
+
             }
 
             @Override
