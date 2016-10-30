@@ -681,6 +681,12 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
         }
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
+            return false;
+        }
+
         if (password == null || password.trim().isEmpty()){
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
             return false;
