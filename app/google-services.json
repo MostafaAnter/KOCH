@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "270963064462",
+    "firebase_url": "https://koch-146122.firebaseio.com",
+    "project_id": "koch-146122",
+    "storage_bucket": "koch-146122.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270963064462:android:8ab6f423d100f2ed",
+        "android_client_info": {
+          "package_name": "com.perfect_apps.koch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270963064462-7vpgi3gvrfa2u1akoqtkn87k91r38lpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perfect_apps.koch",
+            "certificate_hash": "59B9DE2FF6D44262E7EB95B85D7DF49ABD1DEE0D"
+          }
+        },
+        {
+          "client_id": "270963064462-j0t714su0ltqcrq5j1huasqnofjo5fv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB94MarxLdPMPB9vkKURG_MdKUBEOxkrUo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270963064462-j0t714su0ltqcrq5j1huasqnofjo5fv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

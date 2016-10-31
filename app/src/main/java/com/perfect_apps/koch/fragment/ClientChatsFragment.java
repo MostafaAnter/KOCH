@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.InboxItemsAdapter;
@@ -31,6 +32,8 @@ import butterknife.ButterKnife;
 
 public class ClientChatsFragment extends Fragment{
 
+    @BindView(R.id.noData)
+    LinearLayout noDataView;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -171,6 +174,12 @@ public class ClientChatsFragment extends Fragment{
     private void onRefreshComplete(){
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);
+        }
+
+        if (mDataset.size() > 0){
+            noDataView.setVisibility(View.GONE);
+        }else {
+            noDataView.setVisibility(View.VISIBLE);
         }
     }
 
