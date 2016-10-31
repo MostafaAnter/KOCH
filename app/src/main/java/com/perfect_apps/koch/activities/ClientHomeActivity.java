@@ -597,7 +597,7 @@ public class ClientHomeActivity extends LocalizationActivity
         mMap.animateCamera(cu);
     }
 
-    private void drawMarker(ProviderInfo providerInfo){
+    private void drawMarker(final ProviderInfo providerInfo){
         // Add a new marker to the map
         Marker marker = mMap.addMarker(new MarkerOptions()
                 .title(providerInfo.getUsername())
@@ -605,7 +605,7 @@ public class ClientHomeActivity extends LocalizationActivity
                 "\n" + providerInfo.getService_3() + "\n" + providerInfo.getService_4() + "\n" + providerInfo.getOther_services())
                 .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.map_market_marker)))
                 .position(new LatLng(Double.valueOf(providerInfo.getAddresslat()),
-                        Double.valueOf(providerInfo.getAddresslng()))));
+                        Double.valueOf(providerInfo.getAddresslng()))).draggable(true));
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
@@ -636,5 +636,23 @@ public class ClientHomeActivity extends LocalizationActivity
             }
         });
         markers.add(marker);
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                Toast.makeText(ClientHomeActivity.this, providerInfo.getUsername(), Toast.LENGTH_SHORT).show();
+                marker.setPosition(new LatLng(Double.valueOf(providerInfo.getAddresslat()), Double.valueOf(providerInfo.getAddresslng())));
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+
+            }
+        });
     }
 }
