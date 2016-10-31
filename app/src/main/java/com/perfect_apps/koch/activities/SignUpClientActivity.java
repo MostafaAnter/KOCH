@@ -194,8 +194,6 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
     }
 
     private boolean registerConditionsIsOk() {
-
-
         name = editText1.getText().toString().trim();
         mobile = editText2.getText().toString().trim();
         email = editText3.getText().toString().trim();
