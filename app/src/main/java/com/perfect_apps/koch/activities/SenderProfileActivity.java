@@ -2,6 +2,7 @@ package com.perfect_apps.koch.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -26,9 +27,9 @@ import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
-import com.perfect_apps.koch.fragment.ProviderChatsFragment;
-import com.perfect_apps.koch.fragment.ProviderDataFragment;
-import com.perfect_apps.koch.fragment.ProviderRequestFragment;
+import com.perfect_apps.koch.fragment.SenderDataFragment;
+import com.perfect_apps.koch.fragment.SenderDirectChatFragment;
+import com.perfect_apps.koch.fragment.SenderLocationFragment;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
@@ -54,7 +55,7 @@ public class SenderProfileActivity extends LocalizationActivity
     private int[] tabIcons = {
             R.drawable.my_data,
             R.drawable.my_chat,
-            R.drawable.my_order
+            R.drawable.my_location
     };
 
     @Override
@@ -143,6 +144,12 @@ public class SenderProfileActivity extends LocalizationActivity
 
         } else if (id == R.id.nav_call_us) {
 
+        }else if (id == R.id.sign_out) {
+            new KochPrefStore(this).clearPreference();
+            startActivity(new Intent(this, SplashActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,9 +195,9 @@ public class SenderProfileActivity extends LocalizationActivity
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new ProviderDataFragment(), getString(R.string.info));
-        adapter.addFragment(new ProviderChatsFragment(), getString(R.string.chats));
-        adapter.addFragment(new ProviderRequestFragment(), getString(R.string.sent_request));
+        adapter.addFragment(new SenderDataFragment(), getString(R.string.info));
+        adapter.addFragment(new SenderDirectChatFragment(), getString(R.string.chats));
+        adapter.addFragment(new SenderLocationFragment(), getString(R.string.location));
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

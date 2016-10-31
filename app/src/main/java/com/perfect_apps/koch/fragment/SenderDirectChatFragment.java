@@ -1,14 +1,15 @@
-package com.perfect_apps.koch.activities;
+package com.perfect_apps.koch.fragment;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.adapters.ConversationAdapter;
 import com.perfect_apps.koch.interfaces.OnLoadMoreListener;
@@ -20,12 +21,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ConversationActivity extends LocalizationActivity {
-    private static final String TAG = "ConversationActivity";
+/**
+ * Created by mostafa_anter on 10/31/16.
+ */
 
-    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
-
-    @BindView(R.id.toolbar) Toolbar toolbar;
+public class SenderDirectChatFragment extends Fragment{
+    private static final String TAG = "SenderDirectChatFragmen";
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     private int pageCount = 1;
     // add listener for loading more view
@@ -41,43 +44,37 @@ public class ConversationActivity extends LocalizationActivity {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected List<ConversationItem> mDataSet;
 
+    public SenderDirectChatFragment(){
+
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversation);
-        ButterKnife.bind(this);
-        setToolbar();
-        setupRecyclerView();
-
-        getConversationMessages();
-
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-
-        /*
-        * hide title
-        * */
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
-        toolbar.setTitle("");
-        toolbar.setSubtitle("");
-
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
-        TextView tv = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        tv.setTypeface(font);
-    }
-
-    private void setupRecyclerView() {
         // initialize mDataSet
         mDataSet = new ArrayList<>();
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_sender_direct_conversation, container, false);
+        ButterKnife.bind(this, view);
+        setRecyclerView();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void setRecyclerView(){
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
-        mAdapter = new ConversationAdapter(this, mDataSet);
+        mAdapter = new ConversationAdapter(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
@@ -125,13 +122,13 @@ public class ConversationActivity extends LocalizationActivity {
 
         switch (layoutManagerType) {
             case LINEAR_LAYOUT_MANAGER:
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 linearLayoutManager.setStackFromEnd(true);
                 mLayoutManager = linearLayoutManager;
                 mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
                 break;
             default:
-                mLayoutManager = new LinearLayoutManager(this);
+                mLayoutManager = new LinearLayoutManager(getActivity());
                 mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
@@ -152,5 +149,6 @@ public class ConversationActivity extends LocalizationActivity {
             mAdapter.notifyDataSetChanged();
         }
     }
+
 
 }

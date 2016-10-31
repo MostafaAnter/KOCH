@@ -66,4 +66,11 @@
     <string name="password_not_equal">خانات الرقم السري غير متطابقة</string>
     <string name="error">خطأ</string>
     <string name="try_again">حاول مرة اخرى</string>
+    <string name="follow_us">تابعونا على مواقع التواصل</string>
+    <string name="more_details">مزيد من التفاصيل</string>
+    <string name="open_gps">تشغيل GPS</string>
+    <string name="sign_out">تسجيل خروج</string>
+    <string name="why_open_gps">يجب تشغيل ال GPS</string>
+    <string name="wrong_mail_or_password">ادخلت ايميل او باسورد خطأ</string>
+    <string name="yes_open_gps">نعم, شغل</string>
 </resources>

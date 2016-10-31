@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_about_app"
+            android:icon="@drawable/ic_error_black_24dp"
+            android:title="@string/about_koch" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_share_app"
+            android:icon="@drawable/ic_share_black_24dp"
+            android:title="@string/share_app" />
+    </group>
+
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_translate"
+            android:icon="@drawable/ic_translate_black_24dp"
+            android:title="@string/language" />
+    </group>
+
+    <group
+        android:id="@+id/group4"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_call_us"
+            android:icon="@drawable/ic_phone_in_talk_black_24dp"
+            android:title="@string/call_us" />
+    </group>
+
+    <group
+        android:id="@+id/group5"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/sign_out"
+            android:icon="@drawable/ic_highlight_off_black_24dp"
+            android:title="@string/sign_out" />
+    </group>
 
 </menu>
