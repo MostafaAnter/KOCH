@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeightLarge"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal">
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/avatar"
-                android:layout_width="?android:attr/listPreferredItemHeight"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:padding="5dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/log_user"
-                app:civ_border_width="1dp"
-                app:civ_border_color="#FFFFFF"/>
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="15dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </FrameLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="?android:attr/listPreferredItemHeight"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:padding="5dp"
+            android:src="@drawable/log_user"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="1dp" />
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:paddingLeft="5dip"
             android:paddingRight="8dip">
@@ -53,16 +45,17 @@
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="Mostafa Anter Sfdsfsdfdsfsdfsdfffdsayd afjk"
                     android:textAlignment="viewStart"
                     android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,15 +71,15 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
-                    android:layout_gravity="bottom"
-                    android:src="@drawable/client_order_date"/>
+                    android:src="@drawable/client_order_date" />
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/timestamp"
@@ -98,13 +91,11 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
-                    android:layout_gravity="bottom"
-                    android:src="@drawable/pro_time"/>
+                    android:src="@drawable/pro_time" />
             </LinearLayout>
-
-
 
 
         </LinearLayout>
@@ -116,66 +107,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F5F5F5"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/text1"
+            style="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:text="@string/confirmation_client_oreder"
-            android:textStyle="bold"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            style="?android:attr/textAppearanceMedium"/>
+            android:text="@string/confirmation_client_oreder"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_gray_rec">
+
             <EditText
                 android:id="@+id/editText1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/editTextHeight"
                 android:background="#00000000"
-                android:isScrollContainer="true"
                 android:hint="@string/title_of_request"
                 android:inputType="text"
+                android:isScrollContainer="true"
                 android:padding="3dp"
                 android:text="" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_gray_rec">
+
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
                 android:background="#00000000"
                 android:gravity="top"
-                android:isScrollContainer="true"
                 android:hint="@string/details_of_request"
                 android:inputType="text"
+                android:isScrollContainer="true"
                 android:padding="3dp"
                 android:text="" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_gray_rec">
+
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/editTextHeight"
                 android:background="#00000000"
-                android:isScrollContainer="true"
                 android:hint="@string/cost_of_request"
                 android:inputType="text"
+                android:isScrollContainer="true"
                 android:padding="3dp"
                 android:text="" />
         </RelativeLayout>
@@ -184,28 +180,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/editTextHeight"
-                android:layout_marginRight="3dp"
                 android:layout_marginLeft="3dp"
-                android:textColor="@color/white"
+                android:layout_marginRight="3dp"
+                android:background="@color/colorAccent"
                 android:text="@string/send"
-                android:background="@color/colorAccent"/>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
-                android:layout_marginRight="3dp"
-                android:layout_marginLeft="3dp"
-                android:textColor="@color/white"
                 android:layout_height="@dimen/editTextHeight"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@color/red"
                 android:text="@string/discard"
 
-                android:background="@color/red"/>
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
