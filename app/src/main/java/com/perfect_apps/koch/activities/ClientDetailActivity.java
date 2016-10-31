@@ -5,28 +5,33 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.fragment.SendRequestFragment;
+import com.perfect_apps.koch.fragment.SenderClientDataFragment;
 import com.perfect_apps.koch.fragment.SenderDataFragment;
 import com.perfect_apps.koch.fragment.SenderDirectChatFragment;
 import com.perfect_apps.koch.fragment.SenderLocationFragment;
@@ -40,7 +45,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SenderProfileActivity extends LocalizationActivity
+public class ClientDetailActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
@@ -55,13 +60,13 @@ public class SenderProfileActivity extends LocalizationActivity
     private int[] tabIcons = {
             R.drawable.my_data,
             R.drawable.my_chat,
-            R.drawable.my_location
+            R.drawable.my_order
     };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sender_profile);
+        setContentView(R.layout.activity_client_detail);
         ButterKnife.bind(this);
         setToolbar();
 
@@ -195,9 +200,9 @@ public class SenderProfileActivity extends LocalizationActivity
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new SenderDataFragment(), getString(R.string.info));
+        adapter.addFragment(new SenderClientDataFragment(), getString(R.string.info));
         adapter.addFragment(new SenderDirectChatFragment(), getString(R.string.chats));
-        adapter.addFragment(new SenderLocationFragment(), getString(R.string.location));
+        adapter.addFragment(new SendRequestFragment(), getString(R.string.send_request));
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
