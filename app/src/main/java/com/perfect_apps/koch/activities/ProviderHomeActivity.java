@@ -199,6 +199,12 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
         } else if (id == R.id.nav_call_us) {
 
+        }else if (id == R.id.sign_out) {
+            new KochPrefStore(this).clearPreference();
+            startActivity(new Intent(this, SplashActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

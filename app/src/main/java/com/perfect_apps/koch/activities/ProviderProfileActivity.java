@@ -2,6 +2,7 @@ package com.perfect_apps.koch.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -152,6 +153,12 @@ public class ProviderProfileActivity extends LocalizationActivity
             showSingleChoiceListLangaugeAlertDialog();
 
         } else if (id == R.id.nav_call_us) {
+
+        }else if (id == R.id.sign_out) {
+            new KochPrefStore(this).clearPreference();
+            startActivity(new Intent(this, SplashActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }
 

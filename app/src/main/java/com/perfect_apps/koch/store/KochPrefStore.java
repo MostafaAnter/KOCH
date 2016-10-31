@@ -15,6 +15,11 @@ public class KochPrefStore {
         kochPreferences = context.getSharedPreferences(PREFKEY, Context.MODE_PRIVATE);
     }
 
+    public void clearPreference(){
+        SharedPreferences.Editor editor = kochPreferences.edit();
+        editor.clear().apply();
+    }
+
     public void addPreference(String key, String value){
         SharedPreferences.Editor editor = kochPreferences.edit();
         editor.putString(key, value);
