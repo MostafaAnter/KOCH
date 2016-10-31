@@ -66,4 +66,8 @@
     <string name="password_not_equal">Passwod not similar to password confirmation</string>
     <string name="wait">Wait...</string>
     <string name="try_again">Try again</string>
+    <string name="wrong_mail_or_password">Wrong mail or password</string>
+    <string name="open_gps">Open GPS</string>
+    <string name="why_open_gps">must active GPS to get your location</string>
+    <string name="yes_open_gps">Yes, active</string>
 </resources>

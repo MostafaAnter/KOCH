@@ -188,7 +188,7 @@ public class SignInActivity extends LocalizationActivity {
                     public void onErrorResponse(VolleyError error) {
                         sdh.dismissDialog();
                         // show error message
-                       sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                        sdh.showErrorMessage(getString(R.string.error), getString(R.string.wrong_mail_or_password));
                     }
                 }) {
 
@@ -243,7 +243,7 @@ public class SignInActivity extends LocalizationActivity {
                     public void onErrorResponse(VolleyError error) {
                         sdh.dismissDialog();
                         // show error message
-                        sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                        sdh.showErrorMessage(getString(R.string.error), getString(R.string.wrong_mail_or_password));
                     }
                 }) {
 

@@ -33,4 +33,6 @@ public class Constants {
     public static final String userPassword = "userPassword";
     public static final String userAvatarUrl = "userAvatar";
     public static final String userGroupId = "groupId";
+    public static final String userLastLocationLat = "userLastLocationLat";
+    public static final String userLastLocationLng = "userLastLocationLng";
 }

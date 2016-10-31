@@ -49,9 +49,11 @@ dependencies {
     // recyclerView
     compile 'com.android.support:recyclerview-v7:24.2.1'
     // map service
-    compile 'com.google.android.gms:play-services-maps:9.6.1'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
     // pick Photo
     compile 'me.iwf.photopicker:PhotoPicker:0.8.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    // for get current location
+    compile 'com.google.android.gms:play-services-location:9.8.0'
 }
