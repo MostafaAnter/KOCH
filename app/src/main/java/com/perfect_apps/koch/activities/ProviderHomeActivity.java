@@ -34,6 +34,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,6 +50,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
@@ -54,8 +59,10 @@ import com.perfect_apps.koch.utils.MapStateManager;
 import com.perfect_apps.koch.utils.Utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,11 +70,14 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ProviderHomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.text1) TextView textView1;
-    @BindView(R.id.text2) TextView textView2;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.text1)
+    TextView textView1;
+    @BindView(R.id.text2)
+    TextView textView2;
 
     private NavigationView navigationView;
 
@@ -127,7 +137,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
     }
 
-    private void changeFontOfText(){
+    private void changeFontOfText() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         textView1.setTypeface(font);
         textView2.setTypeface(font);
@@ -199,7 +209,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
         } else if (id == R.id.nav_call_us) {
 
-        }else if (id == R.id.sign_out) {
+        } else if (id == R.id.sign_out) {
             new KochPrefStore(this).clearPreference();
             startActivity(new Intent(this, SplashActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -213,15 +223,15 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
     }
 
     //change font of drawer
-    private void changeFontOfNavigation(){
+    private void changeFontOfNavigation() {
         Menu m = navigationView.getMenu();
-        for (int i=0;i<m.size();i++) {
+        for (int i = 0; i < m.size(); i++) {
             MenuItem mi = m.getItem(i);
 
             //for aapplying a font to subMenu ...
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
                     MenuItem subMenuItem = subMenu.getItem(j);
                     applyFontToMenuItem(subMenuItem);
                 }
@@ -235,7 +245,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
     private void applyFontToMenuItem(MenuItem mi) {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
 
@@ -244,9 +254,9 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
     public void showSingleChoiceListLangaugeAlertDialog() {
         final String[] list = new String[]{getString(R.string.language_arabic), getString(R.string.language_en)};
-        int checkedItemIndex ;
+        int checkedItemIndex;
 
-        switch (getLanguage()){
+        switch (getLanguage()) {
             case "en":
                 checkedItemIndex = 1;
                 break;
@@ -278,7 +288,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
                 .show();
     }
 
-    private void changeFirstTimeOpenAppState(int language){
+    private void changeFirstTimeOpenAppState(int language) {
         new KochPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
         new KochPrefStore(this).addPreference(Constants.PREFERENCE_LANGUAGE, language);
     }
@@ -289,12 +299,10 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
         if (isAvailable == ConnectionResult.SUCCESS) {
             return true;
-        }
-        else if (GooglePlayServicesUtil.isUserRecoverableError(isAvailable)) {
+        } else if (GooglePlayServicesUtil.isUserRecoverableError(isAvailable)) {
             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(isAvailable, this, GPS_ERRORDIALOG_REQUEST);
             dialog.show();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Can't connect to Google Play services", Toast.LENGTH_SHORT).show();
         }
         return false;
@@ -359,8 +367,8 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
     }
 
-    private void updateCurrentLocationData(){
-        if (mLastLocation != null && mMap != null){
+    private void updateCurrentLocationData() {
+        if (mLastLocation != null && mMap != null) {
             // save user location
             new KochPrefStore(this).addPreference(Constants.userLastLocationLat, String.valueOf(mLastLocation.getLatitude()));
             new KochPrefStore(this).addPreference(Constants.userLastLocationLng, String.valueOf(mLastLocation.getLongitude()));
@@ -376,10 +384,10 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
             // upload user location to server
 
-        }else {
+        } else {
             String lat = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLat);
             String lng = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLng);
-            if (!lat.trim().isEmpty() && !lng.trim().isEmpty()){
+            if (!lat.trim().isEmpty() && !lng.trim().isEmpty()) {
                 // draw user marker
                 MapHelper.setUpMarker(mMap, new LatLng(Double.valueOf(lat),
                         Double.valueOf(lng)), R.drawable.map_user_marker);
@@ -394,7 +402,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
         }
     }
 
-    private class UpdateCurrentLocTask extends AsyncTask<Void, Void, Void>{
+    private class UpdateCurrentLocTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -413,6 +421,7 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
         }
     }
+
     @Override
     public void onConnectionSuspended(int i) {
         Log.e("connection", "suspended");
@@ -448,30 +457,70 @@ OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConne
 
     private void getAddressInfo(LatLng latLng) throws IOException {
 
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-            if (address != null)
-                sb.append(address);
-            if (city != null)
-                sb.append(", " + city);
-            if (state != null)
-                sb.append(", " + state);
-            if (country != null)
-                sb.append(", " + country);
-            if (knownName != null)
-                sb.append(", " + knownName);
+        if (address != null)
+            sb.append(address);
+        if (city != null)
+            sb.append(", " + city);
+        if (state != null)
+            sb.append(", " + state);
+        if (country != null)
+            sb.append(", " + country);
+        if (knownName != null)
+            sb.append(", " + knownName);
 
-            textView1.setText(sb);
+        textView1.setText(sb);
 
-            Log.e("address info", sb.toString());
+        Log.e("address info", sb.toString());
+
+        uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
+    }
+
+    private void uploadLocationToServer(final String lat,
+                                        final String lng, final String address) {
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = Constants.providerUploadLoc;
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("upload client loc", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error upload client loc", error.toString());
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userEmail));
+                params.put("password", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userPassword));
+                params.put("lat", lat);
+                params.put("lng", lng);
+                params.put("name", address);
+                return params;
+
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 }

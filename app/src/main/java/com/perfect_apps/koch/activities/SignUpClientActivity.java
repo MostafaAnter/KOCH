@@ -48,25 +48,40 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
 
-public class SignUpClientActivity extends LocalizationActivity implements View.OnClickListener{
+public class SignUpClientActivity extends LocalizationActivity implements View.OnClickListener {
 
-    @BindView(R.id.text1) TextView textView1;
-    @BindView(R.id.text2) TextView textView2;
-    @BindView(R.id.text3) TextView textView3;
-    @BindView(R.id.text4) TextView textView4;
-    @BindView(R.id.text5) TextView textView5;
-    @BindView(R.id.text6) TextView textView6;
-    @BindView(R.id.text7) TextView textView7;
+    @BindView(R.id.text1)
+    TextView textView1;
+    @BindView(R.id.text2)
+    TextView textView2;
+    @BindView(R.id.text3)
+    TextView textView3;
+    @BindView(R.id.text4)
+    TextView textView4;
+    @BindView(R.id.text5)
+    TextView textView5;
+    @BindView(R.id.text6)
+    TextView textView6;
+    @BindView(R.id.text7)
+    TextView textView7;
 
-    @BindView(R.id.editText1) EditText editText1;
-    @BindView(R.id.editText2) EditText editText2;
-    @BindView(R.id.editText3) EditText editText3;
-    @BindView(R.id.editText4) EditText editText4;
-    @BindView(R.id.editText5) EditText editText5;
+    @BindView(R.id.editText1)
+    EditText editText1;
+    @BindView(R.id.editText2)
+    EditText editText2;
+    @BindView(R.id.editText3)
+    EditText editText3;
+    @BindView(R.id.editText4)
+    EditText editText4;
+    @BindView(R.id.editText5)
+    EditText editText5;
 
-    @BindView(R.id.button1) Button button1;
-    @BindView(R.id.imageView1)ImageView imageView1;
-    @BindView(R.id.pickPhoto)LinearLayout pickPhoto;
+    @BindView(R.id.button1)
+    Button button1;
+    @BindView(R.id.imageView1)
+    ImageView imageView1;
+    @BindView(R.id.pickPhoto)
+    LinearLayout pickPhoto;
 
 
     private String name;
@@ -108,7 +123,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
         toolbar.setSubtitle("");
     }
 
-    private void changeTextFont(){
+    private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         //Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
         textView1.setTypeface(font);
@@ -155,7 +170,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
         }
     }
 
-    private void setSelectedPhotoInsideCircleShap(Uri uri){
+    private void setSelectedPhotoInsideCircleShap(Uri uri) {
         Glide.with(this)
                 .load(uri)
                 .centerCrop()
@@ -168,7 +183,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pickPhoto:
                 pickPhoto();
                 break;
@@ -178,29 +193,26 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
         }
     }
 
-    private boolean registerConditionsIsOk(){
+    private boolean registerConditionsIsOk() {
 
-        try {
-            name = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
-            mobile = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
-            email = editText3.getText().toString().trim();
-            password = editText4.getText().toString().trim();
-            password_confirmation = editText5.getText().toString().trim();
-            //desc = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        name = editText1.getText().toString().trim();
+        mobile = editText2.getText().toString().trim();
+        email = editText3.getText().toString().trim();
+        password = editText4.getText().toString().trim();
+        password_confirmation = editText5.getText().toString().trim();
+        //desc = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
 
-        if (name == null || name.trim().isEmpty()){
+
+        if (name == null || name.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_your_name));
             return false;
         }
-        if ( mobile == null ||  mobile.trim().isEmpty()){
+        if (mobile == null || mobile.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
             return false;
         }
-        if (email == null || email.trim().isEmpty()){
+        if (email == null || email.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
         }
@@ -209,7 +221,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
         }
-        if (password == null || password.trim().isEmpty()){
+        if (password == null || password.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
             return false;
         }
@@ -218,7 +230,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
 //            return false;
 //        }
 
-        if (!password.equalsIgnoreCase(password_confirmation)){
+        if (!password.equalsIgnoreCase(password_confirmation)) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password_not_equal));
             return false;
         }
@@ -226,9 +238,9 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
 
     }
 
-    private void register(){
+    private void register() {
 
-        if (registerConditionsIsOk()){
+        if (registerConditionsIsOk()) {
 
             if (Utils.isOnline(this)) {
 
@@ -314,15 +326,15 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        if(name != null && !name.trim().isEmpty())
+                        if (name != null && !name.trim().isEmpty())
                             params.put("name", name);
-                        if(email != null && !email.trim().isEmpty())
+                        if (email != null && !email.trim().isEmpty())
                             params.put("email", email);
-                        if(mobile != null && !mobile.trim().isEmpty())
+                        if (mobile != null && !mobile.trim().isEmpty())
                             params.put("mobile", mobile);
-                        if(password != null&& !password.trim().isEmpty())
+                        if (password != null && !password.trim().isEmpty())
                             params.put("password", password);
-                        if(password_confirmation != null && !password_confirmation.trim().isEmpty())
+                        if (password_confirmation != null && !password_confirmation.trim().isEmpty())
                             params.put("password_confirmation", password_confirmation);
 
                         return params;
@@ -350,8 +362,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
                 // last of request
 
 
-
-            }else {
+            } else {
                 // show error message
                 new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("ناسف...")

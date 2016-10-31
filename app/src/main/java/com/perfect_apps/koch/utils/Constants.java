@@ -22,6 +22,9 @@ public class Constants {
     public static final String citiesListURL = BuildConfig.API_BASE_URL + "registration/lists/cities?country=";
     public static final String providerLoginUrl = BuildConfig.API_BASE_URL + "login/provider";
     public static final String clientLoginUrl = BuildConfig.API_BASE_URL + "login/client";
+    public static final String clientUploadLoc = BuildConfig.API_BASE_URL + "set_location/client";
+    public static final String providerUploadLoc = BuildConfig.API_BASE_URL + "set_location/provider";
+    public static final String viewAllProviders = BuildConfig.API_BASE_URL + "location/show/provider";
 
 
     /**

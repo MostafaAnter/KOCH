@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
@@ -35,6 +36,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,16 +52,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
 import com.perfect_apps.koch.utils.MapHelper;
 import com.perfect_apps.koch.utils.MapStateManager;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +73,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ClientHomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
-        , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener{
 
     private NavigationView navigationView;
     @BindView(R.id.toolbar)
@@ -106,6 +116,8 @@ public class ClientHomeActivity extends LocalizationActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
+        button1.setOnClickListener(this);
 
         changeFontOfText();
 
@@ -199,7 +211,7 @@ public class ClientHomeActivity extends LocalizationActivity
 
         } else if (id == R.id.nav_call_us) {
 
-        }else if (id == R.id.sign_out) {
+        } else if (id == R.id.sign_out) {
             new KochPrefStore(this).clearPreference();
             startActivity(new Intent(this, SplashActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -327,6 +339,8 @@ public class ClientHomeActivity extends LocalizationActivity
             mMap.moveCamera(update);
             mMap.setMapType(mgr.getSavedMapType());
         }
+
+        button1.setVisibility(View.GONE);
     }
 
 
@@ -354,8 +368,8 @@ public class ClientHomeActivity extends LocalizationActivity
         updateCurrentLocationData();
     }
 
-    private void updateCurrentLocationData(){
-        if (mLastLocation != null && mMap != null){
+    private void updateCurrentLocationData() {
+        if (mLastLocation != null && mMap != null) {
             // save user location
             new KochPrefStore(this).addPreference(Constants.userLastLocationLat, String.valueOf(mLastLocation.getLatitude()));
             new KochPrefStore(this).addPreference(Constants.userLastLocationLng, String.valueOf(mLastLocation.getLongitude()));
@@ -371,10 +385,10 @@ public class ClientHomeActivity extends LocalizationActivity
 
             // upload user location to server
 
-        }else {
+        } else {
             String lat = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLat);
             String lng = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLng);
-            if (!lat.trim().isEmpty() && !lng.trim().isEmpty()){
+            if (!lat.trim().isEmpty() && !lng.trim().isEmpty()) {
                 // draw user marker
                 MapHelper.setUpMarker(mMap, new LatLng(Double.valueOf(lat),
                         Double.valueOf(lng)), R.drawable.map_user_marker);
@@ -389,7 +403,17 @@ public class ClientHomeActivity extends LocalizationActivity
         }
     }
 
-    private class UpdateCurrentLocTask extends AsyncTask<Void, Void, Void>{
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button1:
+                viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
+                        String.valueOf(mLastLocation.getLongitude()));
+                ;
+        }
+    }
+
+    private class UpdateCurrentLocTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -467,5 +491,74 @@ public class ClientHomeActivity extends LocalizationActivity
         textView1.setText(sb);
 
         Log.e("address info", sb.toString());
+
+        button1.setVisibility(View.VISIBLE);
+        uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
+    }
+
+    private void uploadLocationToServer(final String lat,
+                                        final String lng, final String address) {
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = Constants.clientUploadLoc;
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("upload client loc", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error upload client loc", error.toString());
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", new KochPrefStore(ClientHomeActivity.this).getPreferenceValue(Constants.userEmail));
+                params.put("password", new KochPrefStore(ClientHomeActivity.this).getPreferenceValue(Constants.userPassword));
+                params.put("lat", lat);
+                params.put("lng", lng);
+                params.put("name", address);
+                return params;
+
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void viewAllProviders(final String lat, final String lng) {
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = Constants.viewAllProviders + "?lat=" + lat + "&lng=" + lng + "&distance=5";
+        final SweetDialogHelper sdh = new SweetDialogHelper(this);
+        sdh.showMaterialProgress(getString(R.string.wait));
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("view all providers", response);
+                sdh.dismissDialog();
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error view providers", error.toString());
+                sdh.dismissDialog();
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 }

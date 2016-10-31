@@ -61,37 +61,66 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
 
-public class SignUpActivity extends LocalizationActivity implements View.OnClickListener{
-    @BindView(R.id.text1) TextView textView1;
-    @BindView(R.id.text2) TextView textView2;
-    @BindView(R.id.text3) TextView textView3;
-    @BindView(R.id.text4) TextView textView4;
-    @BindView(R.id.text5) TextView textView5;
-    @BindView(R.id.text6) TextView textView6;
-    @BindView(R.id.text7) TextView textView7;
-    @BindView(R.id.text8) TextView textView8;
-    @BindView(R.id.text9) TextView textView9;
-    @BindView(R.id.text10) TextView textView10;
-    @BindView(R.id.text11) TextView textView11;
-    @BindView(R.id.text12) TextView textView12;
+public class SignUpActivity extends LocalizationActivity implements View.OnClickListener {
+    @BindView(R.id.text1)
+    TextView textView1;
+    @BindView(R.id.text2)
+    TextView textView2;
+    @BindView(R.id.text3)
+    TextView textView3;
+    @BindView(R.id.text4)
+    TextView textView4;
+    @BindView(R.id.text5)
+    TextView textView5;
+    @BindView(R.id.text6)
+    TextView textView6;
+    @BindView(R.id.text7)
+    TextView textView7;
+    @BindView(R.id.text8)
+    TextView textView8;
+    @BindView(R.id.text9)
+    TextView textView9;
+    @BindView(R.id.text10)
+    TextView textView10;
+    @BindView(R.id.text11)
+    TextView textView11;
+    @BindView(R.id.text12)
+    TextView textView12;
 
-    @BindView(R.id.editText1) EditText editText1;
-    @BindView(R.id.editText2) EditText editText2;
-    @BindView(R.id.editText3) EditText editText3;
-    @BindView(R.id.editText4) EditText editText4;
-    @BindView(R.id.editText5) EditText editText5;
-    @BindView(R.id.editText6) EditText editText6;
-    @BindView(R.id.editText7) EditText editText7;
-    @BindView(R.id.editText8) EditText editText8;
-    @BindView(R.id.editText9) EditText editText9;
-    @BindView(R.id.editText10) EditText editText10;
-    @BindView(R.id.editText11) EditText editText11;
-    @BindView(R.id.editText12) EditText editText12;
-    @BindView(R.id.editText13) EditText editText13;
-    @BindView(R.id.editText14) EditText editText14;
-    @BindView(R.id.editText15) EditText editText15;
-    @BindView(R.id.imageView1)ImageView imageView1;
-    @BindView(R.id.pickPhoto)LinearLayout pickPhoto;
+    @BindView(R.id.editText1)
+    EditText editText1;
+    @BindView(R.id.editText2)
+    EditText editText2;
+    @BindView(R.id.editText3)
+    EditText editText3;
+    @BindView(R.id.editText4)
+    EditText editText4;
+    @BindView(R.id.editText5)
+    EditText editText5;
+    @BindView(R.id.editText6)
+    EditText editText6;
+    @BindView(R.id.editText7)
+    EditText editText7;
+    @BindView(R.id.editText8)
+    EditText editText8;
+    @BindView(R.id.editText9)
+    EditText editText9;
+    @BindView(R.id.editText10)
+    EditText editText10;
+    @BindView(R.id.editText11)
+    EditText editText11;
+    @BindView(R.id.editText12)
+    EditText editText12;
+    @BindView(R.id.editText13)
+    EditText editText13;
+    @BindView(R.id.editText14)
+    EditText editText14;
+    @BindView(R.id.editText15)
+    EditText editText15;
+    @BindView(R.id.imageView1)
+    ImageView imageView1;
+    @BindView(R.id.pickPhoto)
+    LinearLayout pickPhoto;
 
     @BindView(R.id.checkbox1)
     CheckBox checkBox1;
@@ -166,7 +195,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         toolbar.setSubtitle("");
     }
 
-    private void changeTextFont(){
+    private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         //Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
         textView1.setTypeface(font);
@@ -261,9 +290,9 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     }
 
     public void onCheckboxClicked(View view) {
-        if (checkBox1.isChecked()){
+        if (checkBox1.isChecked()) {
             delivery = "1";
-        }else {
+        } else {
             delivery = "0";
         }
 
@@ -294,7 +323,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         }
     }
 
-    private void setSelectedPhotoInsideCircleShap(Uri uri){
+    private void setSelectedPhotoInsideCircleShap(Uri uri) {
         Glide.with(this)
                 .load(uri)
                 .centerCrop()
@@ -304,11 +333,11 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 .into(imageView1);
     }
 
-    private void getCountries(){
+    private void getCountries() {
 
         /**
-        * this section for fetch country
-        */
+         * this section for fetch country
+         */
         String urlBrands = Constants.countriesListURL;
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -344,7 +373,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -390,7 +419,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
     }
 
-    private void getCities(String countryId){
+    private void getCities(String countryId) {
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -426,7 +455,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("response", "Error: " + error.getMessage());
                 }
-            }){
+            }) {
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     try {
@@ -474,7 +503,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.pickPhoto:
                 pickPhoto();
                 break;
@@ -484,9 +513,9 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         }
     }
 
-    private void register(){
+    private void register() {
 
-        if (registerConditionsIsOk()){
+        if (registerConditionsIsOk()) {
 
             if (Utils.isOnline(this)) {
 
@@ -572,41 +601,41 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        if(name != null && !name.trim().isEmpty())
+                        if (name != null && !name.trim().isEmpty())
                             params.put("name", name);
-                        if(email != null && !email.trim().isEmpty())
+                        if (email != null && !email.trim().isEmpty())
                             params.put("email", email);
-                        if(password != null&& !password.trim().isEmpty())
+                        if (password != null && !password.trim().isEmpty())
                             params.put("password", password);
-                        if(password_confirmation != null && !password_confirmation.trim().isEmpty())
+                        if (password_confirmation != null && !password_confirmation.trim().isEmpty())
                             params.put("password_confirmation", password_confirmation);
-                        if(countryId != null && !countryId.trim().isEmpty())
+                        if (countryId != null && !countryId.trim().isEmpty())
                             params.put("country_id", countryId);
-                        if(cityId != null && !cityId.trim().isEmpty())
+                        if (cityId != null && !cityId.trim().isEmpty())
                             params.put("city_id", cityId);
-                        if(delivery != null && !delivery.trim().isEmpty())
+                        if (delivery != null && !delivery.trim().isEmpty())
                             params.put("delivery", delivery);
-                        if(desc != null && !desc.trim().isEmpty())
+                        if (desc != null && !desc.trim().isEmpty())
                             params.put("desc", desc);
-                        if(mobile != null && !mobile.trim().isEmpty())
+                        if (mobile != null && !mobile.trim().isEmpty())
                             params.put("mobile", mobile);
-                        if(working_hours != null && !working_hours.trim().isEmpty())
+                        if (working_hours != null && !working_hours.trim().isEmpty())
                             params.put("working_hours", working_hours);
-                        if(service_1 != null && !service_1.trim().isEmpty())
+                        if (service_1 != null && !service_1.trim().isEmpty())
                             params.put("service_1", service_1);
-                        if(service_2 != null && !service_2.trim().isEmpty())
+                        if (service_2 != null && !service_2.trim().isEmpty())
                             params.put("service_2", service_2);
-                        if(service_3 != null && !service_3.trim().isEmpty())
+                        if (service_3 != null && !service_3.trim().isEmpty())
                             params.put("service_3", service_3);
-                        if(service_4 != null && !service_4.trim().isEmpty())
+                        if (service_4 != null && !service_4.trim().isEmpty())
                             params.put("service_4", service_4);
-                        if(other_services != null && !other_services.trim().isEmpty())
+                        if (other_services != null && !other_services.trim().isEmpty())
                             params.put("other_services", other_services);
-                        if(facebook_url != null && !facebook_url.trim().isEmpty())
+                        if (facebook_url != null && !facebook_url.trim().isEmpty())
                             params.put("facebook_url", facebook_url);
-                        if(twitter_url != null && !twitter_url.trim().isEmpty())
+                        if (twitter_url != null && !twitter_url.trim().isEmpty())
                             params.put("twitter_url", twitter_url);
-                        if(picassa_url != null && !picassa_url.trim().isEmpty())
+                        if (picassa_url != null && !picassa_url.trim().isEmpty())
                             params.put("picassa_url", picassa_url);
 
                         return params;
@@ -634,8 +663,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 // last of request
 
 
-
-            }else {
+            } else {
                 // show error message
                 new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("ناسف...")
@@ -646,38 +674,34 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
     }
 
-    private boolean registerConditionsIsOk(){
+    private boolean registerConditionsIsOk() {
 
-        try {
-            name = URLEncoder.encode(editText1.getText().toString().trim(), "UTF-8");
-            mobile = URLEncoder.encode(editText2.getText().toString().trim(), "UTF-8");
-            email = editText3.getText().toString().trim();
-            password = editText14.getText().toString().trim();
-            password_confirmation = editText15.getText().toString().trim();
-            desc = URLEncoder.encode(editText4.getText().toString().trim(), "UTF-8");
-            working_hours = URLEncoder.encode(editText5.getText().toString().trim(), "UTF-8");
-            service_1 = URLEncoder.encode(editText6.getText().toString().trim(), "UTF-8");
-            service_2 = URLEncoder.encode(editText7.getText().toString().trim(), "UTF-8");
-            service_3 = URLEncoder.encode(editText8.getText().toString().trim(), "UTF-8");
-            service_4 = URLEncoder.encode(editText9.getText().toString().trim(), "UTF-8");
-            other_services = URLEncoder.encode(editText10.getText().toString().trim(), "UTF-8");
-            facebook_url = URLEncoder.encode(editText11.getText().toString().trim(), "UTF-8");
-            twitter_url = URLEncoder.encode(editText12.getText().toString().trim(), "UTF-8");
-            picassa_url = URLEncoder.encode(editText13.getText().toString().trim(), "UTF-8");
+        name = editText1.getText().toString().trim();
+        mobile = editText2.getText().toString().trim();
+        email = editText3.getText().toString().trim();
+        password = editText14.getText().toString().trim();
+        password_confirmation = editText15.getText().toString().trim();
+        desc = editText4.getText().toString().trim();
+        working_hours = editText5.getText().toString().trim();
+        service_1 = editText6.getText().toString().trim();
+        service_2 = editText7.getText().toString().trim();
+        service_3 = editText8.getText().toString().trim();
+        service_4 = editText9.getText().toString().trim();
+        other_services = editText10.getText().toString().trim();
+        facebook_url = editText11.getText().toString().trim();
+        twitter_url = editText12.getText().toString().trim();
+        picassa_url = editText13.getText().toString().trim();
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
-        if (name == null || name.trim().isEmpty()){
+        if (name == null || name.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_your_name));
             return false;
         }
-        if ( mobile == null ||  mobile.trim().isEmpty()){
+        if (mobile == null || mobile.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
             return false;
         }
-        if (email == null || email.trim().isEmpty()){
+        if (email == null || email.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
         }
@@ -687,51 +711,50 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
             return false;
         }
 
-        if (password == null || password.trim().isEmpty()){
+        if (password == null || password.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
             return false;
         }
-        if (desc == null || desc.trim().isEmpty()){
+        if (desc == null || desc.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.short_description));
             return false;
         }
-        if (countryId == null || countryId.trim().isEmpty()){
+        if (countryId == null || countryId.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.country1));
             return false;
         }
-        if (cityId == null || cityId.trim().isEmpty()){
+        if (cityId == null || cityId.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.city));
             return false;
         }
-        if (working_hours == null || working_hours.trim().isEmpty()){
+        if (working_hours == null || working_hours.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.work_hour));
             return false;
         }
-        if (service_1 == null || service_1.trim().isEmpty()){
+        if (service_1 == null || service_1.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.first_service));
             return false;
         }
-        if (service_2 == null || service_2.trim().isEmpty()){
+        if (service_2 == null || service_2.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.second_service));
             return false;
         }
-        if (service_3 == null || service_3.trim().isEmpty()){
+        if (service_3 == null || service_3.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.third_service));
             return false;
         }
-        if (service_4 == null || service_4.trim().isEmpty()){
+        if (service_4 == null || service_4.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.fourth_service));
             return false;
         }
-        if (delivery == null || delivery.trim().isEmpty()){
+        if (delivery == null || delivery.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.delivery_service));
             return false;
         }
-        if (!password.equalsIgnoreCase(password_confirmation)){
+        if (!password.equalsIgnoreCase(password_confirmation)) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password_not_equal));
             return false;
         }
-
 
 
         return true;
