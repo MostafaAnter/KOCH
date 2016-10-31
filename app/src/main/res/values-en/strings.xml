@@ -74,4 +74,10 @@
     <string name="more_details">More details</string>
     <string name="follow_us">follow us on social</string>
     <string name="location">Location</string>
+    <string name="confirmation_client_oreder">Confirmation Client Oreder</string>
+    <string name="title_of_request">Title of request</string>
+    <string name="details_of_request">Details of request</string>
+    <string name="cost_of_request">Put Cost</string>
+    <string name="discard">Discard</string>
+    <string name="send">Send</string>
 </resources>

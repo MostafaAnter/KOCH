@@ -73,4 +73,11 @@
     <string name="why_open_gps">يجب تشغيل ال GPS</string>
     <string name="wrong_mail_or_password">ادخلت ايميل او باسورد خطأ</string>
     <string name="yes_open_gps">نعم, شغل</string>
+    <string name="confirmation_client_oreder">نموذج تأكيد طلب العميل</string>
+    <string name="cost_of_request">ضع التكلفة</string>
+    <string name="details_of_request">تفاصيل الطلب</string>
+    <string name="discard">إلغاء</string>
+    <string name="location">الموقع</string>
+    <string name="send">إرسال</string>
+    <string name="title_of_request">عنوان الطلب</string>
 </resources>
