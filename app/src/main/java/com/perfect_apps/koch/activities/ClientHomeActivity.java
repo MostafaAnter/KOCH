@@ -61,6 +61,8 @@ import com.perfect_apps.koch.utils.MapStateManager;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -493,7 +495,7 @@ public class ClientHomeActivity extends LocalizationActivity
         Log.e("address info", sb.toString());
 
         button1.setVisibility(View.VISIBLE);
-        uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
+        // uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
     }
 
     private void uploadLocationToServer(final String lat,
@@ -545,6 +547,7 @@ public class ClientHomeActivity extends LocalizationActivity
 
             @Override
             public void onResponse(String response) {
+                response = StringEscapeUtils.unescapeJava(response);
                 Log.d("view all providers", response);
                 sdh.dismissDialog();
 

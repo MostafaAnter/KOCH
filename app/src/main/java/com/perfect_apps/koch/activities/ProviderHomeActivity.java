@@ -483,6 +483,7 @@ public class ProviderHomeActivity extends LocalizationActivity
 
         Log.e("address info", sb.toString());
 
+        if (!(new KochPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_UPLOAD_LOCATIONS_TIMES) == 1))
         uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
     }
 
@@ -497,6 +498,7 @@ public class ProviderHomeActivity extends LocalizationActivity
             @Override
             public void onResponse(String response) {
                 Log.d("upload client loc", response);
+                new KochPrefStore(ProviderHomeActivity.this).addPreference(Constants.PREFERENCE_UPLOAD_LOCATIONS_TIMES, 1);
 
             }
         }, new Response.ErrorListener() {

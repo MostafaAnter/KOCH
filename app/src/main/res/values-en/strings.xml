@@ -71,4 +71,5 @@
     <string name="why_open_gps">must active GPS to get your location</string>
     <string name="yes_open_gps">Yes, active</string>
     <string name="sign_out">Sign out</string>
+    <string name="more_details">More details</string>
 </resources>
