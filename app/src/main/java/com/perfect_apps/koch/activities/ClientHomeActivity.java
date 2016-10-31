@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -26,12 +27,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,10 +52,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.models.ProviderInfo;
+import com.perfect_apps.koch.parser.JsonParser;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
@@ -64,6 +73,7 @@ import com.perfect_apps.koch.utils.Utils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -95,6 +105,9 @@ public class ClientHomeActivity extends LocalizationActivity
     // for fetch last location
     GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+
+    // for draw markers
+    private List<Marker> markers;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +153,9 @@ public class ClientHomeActivity extends LocalizationActivity
                         .build();
             }
         }
+
+        // setup markers
+        this.markers = new ArrayList<>();
     }
 
     private void changeFontOfText() {
@@ -376,8 +392,9 @@ public class ClientHomeActivity extends LocalizationActivity
             new KochPrefStore(this).addPreference(Constants.userLastLocationLat, String.valueOf(mLastLocation.getLatitude()));
             new KochPrefStore(this).addPreference(Constants.userLastLocationLng, String.valueOf(mLastLocation.getLongitude()));
             // draw user marker
-            MapHelper.setUpMarker(mMap, new LatLng(mLastLocation.getLatitude(),
+            Marker marker = MapHelper.setUpMarkerAndReturnMarker(mMap, new LatLng(mLastLocation.getLatitude(),
                     mLastLocation.getLongitude()), R.drawable.map_user_marker);
+            markers.add(marker);
             try {
                 getAddressInfo(new LatLng(mLastLocation.getLatitude(),
                         mLastLocation.getLongitude()));
@@ -550,7 +567,7 @@ public class ClientHomeActivity extends LocalizationActivity
                 response = StringEscapeUtils.unescapeJava(response);
                 Log.d("view all providers", response);
                 sdh.dismissDialog();
-
+                drawListOfProviders(JsonParser.parseNearProviders(response));
 
             }
         }, new Response.ErrorListener() {
@@ -563,5 +580,61 @@ public class ClientHomeActivity extends LocalizationActivity
         });
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void drawListOfProviders(List<ProviderInfo> mList){
+        for (ProviderInfo provider:
+             mList) {
+            // draw user marker
+            drawMarker(provider);
+        }
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker marker : markers) {
+            builder.include(marker.getPosition());
+        }
+        LatLngBounds bounds = builder.build();
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
+        mMap.animateCamera(cu);
+    }
+
+    private void drawMarker(ProviderInfo providerInfo){
+        // Add a new marker to the map
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .title(providerInfo.getUsername())
+                .snippet(providerInfo.getDesc() + "\n" + providerInfo.getService_1() + "\n" + providerInfo.getService_2() +
+                "\n" + providerInfo.getService_3() + "\n" + providerInfo.getService_4() + "\n" + providerInfo.getOther_services())
+                .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.map_market_marker)))
+                .position(new LatLng(Double.valueOf(providerInfo.getAddresslat()),
+                        Double.valueOf(providerInfo.getAddresslng()))));
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(ClientHomeActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(ClientHomeActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(ClientHomeActivity.this);
+                snippet.setTextColor(Color.RED);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
+        markers.add(marker);
     }
 }

@@ -33,6 +33,21 @@ public class MapHelper {
         updateZoom(mMap, latLng);
     }
 
+    public static Marker setUpMarkerAndReturnMarker(GoogleMap mMap, LatLng latLng, int resID) {
+        MarkerOptions options = new MarkerOptions();
+        options.position(latLng);
+        //   options.title();
+        options.icon(BitmapDescriptorFactory.fromResource(resID));
+        Marker marker = mMap.addMarker(options);
+
+        marker.showInfoWindow();
+
+        //animate camera
+        updateZoom(mMap, latLng);
+
+        return marker;
+    }
+
     /*
      * Zooms the map to show the area of interest based on the search radius
      */
