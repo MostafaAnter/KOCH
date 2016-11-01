@@ -47,7 +47,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:layout_weight="1.5"
-                    android:text="MAkdonans"
+                    android:text=""
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -62,6 +62,7 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <com.zcw.togglebutton.ToggleButton
+                        android:id="@+id/toggleButton"
                         android:layout_width="60dp"
                         android:layout_height="25dp"
                         toggle:tbBorderWidth="2dp"
@@ -101,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="3/5"
+                    android:text=""
                     android:textColor="@color/red" />
 
                 <android.support.v7.widget.AppCompatRatingBar
@@ -112,7 +113,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
                     android:numStars="5"
-                    android:rating="5" />
+                    android:rating="0" />
 
             </LinearLayout>
 
@@ -121,8 +122,7 @@
                 android:layout_width="?android:attr/listPreferredItemHeightLarge"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="15dp"
-                android:src="@drawable/test_pic" />
+                android:layout_margin="15dp" />
         </RelativeLayout>
 
         <View
@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="0882309513" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -183,7 +183,7 @@
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="ga30000@gmail.com" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -223,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="From 8am to 9pm" />
+                android:text="" />
 
 
         </LinearLayout>
@@ -261,7 +261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="From 8am to 9pm" />
+                android:text="" />
 
 
         </LinearLayout>
@@ -305,7 +305,7 @@
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="ga30000@gmail.com" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -336,7 +336,7 @@
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="ga30000@gmail.com" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -372,7 +372,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
-            android:text="some text , some test dsfjlskaj jalkfdjslfkjlfkjsdlkfjslkfjslfkjsdlksjflksjfjdslkfjdslkjfsfjlksfjldsk"/>
+            android:text=""/>
 
         <LinearLayout
             android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
@@ -403,7 +403,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
             android:layout_marginBottom="@dimen/activity_horizontal_margin_plus"
-            android:text="some text , some test dsfjlskaj jalkfdjslfkjlfkjsdlkfjslkfjslfkjsdlksjflksjfjdslkfjdslkjfsfjlksfjldsk"/>
+            android:text=""/>
 
 
         <View
@@ -419,6 +419,7 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/vertical_margin"
             android:paddingRight="@dimen/vertical_margin" >
+
 
             <TextView
                 android:id="@+id/text18"
