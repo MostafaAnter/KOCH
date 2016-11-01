@@ -55,6 +55,10 @@ public class ClientChatsFragment extends Fragment{
     protected RecyclerView.LayoutManager mLayoutManager;
     protected List<InboxItem> mDataset;
 
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
+
     public ClientChatsFragment(){
 
     }
@@ -111,7 +115,6 @@ public class ClientChatsFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -120,6 +123,13 @@ public class ClientChatsFragment extends Fragment{
                 initiateRefresh();
             }
         });
+
+        onCreateGone =true;
+        if (visibleHintGone){
+          initiateRefresh();
+        }
+
+
 
     }
 
@@ -133,7 +143,9 @@ public class ClientChatsFragment extends Fragment{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser)
+            visibleHintGone = true;
+        if (isVisibleToUser && onCreateGone){
             initiateRefresh();
             if (mSwipeRefresh != null &&!mSwipeRefresh.isRefreshing())
                 mSwipeRefresh.setRefreshing(true);

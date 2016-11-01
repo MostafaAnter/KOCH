@@ -115,6 +115,10 @@ public class ClientDataFragment extends Fragment implements GoogleApiClient.Conn
     // for draw markers
     private List<Marker> markers;
 
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
+
     public ClientDataFragment(){
 
     }
@@ -149,38 +153,50 @@ public class ClientDataFragment extends Fragment implements GoogleApiClient.Conn
         linearLayoutEdit.setOnClickListener(this);
         linearLayoutExit.setOnClickListener(this);
 
+        onCreateGone =true;
+
+        if (visibleHintGone){
+            initFragment();
+        }
+
 
     }
+
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser)
+            visibleHintGone = true;
+        if (isVisibleToUser && onCreateGone){
+            initFragment();
+        }
+    }
 
-            getClientData();
+    private void initFragment() {
+        getClientData();
 
-            // Check if has GPS
-            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                buildAlertMessageNoGps();
+        // Check if has GPS
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+        }
+
+
+        // Create an instance of GoogleAPIClient.
+        if (Utils.isOnline(getActivity())) {
+            if (mGoogleApiClient == null) {
+                mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
             }
+        }
 
-
-            // Create an instance of GoogleAPIClient.
-            if (Utils.isOnline(getActivity())) {
-                if (mGoogleApiClient == null) {
-                    mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                            .addConnectionCallbacks(this)
-                            .addOnConnectionFailedListener(this)
-                            .addApi(LocationServices.API)
-                            .build();
-                }
-            }
-
-            if (mGoogleApiClient != null) {
-                mGoogleApiClient.connect();
-            }
-
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
         }
     }
 
