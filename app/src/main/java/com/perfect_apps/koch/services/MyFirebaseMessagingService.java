@@ -11,13 +11,13 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.activities.SplashActivity;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 
-import perfect_apps.tutors.R;
-import perfect_apps.tutors.activities.SplashActivity;
-import perfect_apps.tutors.store.TutorsPrefStore;
-import perfect_apps.tutors.utils.Constants;
 
 /**
  * Created by mostafa on 24/08/16.
@@ -58,10 +58,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        if (new TutorsPrefStore(this).getPreferenceValue(Constants.TEACHER_AUTHENTICATION_STATE)
-                .equalsIgnoreCase(Constants.TEACHER)||
-                new TutorsPrefStore(this).getPreferenceValue(Constants.STUDENT_AUTHENTICATION_STATE)
-                        .equalsIgnoreCase(Constants.STUDENT)) {
+        if (new KochPrefStore(this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("2")||
+                new KochPrefStore(this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")) {
             sendNotification(remoteMessage.getNotification().getBody());
         }
 
