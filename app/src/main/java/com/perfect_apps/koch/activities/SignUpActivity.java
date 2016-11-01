@@ -850,6 +850,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     }
 
     private void bindData(){
+        button1.setText(getString(R.string.edit));
         if (providerInfo != null){
             editText1.setText(providerInfo.getUsername());
             editText2.setText(providerInfo.getMobile());

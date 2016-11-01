@@ -1,6 +1,7 @@
 package com.perfect_apps.koch.parser;
 
 import com.perfect_apps.koch.models.Cities;
+import com.perfect_apps.koch.models.ClientInfo;
 import com.perfect_apps.koch.models.Countries;
 import com.perfect_apps.koch.models.ProviderInfo;
 
@@ -149,6 +150,26 @@ public class JsonParser {
         return new ProviderInfo(id, name, email, mobile, is_active, desc, countryId, cityId, countryName, cityName,
                 working_hours, service_1, service_2, service_3, service_4, other_services, delivery, facebook_url,
                 twitter_url, picassa_url, image_full_path, null, null, null);
+    }
+
+    public static ClientInfo parseClientInfo(String feed) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(feed);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONObject item = jsonObject.optJSONObject("item");
+
+        String id = item.optString("id");
+        String name = item.optString("name");
+        String email = item.optString("email");
+        String mobile = item.optString("mobile");/*dummy*/
+        String desc = item.optString("desc");
+        String is_active = item.optString("is_active");
+        String image_full_path = item.optString("image_full_path");
+
+        return new ClientInfo(id, name, email , mobile,image_full_path);
     }
 
 }
