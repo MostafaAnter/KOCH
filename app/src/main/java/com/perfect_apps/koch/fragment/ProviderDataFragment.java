@@ -30,6 +30,7 @@ import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
+import com.zcw.togglebutton.ToggleButton;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONException;
@@ -75,6 +76,8 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
     @BindView(R.id.fac)ImageView imageViewFac;
     @BindView(R.id.inst) ImageView imageViewInst;
     @BindView(R.id.twi)ImageView imageViewTwi;
+
+    @BindView(R.id.toggleButton)ToggleButton toggleButton;
 
 
 
@@ -225,6 +228,7 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
 
             }else {
                 rb.setRating(0);
+                textView3.setText("0/5");
             }
 
         } catch (JSONException e) {
@@ -234,6 +238,16 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
     }
 
     private void bindData(){
+
+        textView1.setText(providerInfo.getUsername());
+
+        if (providerInfo.getIsActive().equalsIgnoreCase("1")){
+            toggleButton.setToggleOn();
+        }else {
+            toggleButton.setToggleOff();
+        }
+
+
         if (providerInfo.getImage_full_path() != null && !providerInfo.getImage_full_path().trim().isEmpty())
         Glide.with(getActivity())
                 .load(providerInfo.getImage_full_path())
@@ -252,8 +266,8 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
             textView9.setText(getString(R.string.no));
         }
 
-        textView11.setText(providerInfo.getCountry_id());
-        textView13.setText(providerInfo.getCity_id());
+        textView11.setText(providerInfo.getCountry_name());
+        textView13.setText(providerInfo.getCity_name());
         textView15.setText(providerInfo.getDesc());
         textView17.setText(providerInfo.getService_1() + " ," + providerInfo.getService_2()
                 + " ," + providerInfo.getService_3() + " ," + providerInfo.getService_4() + " ," + providerInfo.getOther_services());
@@ -263,15 +277,15 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fac:
-                if (!providerInfo.getFacebook_url().trim().isEmpty())
+                if (!providerInfo.getFacebook_url().trim().isEmpty() && ! providerInfo.getFacebook_url().equalsIgnoreCase("null"))
                     Utils.browse(getActivity(), providerInfo.getFacebook_url());
                 break;
             case R.id.twi:
-                if (!providerInfo.getTwitter_url().trim().isEmpty())
+                if (!providerInfo.getTwitter_url().trim().isEmpty() && ! providerInfo.getTwitter_url().equalsIgnoreCase("null"))
                     Utils.browse(getActivity(), providerInfo.getTwitter_url());
                 break;
             case R.id.inst:
-                if (!providerInfo.getPicassa_url().trim().isEmpty())
+                if (!providerInfo.getPicassa_url().trim().isEmpty() && ! providerInfo.getPicassa_url().equalsIgnoreCase("null"))
                     Utils.browse(getActivity(), providerInfo.getPicassa_url());
                 break;
             case R.id.editProfile:

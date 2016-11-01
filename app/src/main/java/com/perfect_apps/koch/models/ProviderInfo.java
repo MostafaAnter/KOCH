@@ -25,6 +25,25 @@ public class ProviderInfo implements Parcelable {
     private String desc;
     private String country_id;
     private String city_id;
+
+    public String getCountry_name() {
+        return country_name;
+    }
+
+    public void setCountry_name(String country_name) {
+        this.country_name = country_name;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+
+    private String country_name;
+    private String city_name;
     private String working_hours;
     private String service_1;
     private String service_2;
@@ -44,7 +63,10 @@ public class ProviderInfo implements Parcelable {
 
     }
 
-    public ProviderInfo(String userId, String username, String email,String mobile, String isActive, String desc, String country_id, String city_id, String working_hours, String service_1, String service_2, String service_3, String service_4, String other_services, String delivery, String facebook_url, String twitter_url, String picassa_url, String image_full_path, String addressName, String addresslat, String addresslng) {
+    public ProviderInfo(String userId, String username, String email,
+                        String mobile, String isActive, String desc, String country_id,
+                        String city_id, String country_name, String city_name,
+                        String working_hours, String service_1, String service_2, String service_3, String service_4, String other_services, String delivery, String facebook_url, String twitter_url, String picassa_url, String image_full_path, String addressName, String addresslat, String addresslng) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -53,6 +75,8 @@ public class ProviderInfo implements Parcelable {
         this.desc = desc;
         this.country_id = country_id;
         this.city_id = city_id;
+        this.country_name = country_name;
+        this.city_name = city_name;
         this.working_hours = working_hours;
         this.service_1 = service_1;
         this.service_2 = service_2;
@@ -246,6 +270,8 @@ public class ProviderInfo implements Parcelable {
         desc = in.readString();
         country_id = in.readString();
         city_id = in.readString();
+        country_name = in.readString();
+        city_name = in.readString();
         working_hours = in.readString();
         service_1 = in.readString();
         service_2 = in.readString();
@@ -277,6 +303,8 @@ public class ProviderInfo implements Parcelable {
         dest.writeString(desc);
         dest.writeString(country_id);
         dest.writeString(city_id);
+        dest.writeString(country_name);
+        dest.writeString(city_name);
         dest.writeString(working_hours);
         dest.writeString(service_1);
         dest.writeString(service_2);

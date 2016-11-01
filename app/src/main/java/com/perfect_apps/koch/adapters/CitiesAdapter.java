@@ -23,13 +23,15 @@ public class CitiesAdapter extends ArrayAdapter {
 
     private Context mContext;
     private List<Cities> mDataset;
+    private Cities initCity;
     LayoutInflater inflater;
 
     /*************  TeachersListAdapter Constructor *****************/
     public CitiesAdapter(
             Context mContext,
             int textViewResourceId,
-            List<Cities> mDataset
+            List<Cities> mDataset,
+            Cities initCity
     )
     {
         super(mContext, textViewResourceId, mDataset);
@@ -37,9 +39,10 @@ public class CitiesAdapter extends ArrayAdapter {
         /********** Take passed values **********/
         this.mContext = mContext;
         this.mDataset = mDataset;
+        this.initCity = initCity;
 
         // for add fake item at first to make as title
-        this.mDataset.add(0, null);
+        this.mDataset.add(0, this.initCity);
         /***********  Layout inflator to call external xml layout () **********************/
         inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -69,7 +72,13 @@ public class CitiesAdapter extends ArrayAdapter {
         if(position==0){
 
             // Default selected Spinner item
-            label.setText(mContext.getString(R.string.city));
+            if (!mDataset.get(position).getName().equalsIgnoreCase("normal")){
+                label.setText(mDataset.get(position).getName());
+            }else {
+                label.setText(mContext.getString(R.string.city));
+            }
+
+
             label.setTextColor(Color.DKGRAY);
         }
         else

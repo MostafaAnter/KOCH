@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class JsonParser {
-    public static List<Countries> parseCountriesFeed(String feed){
+    public static List<Countries> parseCountriesFeed(String feed) {
         try {
             JSONObject jsonRootObject = new JSONObject(feed);
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("countries");
@@ -36,9 +36,9 @@ public class JsonParser {
 
     }
 
-    public static List<Cities> parseCitiesFeed(String feed){
+    public static List<Cities> parseCitiesFeed(String feed) {
         try {
-            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONObject jsonRootObject = new JSONObject(feed);
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("cities");
             List<Cities> brandList = new ArrayList<>();
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
@@ -55,7 +55,7 @@ public class JsonParser {
 
     }
 
-    public static List<ProviderInfo> parseNearProviders(String feed){
+    public static List<ProviderInfo> parseNearProviders(String feed) {
         try {
             JSONObject jsonRootObject = new JSONObject(feed);
             JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
@@ -79,6 +79,9 @@ public class JsonParser {
                 JSONObject provider_info = userData.optJSONObject("provider_info");
                 String country_id = provider_info.optString("country_id");
                 String city_id = provider_info.optString("city_id");
+                // edit here
+                String country_name = provider_info.optString("country_name");
+                String city_name = provider_info.optString("city_name");
                 String working_hours = provider_info.optString("working_hours");
                 String service_1 = provider_info.optString("service_1");
                 String service_2 = provider_info.optString("service_2");
@@ -91,8 +94,9 @@ public class JsonParser {
                 String picassa_url = provider_info.optString("picassa_url");
 
 
-                brandList.add(new ProviderInfo(user_id, userName, email,mobile, is_active, desc, country_id, city_id,
-                        working_hours, service_1, service_2, service_3,service_4, other_services,
+                brandList.add(new ProviderInfo(user_id, userName, email, mobile, is_active,
+                        desc, country_id, city_id, country_name, city_name,
+                        working_hours, service_1, service_2, service_3, service_4, other_services,
                         delivery, facebook_url, twitter_url, picassa_url, image_full_path, addressName,
                         lat, lng));
             }
@@ -105,7 +109,7 @@ public class JsonParser {
 
     }
 
-    public static ProviderInfo parseProviderInfo(String feed){
+    public static ProviderInfo parseProviderInfo(String feed) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(feed);
@@ -137,11 +141,14 @@ public class JsonParser {
         JSONObject country = provider_info.optJSONObject("country");
         JSONObject city = provider_info.optJSONObject("city");
 
+        String countryId = country.optString("id");
+        String cityId = city.optString("id");
         String countryName = country.optString("name");
         String cityName = city.optString("name");
 
-        return new ProviderInfo(id, name, email, mobile, is_active, desc , countryName, cityName,
+        return new ProviderInfo(id, name, email, mobile, is_active, desc, countryId, cityId, countryName, cityName,
                 working_hours, service_1, service_2, service_3, service_4, other_services, delivery, facebook_url,
-                twitter_url, picassa_url, image_full_path,null, null, null );
+                twitter_url, picassa_url, image_full_path, null, null, null);
     }
+
 }

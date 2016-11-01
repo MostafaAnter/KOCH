@@ -39,12 +39,15 @@ import com.perfect_apps.koch.adapters.CountriesAdapter;
 import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.models.Cities;
 import com.perfect_apps.koch.models.Countries;
+import com.perfect_apps.koch.models.ProviderInfo;
 import com.perfect_apps.koch.parser.JsonParser;
+import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 import com.perfect_apps.koch.utils.VolleyMultipartRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -158,6 +161,12 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     private String picassa_url;
     private Uri image;
 
+    // for update
+    private String flag;
+    private ProviderInfo providerInfo;
+    private String cityName = "";
+    private String countryName = "";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,6 +182,13 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
         populateSpinner1(new ArrayList<Countries>());
         populateSpinner2(new ArrayList<Cities>());
+
+        flag = getIntent().getStringExtra("flag");
+
+        if (flag != null){
+            getProviderDate();
+        }
+
     }
 
     private void setToolbar() {
@@ -235,7 +251,13 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
     private void populateSpinner1(List<Countries> mlist) {
 
-        CountriesAdapter spinnerArrayAdapter = new CountriesAdapter(this, R.layout.spinner_item, mlist);
+        CountriesAdapter spinnerArrayAdapter;
+        if (flag != null){
+            spinnerArrayAdapter = new CountriesAdapter(this, R.layout.spinner_item, mlist, new Countries("", countryName));
+        }else {
+            spinnerArrayAdapter = new CountriesAdapter(this, R.layout.spinner_item, mlist, new Countries("", "normal"));
+        }
+
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner1.setAdapter(spinnerArrayAdapter);
 
@@ -264,7 +286,13 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
     private void populateSpinner2(List<Cities> mlist) {
 
-        CitiesAdapter spinnerArrayAdapter = new CitiesAdapter(this, R.layout.spinner_item, mlist);
+        CitiesAdapter spinnerArrayAdapter;
+        if (flag != null){
+            spinnerArrayAdapter = new CitiesAdapter(this, R.layout.spinner_item, mlist, new Cities("", cityName));
+        }else {
+            spinnerArrayAdapter = new CitiesAdapter(this, R.layout.spinner_item, mlist, new Cities("", "normal"));
+        }
+
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner2.setAdapter(spinnerArrayAdapter);
 
@@ -508,7 +536,12 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 pickPhoto();
                 break;
             case R.id.button1:
-                register();
+                if (flag != null){
+                    updateProviderData();
+                }else {
+                    register();
+                }
+
                 break;
         }
     }
@@ -760,4 +793,276 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         return true;
 
     }
+
+    /**
+     * for update data
+     */
+    private void getProviderDate(){
+        if (Utils.isOnline(this)) {
+            // Set up a progress dialog
+            final SweetDialogHelper sdh = new SweetDialogHelper(this);
+            sdh.showMaterialProgress(getString(R.string.wait));
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = Constants.getProviderInfo;
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    response = StringEscapeUtils.unescapeJava(response);
+                    providerInfo = JsonParser.parseProviderInfo(response);
+                    bindData();
+                    sdh.dismissDialog();
+                    Log.d("response", response);
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    sdh.dismissDialog();
+                    // show error message
+                    sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("user_id", new KochPrefStore(SignUpActivity.this).getPreferenceValue(Constants.userId));
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        } else {
+            // show error message
+            new SweetAlertDialog(SignUpActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private void bindData(){
+        if (providerInfo != null){
+            editText1.setText(providerInfo.getUsername());
+            editText2.setText(providerInfo.getMobile());
+            editText3.setText(providerInfo.getEmail());
+
+
+            List<Countries> countriesList = new ArrayList<Countries>();
+            List<Cities> cities = new ArrayList<Cities>();
+
+            countriesList.add(0, new Countries(providerInfo.getCountry_id(), providerInfo.getCountry_name()));
+            countryId = providerInfo.getCountry_id();
+            countryName = providerInfo.getCountry_name();
+
+            cities.add(0, new Cities(providerInfo.getCity_id(), providerInfo.getCity_name()));
+            cityId = providerInfo.getCity_id();
+            cityName = providerInfo.getCity_name();
+
+            populateSpinner1(countriesList);
+            populateSpinner2(cities);
+
+            editText4.setText(providerInfo.getDesc());
+            editText5.setText(providerInfo.getWorking_hours());
+            editText6.setText(providerInfo.getService_1());
+            editText7.setText(providerInfo.getService_2());
+            editText8.setText(providerInfo.getService_3());
+            editText9.setText(providerInfo.getService_4());
+
+            editText10.setText(providerInfo.getOther_services().equalsIgnoreCase("null") ? "" : providerInfo.getOther_services());
+
+            if (providerInfo.getDelivery().equalsIgnoreCase("1"))
+                checkBox1.setChecked(true);
+
+            Glide.with(this)
+                    .load(providerInfo.getImage_full_path())
+                    .placeholder(R.color.gray_btn_bg_color)
+                    .centerCrop()
+                    .crossFade()
+                    .thumbnail(0.1f)
+                    .into(imageView1);
+
+            editText11.setText(providerInfo.getFacebook_url().equalsIgnoreCase("null") ? "" : providerInfo.getFacebook_url());
+            editText12.setText(providerInfo.getTwitter_url().equalsIgnoreCase("null") ? "" : providerInfo.getTwitter_url());
+            editText13.setText(providerInfo.getPicassa_url().equalsIgnoreCase("null") ? "" : providerInfo.getPicassa_url());
+
+            editText14.setText(new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+            editText15.setText(new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+        }
+
+    }
+
+    private void updateProviderData() {
+
+        if (registerConditionsIsOk()) {
+
+            if (Utils.isOnline(this)) {
+
+                // make request
+                final SweetDialogHelper sdh = new SweetDialogHelper(this);
+                sdh.showMaterialProgress(getString(R.string.wait));
+                String tag_string_req = "string_req";
+                String url = "http://services-apps.net/koch/api/update/provider";
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        sdh.dismissDialog();
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject result = new JSONObject(resultResponse);
+                            Log.d("response", resultResponse);
+                            finish();
+//                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
+//                            intent.putExtra("email", email);
+//                            intent.putExtra("password", password);
+//                            startActivity(intent);
+//                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        String errorServerMessage = "";
+                        if (error.networkResponse.data != null) {
+                            errorServerMessage = new String(error.networkResponse.data);
+                            try {
+                                JSONObject errorMessageObject = new JSONObject(errorServerMessage);
+                                Log.e("server error", errorMessageObject.toString());
+                                JSONObject jsonObjectError = errorMessageObject.optJSONObject("errors");
+                                errorServerMessage = jsonObjectError.toString();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        // show error message
+                        sdh.showErrorMessage(getString(R.string.error), errorServerMessage);
+
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message + " Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message + " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message + " Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("current_password", new KochPrefStore(SignUpActivity.this).getPreferenceValue(Constants.userPassword));
+                        params.put("current_email", new KochPrefStore(SignUpActivity.this).getPreferenceValue(Constants.userEmail));
+
+                        if (name != null && !name.trim().isEmpty())
+                            params.put("name", name);
+                        if (email != null && !email.trim().isEmpty())
+                            params.put("email", email);
+                        if (password != null && !password.trim().isEmpty())
+                            params.put("password", password);
+                        if (password_confirmation != null && !password_confirmation.trim().isEmpty())
+                            params.put("password_confirmation", password_confirmation);
+                        if (countryId != null && !countryId.trim().isEmpty())
+                            params.put("country_id", countryId);
+                        if (cityId != null && !cityId.trim().isEmpty())
+                            params.put("city_id", cityId);
+                        if (delivery != null && !delivery.trim().isEmpty())
+                            params.put("delivery", delivery);
+                        if (desc != null && !desc.trim().isEmpty())
+                            params.put("desc", desc);
+                        if (mobile != null && !mobile.trim().isEmpty())
+                            params.put("mobile", mobile);
+                        if (working_hours != null && !working_hours.trim().isEmpty())
+                            params.put("working_hours", working_hours);
+                        if (service_1 != null && !service_1.trim().isEmpty())
+                            params.put("service_1", service_1);
+                        if (service_2 != null && !service_2.trim().isEmpty())
+                            params.put("service_2", service_2);
+                        if (service_3 != null && !service_3.trim().isEmpty())
+                            params.put("service_3", service_3);
+                        if (service_4 != null && !service_4.trim().isEmpty())
+                            params.put("service_4", service_4);
+                        if (other_services != null && !other_services.trim().isEmpty())
+                            params.put("other_services", other_services);
+                        if (facebook_url != null && !facebook_url.trim().isEmpty())
+                            params.put("facebook_url", facebook_url);
+                        if (twitter_url != null && !twitter_url.trim().isEmpty())
+                            params.put("twitter_url", twitter_url);
+                        if (picassa_url != null && !picassa_url.trim().isEmpty())
+                            params.put("picassa_url", picassa_url);
+
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+
+                        if (image != null)
+                            params.put("image", new DataPart("file_avatar.jpg", Utils.getFileDataFromDrawable(SignUpActivity.this,
+                                    image), "image/jpeg"));
+
+                        return params;
+                    }
+                };
+
+                int socketTimeout = 30000;//30 seconds - change to what you want
+                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+                multipartRequest.setRetryPolicy(policy);
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+
+            } else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("ناسف...")
+                        .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                        .show();
+            }
+        }
+
+    }
+
 }
