@@ -10,6 +10,16 @@ import android.os.Parcelable;
 public class ProviderInfo implements Parcelable {
     private String userId;
     private String username;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private String mobile;
     private String isActive;
     private String desc;
@@ -34,9 +44,10 @@ public class ProviderInfo implements Parcelable {
 
     }
 
-    public ProviderInfo(String userId, String username, String mobile, String isActive, String desc, String country_id, String city_id, String working_hours, String service_1, String service_2, String service_3, String service_4, String other_services, String delivery, String facebook_url, String twitter_url, String picassa_url, String image_full_path, String addressName, String addresslat, String addresslng) {
+    public ProviderInfo(String userId, String username, String email,String mobile, String isActive, String desc, String country_id, String city_id, String working_hours, String service_1, String service_2, String service_3, String service_4, String other_services, String delivery, String facebook_url, String twitter_url, String picassa_url, String image_full_path, String addressName, String addresslat, String addresslng) {
         this.userId = userId;
         this.username = username;
+        this.email = email;
         this.mobile = mobile;
         this.isActive = isActive;
         this.desc = desc;
@@ -229,6 +240,7 @@ public class ProviderInfo implements Parcelable {
     protected ProviderInfo(Parcel in) {
         userId = in.readString();
         username = in.readString();
+        email = in.readString();
         mobile = in.readString();
         isActive = in.readString();
         desc = in.readString();
@@ -259,6 +271,7 @@ public class ProviderInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(userId);
         dest.writeString(username);
+        dest.writeString(email);
         dest.writeString(mobile);
         dest.writeString(isActive);
         dest.writeString(desc);

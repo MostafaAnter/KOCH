@@ -26,6 +26,9 @@ public class Constants {
     public static final String clientUploadLoc = BuildConfig.API_BASE_URL + "set_location/client";
     public static final String providerUploadLoc = BuildConfig.API_BASE_URL + "set_location/provider";
     public static final String viewAllProviders = BuildConfig.API_BASE_URL + "location/show/provider";
+    public static final String getProviderInfo = BuildConfig.API_BASE_URL + "info/provider";
+    public static final String getClientInfo = BuildConfig.API_BASE_URL + "info/client";
+    public static final String providerRateInfo = BuildConfig.API_BASE_URL + "show/rates/grouping?provider_id=";
 
 
     /**

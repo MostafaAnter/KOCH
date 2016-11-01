@@ -57,7 +57,7 @@ dependencies {
     // for get current location
     compile 'com.google.android.gms:play-services-location:9.8.0'
     // for FCM
-    compile 'com.google.firebase:firebase-messaging:9.4.0'
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
     // green bus
     compile 'org.greenrobot:eventbus:3.0.0'
 }

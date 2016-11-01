@@ -91,7 +91,7 @@ public class JsonParser {
                 String picassa_url = provider_info.optString("picassa_url");
 
 
-                brandList.add(new ProviderInfo(user_id, userName, mobile, is_active, desc, country_id, city_id,
+                brandList.add(new ProviderInfo(user_id, userName, email,mobile, is_active, desc, country_id, city_id,
                         working_hours, service_1, service_2, service_3,service_4, other_services,
                         delivery, facebook_url, twitter_url, picassa_url, image_full_path, addressName,
                         lat, lng));
@@ -103,5 +103,45 @@ public class JsonParser {
         }
 
 
+    }
+
+    public static ProviderInfo parseProviderInfo(String feed){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(feed);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONObject item = jsonObject.optJSONObject("item");
+
+        String id = item.optString("id");
+        String name = item.optString("name");
+        String email = item.optString("email");
+        String mobile = item.optString("mobile");/*dummy*/
+        String desc = item.optString("desc");
+        String is_active = item.optString("is_active");
+        String image_full_path = item.optString("image_full_path");
+
+        JSONObject provider_info = item.optJSONObject("provider_info");
+
+        String working_hours = provider_info.optString("working_hours");
+        String service_1 = provider_info.optString("service_1");
+        String service_2 = provider_info.optString("service_2");
+        String service_3 = provider_info.optString("service_3");
+        String service_4 = provider_info.optString("service_4");
+        String other_services = provider_info.optString("other_services");
+        String delivery = provider_info.optString("delivery");
+        String facebook_url = provider_info.optString("facebook_url");
+        String twitter_url = provider_info.optString("twitter_url");
+        String picassa_url = provider_info.optString("picassa_url");
+        JSONObject country = provider_info.optJSONObject("country");
+        JSONObject city = provider_info.optJSONObject("city");
+
+        String countryName = country.optString("name");
+        String cityName = city.optString("name");
+
+        return new ProviderInfo(id, name, email, mobile, is_active, desc , countryName, cityName,
+                working_hours, service_1, service_2, service_3, service_4, other_services, delivery, facebook_url,
+                twitter_url, picassa_url, image_full_path,null, null, null );
     }
 }

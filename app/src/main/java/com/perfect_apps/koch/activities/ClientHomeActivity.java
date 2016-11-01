@@ -336,6 +336,7 @@ public class ClientHomeActivity extends LocalizationActivity
 
     @Override
     protected void onStop() {
+        if (mGoogleApiClient != null)
         mGoogleApiClient.disconnect();
         super.onStop();
         if (mMap != null) {
