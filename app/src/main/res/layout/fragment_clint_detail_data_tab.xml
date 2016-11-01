@@ -31,29 +31,27 @@
                     android:layout_weight="1">
 
                     <LinearLayout
-                        android:id="@+id/editProfile"
-                        android:layout_width="?android:attr/listPreferredItemHeightLarge"
-                        android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                        android:id="@+id/block"
+                        android:layout_width="?android:attr/listPreferredItemHeight"
+                        android:layout_height="?android:attr/listPreferredItemHeight"
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
-                        android:background="@drawable/circle"
+                        android:background="@drawable/circle_red"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="@dimen/editTextHeight"
                             android:layout_height="@dimen/editTextHeight"
-                            android:src="@drawable/regi_ti_icon" />
-
-                        <TextView
-                            android:id="@+id/text1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/edit"
-                            android:textColor="@color/red" />
+                            android:src="@drawable/ic_block_black_24dp" />
 
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/block"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
 
 
@@ -73,7 +71,7 @@
                             android:id="@+id/imageView1"
                             android:layout_width="?android:attr/listPreferredItemHeight"
                             android:layout_height="?android:attr/listPreferredItemHeight"
-                            />
+                            android:src="@drawable/user_avatar" />
 
                         <TextView
                             android:id="@+id/text2"
@@ -81,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="" />
+                            android:text="سامى محمد باشا" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -92,27 +90,19 @@
                     android:layout_weight="1">
 
                     <LinearLayout
-                        android:id="@+id/exit"
-                        android:layout_width="?android:attr/listPreferredItemHeightLarge"
-                        android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                        android:id="@+id/call"
+                        android:layout_width="?android:attr/listPreferredItemHeight"
+                        android:layout_height="?android:attr/listPreferredItemHeight"
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
-                        android:background="@drawable/circle"
+                        android:background="@drawable/circle_green"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="@dimen/editTextHeight"
                             android:layout_height="@dimen/editTextHeight"
-                            android:src="@drawable/client_logout" />
-
-                        <TextView
-                            android:id="@+id/text3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/exit"
-                            android:textColor="@color/red" />
+                            android:src="@drawable/ic_phone_in_talk_black_24dp_white" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -149,7 +139,7 @@
                         android:layout_gravity="center_vertical"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="" />
+                        android:text="0123456789" />
 
                 </LinearLayout>
 
@@ -178,7 +168,7 @@
                         android:layout_gravity="center_vertical"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="" />
+                        android:text="ga30000@gmail.com" />
 
                 </LinearLayout>
             </LinearLayout>

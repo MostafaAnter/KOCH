@@ -37,13 +37,11 @@ public class ClientDataFragment extends Fragment implements OnMapReadyCallback{
 
     @BindView(R.id.map)
     MapView mapView;
-
     @BindView(R.id.text1) TextView textView1;
     @BindView(R.id.text2) TextView textView2;
     @BindView(R.id.text3) TextView textView3;
     @BindView(R.id.text4) TextView textView4;
     @BindView(R.id.text5) TextView textView5;
-
     @BindView(R.id.button1) Button button1;
 
     private GoogleMap mMap;
