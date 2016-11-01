@@ -99,4 +99,12 @@
     <string name="no">No, there is no delievery</string>
     <string name="block">Block</string>
     <string name="client_name">Client Name</string>
+    <string name="done">Done!</string>
+    <string name="your_blocked_this_user">You are Blocked this user</string>
+    <string name="you_are_blocked_this_user">you are blocked this user before</string>
+    <string name="you_are_unbloked_this_user">you are unbloked this user</string>
+    <string name="this_user_is_not_blocked">this user is not blocked before</string>
+    <string name="sender_info">Sender Info</string>
+    <string name="un_block">Un Block</string>
+    <string name="delete">Delete</string>
 </resources>

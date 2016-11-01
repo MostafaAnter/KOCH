@@ -58,6 +58,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.8.0'
     // for FCM
     compile 'com.google.firebase:firebase-messaging:9.8.0'
+    // for dialog
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.2@aar'
+    compile 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
     // green bus
     compile 'org.greenrobot:eventbus:3.0.0'
 }

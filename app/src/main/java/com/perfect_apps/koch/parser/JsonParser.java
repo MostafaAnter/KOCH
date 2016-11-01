@@ -3,7 +3,9 @@ package com.perfect_apps.koch.parser;
 import com.perfect_apps.koch.models.Cities;
 import com.perfect_apps.koch.models.ClientInfo;
 import com.perfect_apps.koch.models.Countries;
+import com.perfect_apps.koch.models.InboxItem;
 import com.perfect_apps.koch.models.ProviderInfo;
+import com.perfect_apps.koch.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -172,4 +174,32 @@ public class JsonParser {
         return new ClientInfo(id, name, email , mobile,image_full_path);
     }
 
+    public static List<InboxItem> parseMyMessages(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+            List<InboxItem> teacherItems = new ArrayList<>();
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String id = jsonObject.optString("id");
+                String message = jsonObject.optString("message");
+                String created_at = jsonObject.optString("created_at");
+                String new_count = jsonObject.optString("new_count");
+                JSONObject sender = jsonObject.optJSONObject("sender");
+                String name = sender.optString("name");
+                String group_id  = sender.optString("group_id");
+                String user_id = sender.optString("id");
+                String image_full_path = sender.optString("image_full_path");
+                teacherItems.add(new InboxItem(name, id, user_id, message,
+                        Utils.manipulateDateFormat(created_at),
+                        image_full_path , new_count, group_id));
+            }
+            return teacherItems;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
 }
