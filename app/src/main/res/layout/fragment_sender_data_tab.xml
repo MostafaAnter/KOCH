@@ -105,6 +105,7 @@
                     android:textColor="@color/red" />
 
                 <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/ratingBar"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,6 +117,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/profileImage"
                 android:layout_width="?android:attr/listPreferredItemHeightLarge"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge"
                 android:layout_alignParentBottom="true"
@@ -409,6 +411,7 @@
             android:layout_height="1dp" />
 
         <LinearLayout
+            android:id="@+id/editProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -416,7 +419,6 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/vertical_margin"
             android:paddingRight="@dimen/vertical_margin" >
-
 
             <TextView
                 android:id="@+id/text18"
@@ -433,20 +435,23 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/twi"
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
+                android:layout_height="match_parent"
                 android:padding="5dp"
                 android:src="@drawable/pro_soc_twitter" />
 
             <ImageView
+                android:id="@+id/inst"
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
+                android:layout_height="match_parent"
                 android:padding="5dp"
                 android:src="@drawable/pro_soc_instgram" />
 
             <ImageView
+                android:id="@+id/fac"
                 android:layout_width="@dimen/editTextHeight"
-                android:layout_height="@dimen/editTextHeight"
+                android:layout_height="match_parent"
                 android:padding="5dp"
                 android:src="@drawable/pro_soc_face" />
 

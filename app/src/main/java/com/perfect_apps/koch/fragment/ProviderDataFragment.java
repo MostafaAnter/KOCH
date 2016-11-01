@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -16,10 +18,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.activities.ClientHomeActivity;
 import com.perfect_apps.koch.activities.SignInActivity;
+import com.perfect_apps.koch.activities.SignUpActivity;
 import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.models.ProviderInfo;
 import com.perfect_apps.koch.parser.JsonParser;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
@@ -41,7 +46,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by mostafa_anter on 10/3/16.
  */
 
-public class ProviderDataFragment extends Fragment{
+public class ProviderDataFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.text1) TextView textView1 ;
     @BindView(R.id.text2) TextView textView2 ;
     @BindView(R.id.text3) TextView textView3 ;
@@ -61,7 +66,19 @@ public class ProviderDataFragment extends Fragment{
     @BindView(R.id.text17) TextView textView17 ;
     @BindView(R.id.text18) TextView textView18 ;
 
+    @BindView(R.id.profileImage)ImageView imageView1;
+
     @BindView(R.id.ratingBar)RatingBar rb;
+
+    @BindView(R.id.editProfile)
+    LinearLayout linearLayoutEditProfile;
+    @BindView(R.id.fac)ImageView imageViewFac;
+    @BindView(R.id.inst) ImageView imageViewInst;
+    @BindView(R.id.twi)ImageView imageViewTwi;
+
+
+
+    private ProviderInfo providerInfo;
 
     public ProviderDataFragment (){
 
@@ -107,6 +124,11 @@ public class ProviderDataFragment extends Fragment{
         changeTextFont();
         getProviderDate();
         getRateInfo();
+
+        imageViewFac.setOnClickListener(this);
+        imageViewInst.setOnClickListener(this);
+        imageViewTwi.setOnClickListener(this);
+        linearLayoutEditProfile.setOnClickListener(this);
     }
 
     private void getProviderDate(){
@@ -124,6 +146,9 @@ public class ProviderDataFragment extends Fragment{
 
                     @Override
                     public void onResponse(String response) {
+                        response = StringEscapeUtils.unescapeJava(response);
+                        providerInfo = JsonParser.parseProviderInfo(response);
+                        bindData();
                         sdh.dismissDialog();
                         Log.d("response", response);
                     }
@@ -196,6 +221,7 @@ public class ProviderDataFragment extends Fragment{
                 double rate = (rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
                 float totalRate = (float) Math.round(rate * 10)/10;
                 rb.setRating(totalRate);
+                textView3.setText(String.valueOf(totalRate) + "/5");
 
             }else {
                 rb.setRating(0);
@@ -205,5 +231,54 @@ public class ProviderDataFragment extends Fragment{
             e.printStackTrace();
         }
 
+    }
+
+    private void bindData(){
+        if (providerInfo.getImage_full_path() != null && !providerInfo.getImage_full_path().trim().isEmpty())
+        Glide.with(getActivity())
+                .load(providerInfo.getImage_full_path())
+                .placeholder(R.color.gray_btn_bg_color)
+                .centerCrop()
+                .crossFade()
+                .thumbnail(0.1f)
+                .into(imageView1);
+        textView4.setText(providerInfo.getMobile());
+        textView5.setText(providerInfo.getEmail());
+        textView7.setText(providerInfo.getWorking_hours());
+        if (!providerInfo.getDelivery().trim().isEmpty()
+                && providerInfo.getDelivery().equalsIgnoreCase("1")){
+            textView9.setText(getString(R.string.yes));
+        }else {
+            textView9.setText(getString(R.string.no));
+        }
+
+        textView11.setText(providerInfo.getCountry_id());
+        textView13.setText(providerInfo.getCity_id());
+        textView15.setText(providerInfo.getDesc());
+        textView17.setText(providerInfo.getService_1() + " ," + providerInfo.getService_2()
+                + " ," + providerInfo.getService_3() + " ," + providerInfo.getService_4() + " ," + providerInfo.getOther_services());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fac:
+                if (!providerInfo.getFacebook_url().trim().isEmpty())
+                    Utils.browse(getActivity(), providerInfo.getFacebook_url());
+                break;
+            case R.id.twi:
+                if (!providerInfo.getTwitter_url().trim().isEmpty())
+                    Utils.browse(getActivity(), providerInfo.getTwitter_url());
+                break;
+            case R.id.inst:
+                if (!providerInfo.getPicassa_url().trim().isEmpty())
+                    Utils.browse(getActivity(), providerInfo.getPicassa_url());
+                break;
+            case R.id.editProfile:
+                Intent intent = new Intent(getActivity(), SignUpActivity.class);
+                intent.putExtra("flag", "edit");
+                startActivity(intent);
+                break;
+        }
     }
 }

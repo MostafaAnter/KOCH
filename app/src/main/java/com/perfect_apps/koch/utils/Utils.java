@@ -1,6 +1,7 @@
 package com.perfect_apps.koch.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,5 +45,10 @@ public class Utils {
         }
 
 
+    }
+
+    public static void browse(Context mContext, String url){
+        Intent intent= new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        mContext.startActivity(intent);
     }
 }

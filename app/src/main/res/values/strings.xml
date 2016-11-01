@@ -95,4 +95,6 @@
     <string name="discard">Discard</string>
     <string name="send">Send</string>
     <string name="title_activity_client_detail">ClientDetailActivity</string>
+    <string name="yes">Yes there</string>
+    <string name="no">No, there is no delievery</string>
 </resources>

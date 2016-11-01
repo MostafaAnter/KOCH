@@ -80,4 +80,6 @@
     <string name="cost_of_request">Put Cost</string>
     <string name="discard">Discard</string>
     <string name="send">Send</string>
+    <string name="yes">Yes there</string>
+    <string name="no">No, there is no delievery</string>
 </resources>
