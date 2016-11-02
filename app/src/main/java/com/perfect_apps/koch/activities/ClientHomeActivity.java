@@ -645,7 +645,7 @@ public class ClientHomeActivity extends LocalizationActivity
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
-                Toast.makeText(ClientHomeActivity.this, providerInfo.getUsername(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ClientHomeActivity.this, providerInfo.getUsername(), Toast.LENGTH_SHORT).show();
                 Constants.sharedUserId = providerInfo.getUserId();
                 Constants.sharedUserlat = providerInfo.getAddresslat();
                 Constants.sharedUserlng = providerInfo.getAddresslng();
