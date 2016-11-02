@@ -59,11 +59,14 @@
                 android:layout_height="@dimen/editTextHeight"
                 android:layout_weight="1"
                 android:inputType="text"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:padding="3dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/border_shape_green_radius_chat" />
 
             <ImageView
+                android:id="@+id/send_request"
                 android:contentDescription="@null"
                 android:layout_width="30dip"
                 android:layout_height="match_parent"

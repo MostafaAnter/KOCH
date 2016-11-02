@@ -42,4 +42,12 @@ public class Constants {
     public static final String userGroupId = "groupId";
     public static final String userLastLocationLat = "userLastLocationLat";
     public static final String userLastLocationLng = "userLastLocationLng";
+
+    /**
+     * some shared data
+     */
+    public static String sharedUserId = "";
+    public static String sharedUserlat = "";
+    public static String sharedUserlng = "";
+
 }

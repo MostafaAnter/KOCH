@@ -4,6 +4,7 @@ package com.perfect_apps.koch.activities;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -147,7 +148,7 @@ public class ConversationActivity extends LocalizationActivity implements View.O
                 ft1.addToBackStack(null);
 
                 // Create and show the dialog.
-                SendRequestDialog newFragment1 = SendRequestDialog.newInstance(mStackLevel);
+                DialogFragment newFragment1 = SendRequestDialog.newInstance(mStackLevel);
                 Bundle bundle1 = new Bundle();
                 bundle1.putString("user_id", mBundle.getString("user_id"));
                 newFragment1.setArguments(bundle1);
