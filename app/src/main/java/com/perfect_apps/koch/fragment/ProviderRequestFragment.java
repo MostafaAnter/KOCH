@@ -1,6 +1,5 @@
 package com.perfect_apps.koch.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,14 +12,27 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.R;
-import com.perfect_apps.koch.adapters.InboxItemsAdapter;
 import com.perfect_apps.koch.adapters.OrderItemsAdapter;
-import com.perfect_apps.koch.models.InboxItem;
-import com.perfect_apps.koch.models.OrderItem;
+import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.models.OrderRequest;
+import com.perfect_apps.koch.parser.JsonParser;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.DividerItemDecoration;
+import com.perfect_apps.koch.utils.Utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +45,13 @@ import butterknife.ButterKnife;
 
 public class ProviderRequestFragment extends Fragment{
 
+    @BindView(R.id.noData)
+    LinearLayout noDataView;
+
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    @BindView(R.id.swipeRefresh)SwipeRefreshLayout mSwipeRefresh;
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout mSwipeRefresh;
 
     private static final String TAG = "ProviderChatsFragment";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
@@ -51,7 +67,11 @@ public class ProviderRequestFragment extends Fragment{
 
     protected OrderItemsAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected List<OrderItem> mDataset;
+    protected List<OrderRequest> mDataset;
+
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
 
     public ProviderRequestFragment(){
 
@@ -120,6 +140,11 @@ public class ProviderRequestFragment extends Fragment{
             }
         });
 
+        onCreateGone = true;
+        if (visibleHintGone) {
+            initiateRefresh();
+        }
+
     }
 
     @Override
@@ -132,10 +157,15 @@ public class ProviderRequestFragment extends Fragment{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser)
+            visibleHintGone = true;
+        if (isVisibleToUser && onCreateGone) {
             initiateRefresh();
             if (mSwipeRefresh != null && !mSwipeRefresh.isRefreshing())
                 mSwipeRefresh.setRefreshing(true);
+
+            visibleHintGone = false;
+            onCreateGone = false;
         }
     }
 
@@ -167,38 +197,92 @@ public class ProviderRequestFragment extends Fragment{
     }
 
     private void initiateRefresh(){
-        new FakTask().execute();
+        loadDataProvider();
     }
 
     private void onRefreshComplete(){
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);
         }
+
+        if (mDataset.size() > 0) {
+            noDataView.setVisibility(View.GONE);
+        } else {
+            noDataView.setVisibility(View.VISIBLE);
+        }
+
     }
 
-    private class FakTask extends AsyncTask<Void, Void, Void> {
+    private void loadDataProvider(){
+        String url = BuildConfig.API_BASE_URL + "get_request/provider?email="
+                + new KochPrefStore(getActivity()).getPreferenceValue(Constants.userEmail)
+                + "&password=" + new KochPrefStore(getActivity()).getPreferenceValue(Constants.userPassword);
 
-        @Override
-        protected Void doInBackground(Void... params) {
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null && !Utils.isOnline(getActivity())) {
             try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
+                String data = new String(entry.data, "UTF-8");
+                data = StringEscapeUtils.unescapeJava(data);
+                clearDataSet();
+                for (OrderRequest item :
+                        JsonParser.parseOrderRequest(data)) {
+                    mDataset.add(item);
+                    mAdapter.notifyDataSetChanged();
+                    onRefreshComplete();
+
+                }
+
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            return null;
-        }
+        } else {
+            if (Utils.isOnline(getActivity())) {
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            OrderItem inboxItem = new OrderItem();
-            for (int i = 0;  i < 20; i++){
-                mDataset.add(inboxItem);
-                mAdapter.notifyDataSetChanged();
+                // Cached response doesn't exists. Make network call here
+                if (!mSwipeRefresh.isRefreshing())
+                    mSwipeRefresh.setRefreshing(true);
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, response);
+                        response = StringEscapeUtils.unescapeJava(response);
+                        clearDataSet();
+                        for ( OrderRequest item :
+                                JsonParser.parseOrderRequest(response)) {
+                            mDataset.add(item);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
+                        onRefreshComplete();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        onRefreshComplete();
+
+                    }
+                });
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
             }
-
-            onRefreshComplete();
         }
+
     }
 
+    // remove all item from RecyclerView
+    private void clearDataSet() {
+        if (mDataset != null) {
+            mDataset.clear();
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 }
