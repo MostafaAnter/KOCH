@@ -49,6 +49,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.store.KochPrefStore;
@@ -135,6 +137,7 @@ public class ProviderHomeActivity extends LocalizationActivity
         }
 
 
+        pushToken();
     }
 
     private void changeFontOfText() {
@@ -523,6 +526,43 @@ public class ProviderHomeActivity extends LocalizationActivity
 
             }
         };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void pushToken() {
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = BuildConfig.API_BASE_URL + "token/add";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("push_token_response", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token_id", FirebaseInstanceId.getInstance().getToken());
+                params.put("email", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userEmail));
+                params.put("password", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userPassword));
+                return params;
+
+            }
+        };
+
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -51,7 +52,6 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
 
     @BindView(R.id.text1)
     TextView textView1 ;
-    @BindView(R.id.text2) TextView textView2 ;
     @BindView(R.id.text3) TextView textView3 ;
     @BindView(R.id.text4) TextView textView4 ;
     @BindView(R.id.text5) TextView textView5 ;
@@ -72,6 +72,7 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
     @BindView(R.id.profileImage)ImageView imageView1;
 
     @BindView(R.id.ratingBar)RatingBar rb;
+    @BindView(R.id.ratingBarContainer)FrameLayout frameLayout;
 
     @BindView(R.id.editProfile)
     LinearLayout linearLayoutEditProfile;
@@ -101,7 +102,6 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
 
 
         textView1.setTypeface(font);
-        textView2.setTypeface(font);
         textView3.setTypeface(font);
         textView4.setTypeface(font);
         textView5.setTypeface(font);
@@ -132,7 +132,7 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
         imageViewInst.setOnClickListener(this);
         imageViewTwi.setOnClickListener(this);
         linearLayoutCall.setOnClickListener(this);
-        rb.setOnClickListener(this);
+        frameLayout.setOnClickListener(this);
     }
     private void getProviderDate(){
         if (Utils.isOnline(getActivity())) {
@@ -282,11 +282,10 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
                     Utils.browse(getActivity(), providerInfo.getPicassa_url());
                 break;
             case R.id.call:
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:"+providerInfo.getMobile()));
+                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(providerInfo.getMobile()));
                 startActivity(callIntent);
                 break;
-            case R.id.ratingBar:
+            case R.id.ratingBarContainer:
 
                 mStackLevel++;
                 FragmentTransaction ft1 = getFragmentManager().beginTransaction();
