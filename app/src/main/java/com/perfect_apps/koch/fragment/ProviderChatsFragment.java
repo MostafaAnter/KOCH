@@ -44,6 +44,7 @@ import com.perfect_apps.koch.utils.RecyclerItemClickListener;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -306,11 +307,7 @@ public class ProviderChatsFragment extends Fragment {
         if (entry != null && !Utils.isOnline(getActivity())) {
             try {
                 String data = new String(entry.data, "UTF-8");
-                try {
-                    data = URLDecoder.decode(data, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                data = StringEscapeUtils.unescapeJava(data);
                 clearDataSet();
                 for (InboxItem item :
                         JsonParser.parseMyMessages(data)) {
@@ -338,12 +335,7 @@ public class ProviderChatsFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, response);
-
-                        try {
-                            response = URLDecoder.decode(response, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                        response = StringEscapeUtils.unescapeJava(response);
                         clearDataSet();
                         for (InboxItem item :
                                 JsonParser.parseMyMessages(response)) {

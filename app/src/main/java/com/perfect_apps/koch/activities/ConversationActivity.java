@@ -37,6 +37,7 @@ import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.Utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -246,11 +247,7 @@ public class ConversationActivity extends LocalizationActivity implements View.O
 
                 @Override
                 public void onResponse(String response) {
-                    try {
-                        response = URLDecoder.decode(response, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    response = StringEscapeUtils.unescapeJava(response);
                     if (pageCount > 1 && mDataSet.size() != 0) {
                         mDataSet.remove(0);
                         mAdapter.isLoading = false;
@@ -303,11 +300,7 @@ public class ConversationActivity extends LocalizationActivity implements View.O
 
                 @Override
                 public void onResponse(String response) {
-                    try {
-                        response = URLDecoder.decode(response, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    response = StringEscapeUtils.unescapeJava(response);
                     // TODO: 13/07/16
                     clearDataSet();
                     for (ConversationItem item :
