@@ -2,9 +2,12 @@ package com.perfect_apps.koch.fragment;
 
 import android.app.Dialog;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +22,12 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.MapHelper;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,6 +129,46 @@ public class SenderLocationFragment extends Fragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        MapHelper.setUpMarker(mMap, new LatLng(30.044091, 31.236086), R.drawable.map_user_marker);
+        MapHelper.setUpMarker(mMap, new LatLng(Double.valueOf(Constants.sharedUserlat),
+                Double.valueOf(Constants.sharedUserlng)), R.drawable.map_user_marker);
+        try {
+            getAddressInfo(new LatLng(Double.valueOf(Constants.sharedUserlat),
+                    Double.valueOf(Constants.sharedUserlng)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void getAddressInfo(LatLng latLng) throws IOException {
+
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+
+        StringBuilder sb = new StringBuilder();
+
+        if (address != null)
+            sb.append(address);
+        if (city != null)
+            sb.append(", " + city);
+        if (state != null)
+            sb.append(", " + state);
+        if (country != null)
+            sb.append(", " + country);
+        if (knownName != null)
+            sb.append(", " + knownName);
+
+        textView1.setText(sb);
+
+        Log.e("address info", sb.toString());
+
+
     }
 }
