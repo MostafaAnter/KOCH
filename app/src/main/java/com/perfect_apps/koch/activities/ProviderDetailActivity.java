@@ -203,9 +203,11 @@ public class ProviderDetailActivity extends LocalizationActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new SenderDataFragment(), getString(R.string.info));
+
         SenderDirectChatFragment senderDirectChatFragment = new SenderDirectChatFragment();
         senderDirectChatFragment.setArguments(mBundle);
         adapter.addFragment(senderDirectChatFragment, getString(R.string.chats));
+
         adapter.addFragment(new SenderLocationFragment(), getString(R.string.location));
 
         viewPager.setAdapter(adapter);
