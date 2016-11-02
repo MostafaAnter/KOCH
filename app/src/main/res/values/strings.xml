@@ -70,7 +70,7 @@
     <string name="title_activity_conversation" translatable="false">ConversationActivity</string>
     <string name="send_request">Send Request</string>
     <string name="title_activity_request_detail" translatable="false">RequestDetailActivity</string>
-    <string name="address">Address!</string>
+    <string name="address">Title!</string>
     <string name="cost">Cost</string>
     <string name="details">Details</string>
     <string name="request_detail">Request detail</string>

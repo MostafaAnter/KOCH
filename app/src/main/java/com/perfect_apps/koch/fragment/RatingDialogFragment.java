@@ -154,7 +154,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                     dismiss();
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                             .setTitleText("تم")
-                            .setContentText("لقد قمت بتقييم المعلم")
+                            .setContentText("لقد قمت بتقييم المذود")
                             .show();
                     dismiss();
 
