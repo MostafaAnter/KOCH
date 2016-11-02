@@ -84,6 +84,7 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
             button2.setVisibility(View.GONE);
         }
 
+        bindData();
     }
 
     private void changeFontOfText() {
