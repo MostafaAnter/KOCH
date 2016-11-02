@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.activities.ClientHomeActivity;
+import com.perfect_apps.koch.activities.ProviderHomeActivity;
 import com.perfect_apps.koch.activities.SignInActivity;
 import com.perfect_apps.koch.activities.SignUpActivity;
 import com.perfect_apps.koch.app.AppController;
@@ -141,6 +142,17 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
         imageViewInst.setOnClickListener(this);
         imageViewTwi.setOnClickListener(this);
         linearLayoutEditProfile.setOnClickListener(this);
+
+        toggleButton.setOnToggleChanged(new ToggleButton.OnToggleChanged(){
+            @Override
+            public void onToggle(boolean on) {
+                if (on){
+                    changeState("1");
+                }else {
+                    changeState("0");
+                }
+            }
+        });
     }
 
     @Override
@@ -317,5 +329,40 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void changeState(final String status){
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = "http://services-apps.net/koch/api/set/status/provider";
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("change_state", response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error upload client loc", error.toString());
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("email", new KochPrefStore(getActivity()).getPreferenceValue(Constants.userEmail));
+                    params.put("password", new KochPrefStore(getActivity()).getPreferenceValue(Constants.userPassword));
+                    params.put("status", status);
+                    return params;
+
+                }
+            };
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 }
