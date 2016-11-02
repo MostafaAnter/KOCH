@@ -2,6 +2,7 @@ package com.perfect_apps.koch.parser;
 
 import com.perfect_apps.koch.models.Cities;
 import com.perfect_apps.koch.models.ClientInfo;
+import com.perfect_apps.koch.models.ConversationItem;
 import com.perfect_apps.koch.models.Countries;
 import com.perfect_apps.koch.models.InboxItem;
 import com.perfect_apps.koch.models.ProviderInfo;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -194,6 +196,44 @@ public class JsonParser {
                         Utils.manipulateDateFormat(created_at),
                         image_full_path , new_count, group_id));
             }
+            return teacherItems;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<ConversationItem> parseConversation(String feed){
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);
+            JSONArray jsonMoviesArray = jsonRootObject.optJSONArray("data");
+            List<ConversationItem> teacherItems = new ArrayList<>();
+            for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
+                String message = jsonObject.optString("message");
+                String created_at = Utils.manipulateDateFormat(jsonObject.optString("created_at"));
+
+                JSONObject sender = jsonObject.optJSONObject("sender");
+                String email = sender.optString("email");
+                String image_full_path = sender.optString("image_full_path");
+                int group_id = sender.optInt("group_id");
+
+                JSONArray message_users  = jsonObject.optJSONArray("message_users");
+                JSONObject message_user = message_users.getJSONObject(0);
+                String user_id = message_user.optString("user_id");
+                String user_to_id = message_user.optString("user_to_id");
+                String is_seen = message_user.optString("is_seen");
+
+                boolean show =false;
+                if (is_seen.equalsIgnoreCase("1")){
+                    show = true;
+                }
+
+                teacherItems.add(new ConversationItem(image_full_path, message, show, created_at, group_id, email, user_id, user_to_id));
+            }
+            Collections.reverse(teacherItems);
             return teacherItems;
         } catch (JSONException e) {
             e.printStackTrace();

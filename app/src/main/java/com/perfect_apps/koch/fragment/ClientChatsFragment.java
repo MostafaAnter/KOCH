@@ -2,11 +2,9 @@ package com.perfect_apps.koch.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +29,7 @@ import com.flyco.dialog.widget.NormalListDialog;
 import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.activities.ConversationActivity;
+import com.perfect_apps.koch.activities.ProviderDetailActivity;
 import com.perfect_apps.koch.adapters.InboxItemsAdapter;
 import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.models.InboxItem;
@@ -154,8 +153,10 @@ public class ClientChatsFragment extends Fragment {
                         b.putString("message_id", mDataset.get(position).getChat_id());
                         b.putString("user_id", mDataset.get(position).getUser_id());
                         b.putString("group_id", mDataset.get(position).getGroup_id());
+                        b.putString("user_name", mDataset.get(position).getChats_name());
+                        b.putString("user_avatar", mDataset.get(position).getChats_avatar());
                         Intent intent = new Intent(getActivity(), ConversationActivity.class);
-                        intent.putExtra("bundle", b);
+                        intent.putExtras(b);
                         startActivity(intent);
 
 
@@ -393,11 +394,11 @@ public class ClientChatsFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-
-
                         Bundle b = new Bundle();
                         b.putString(Constants.userId, user_id);
-
+                        Intent intent = new Intent(getActivity(), ProviderDetailActivity.class);
+                        intent.putExtras(b);
+                        startActivity(intent);
                         break;
                     case 1:
                         deleteConversation();

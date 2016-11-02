@@ -68,7 +68,7 @@
                 android:layout_width="30dip"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@drawable/chat_cots"/>
+                android:src="@drawable/send_application"/>
 
         </LinearLayout>
 

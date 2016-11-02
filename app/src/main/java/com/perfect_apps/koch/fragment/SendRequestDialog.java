@@ -43,7 +43,7 @@ public class SendRequestDialog extends DialogFragment implements View.OnClickLis
      * Create a new instance of MyDialogFragment, providing "num"
      * as an argument.
      */
-    static SendRequestDialog newInstance(int num) {
+    public static SendRequestDialog newInstance(int num) {
         SendRequestDialog f = new SendRequestDialog();
 
         // Supply num input as an argument.

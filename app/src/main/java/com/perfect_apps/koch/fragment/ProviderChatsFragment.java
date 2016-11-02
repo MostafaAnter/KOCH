@@ -154,8 +154,10 @@ public class ProviderChatsFragment extends Fragment {
                         b.putString("message_id", mDataset.get(position).getChat_id());
                         b.putString("user_id", mDataset.get(position).getUser_id());
                         b.putString("group_id", mDataset.get(position).getGroup_id());
+                        b.putString("user_name", mDataset.get(position).getChats_name());
+                        b.putString("user_avatar", mDataset.get(position).getChats_avatar());
                         Intent intent = new Intent(getActivity(), ConversationActivity.class);
-                        intent.putExtra("bundle", b);
+                        intent.putExtras(b);
                         startActivity(intent);
 
                     }
@@ -395,7 +397,7 @@ public class ProviderChatsFragment extends Fragment {
                         Bundle b = new Bundle();
                         b.putString(Constants.userId, user_id);
                         Intent intent = new Intent(getActivity(), ClientDetailActivity.class);
-                        intent.putExtra("bundle", b);
+                        intent.putExtras(b);
                         break;
                     case 1:
                         block();
