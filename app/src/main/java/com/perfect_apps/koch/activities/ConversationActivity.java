@@ -128,6 +128,14 @@ public class ConversationActivity extends LocalizationActivity implements View.O
         tv.setText(mBundle.getString("user_name") != null ? mBundle.getString("user_name") : "");
         tv.setTypeface(font);
 
+        ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
+        backIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         CircleImageView circleImageView = (CircleImageView) toolbar.findViewById(R.id.user_avatar);
         Glide.with(this)
                 .load(mBundle.getString("user_avatar"))

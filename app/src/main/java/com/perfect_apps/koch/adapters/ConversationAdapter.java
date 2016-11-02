@@ -150,10 +150,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
-            Typeface makOnWayFont = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
+           // Typeface makOnWayFont = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
             // set message text and font
-            viewHolder.getMessage().setText(mDataSet.get(position).getMessage() + "  " + mDataSet.get(position).getTimestamp());
-            viewHolder.getMessage().setTypeface(makOnWayFont);
+            viewHolder.getMessage().setText(mDataSet.get(position).getMessage() + " \n "
+                    + (mDataSet.get(position).getTimestamp() != null?mDataSet.get(position).getTimestamp() : ""));
+        //    viewHolder.getMessage().setTypeface(makOnWayFont);
 
             if (mDataSet.get(position).isShow()) {
                 viewHolder.getShowFlag().setImageResource(R.drawable.client_order_seen);
