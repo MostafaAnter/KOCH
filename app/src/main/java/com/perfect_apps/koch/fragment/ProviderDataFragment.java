@@ -83,6 +83,10 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
 
     private ProviderInfo providerInfo;
 
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
+
     public ProviderDataFragment (){
 
     }
@@ -125,13 +129,32 @@ public class ProviderDataFragment extends Fragment implements View.OnClickListen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         changeTextFont();
-        getProviderDate();
-        getRateInfo();
+
+        onCreateGone = true;
+        if (visibleHintGone) {
+            getProviderDate();
+            getRateInfo();
+        }
+
 
         imageViewFac.setOnClickListener(this);
         imageViewInst.setOnClickListener(this);
         imageViewTwi.setOnClickListener(this);
         linearLayoutEditProfile.setOnClickListener(this);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser)
+            visibleHintGone = true;
+        if (isVisibleToUser && onCreateGone) {
+            getProviderDate();
+            getRateInfo();
+
+            visibleHintGone = false;
+            onCreateGone = false;
+        }
     }
 
     private void getProviderDate(){
