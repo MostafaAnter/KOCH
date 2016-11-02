@@ -103,7 +103,7 @@ public class ConversationActivity extends LocalizationActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         ButterKnife.bind(this);
-        mBundle = this.getIntent().getExtras();
+        mBundle = getIntent().getExtras();
         setToolbar();
         setupRecyclerView();
 

@@ -148,19 +148,13 @@ public class ClientChatsFragment extends Fragment {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
-
-                        Bundle b = new Bundle();
-                        b.putString("message_id", mDataset.get(position).getChat_id());
-                        b.putString("user_id", mDataset.get(position).getUser_id());
-                        b.putString("group_id", mDataset.get(position).getGroup_id());
-                        b.putString("user_name", mDataset.get(position).getChats_name());
-                        b.putString("user_avatar", mDataset.get(position).getChats_avatar());
                         Intent intent = new Intent(getActivity(), ConversationActivity.class);
-                        intent.putExtras(b);
+                        intent.putExtra("message_id", mDataset.get(position).getChat_id());
+                        intent.putExtra("user_id", mDataset.get(position).getUser_id());
+                        intent.putExtra("group_id", mDataset.get(position).getGroup_id());
+                        intent.putExtra("user_name", mDataset.get(position).getChats_name());
+                        intent.putExtra("user_avatar", mDataset.get(position).getChats_avatar());
                         startActivity(intent);
-
-
                     }
                 })
         );
@@ -389,10 +383,9 @@ public class ClientChatsFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-                        Bundle b = new Bundle();
-                        b.putString(Constants.userId, user_id);
                         Intent intent = new Intent(getActivity(), ProviderDetailActivity.class);
-                        intent.putExtras(b);
+                        intent.putExtra("user_id", user_id);
+                        Constants.sharedUserId = user_id;
                         startActivity(intent);
                         break;
                     case 1:

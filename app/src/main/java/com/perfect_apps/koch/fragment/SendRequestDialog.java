@@ -28,6 +28,8 @@ import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -166,6 +168,8 @@ public class SendRequestDialog extends DialogFragment implements View.OnClickLis
                     @Override
                     public void onResponse(String response) {
                         sdh.dismissDialog();
+                        response = StringEscapeUtils.unescapeJava(response);
+                        Log.d("send request", response);
 
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("تم")

@@ -99,9 +99,7 @@ public class SenderDirectChatFragment extends Fragment implements View.OnClickLi
 
                 // Create and show the dialog.
                 DialogFragment newFragment1 = SendRequestDialog.newInstance(mStackLevel);
-                Bundle bundle1 = new Bundle();
-                bundle1.putString("user_id", userId);
-                newFragment1.setArguments(bundle1);
+                newFragment1.setArguments(getArguments());
                 newFragment1.show(ft1, "dialog");
                 break;
         }

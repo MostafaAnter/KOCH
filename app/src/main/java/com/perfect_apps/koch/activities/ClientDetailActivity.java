@@ -63,12 +63,17 @@ public class ClientDetailActivity extends LocalizationActivity
             R.drawable.my_order
     };
 
+    // for receive data from bundle
+    private Bundle mBundle = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_detail);
         ButterKnife.bind(this);
         setToolbar();
+
+        mBundle = getIntent().getExtras();
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -205,8 +210,14 @@ public class ClientDetailActivity extends LocalizationActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new SenderClientDataFragment(), getString(R.string.info));
-        adapter.addFragment(new SenderDirectChatFragment(), getString(R.string.chats));
-        adapter.addFragment(new SendRequestFragment(), getString(R.string.send_request));
+
+        SenderDirectChatFragment senderDirectChatFragment = new SenderDirectChatFragment();
+        senderDirectChatFragment.setArguments(mBundle);
+        adapter.addFragment(senderDirectChatFragment, getString(R.string.chats));
+
+        SendRequestFragment sendRequestFragment = new SendRequestFragment();
+        sendRequestFragment.setArguments(mBundle);
+        adapter.addFragment(sendRequestFragment, getString(R.string.send_request));
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -58,12 +58,17 @@ public class ProviderDetailActivity extends LocalizationActivity
             R.drawable.my_location
     };
 
+    // for receive data from bundle
+    private Bundle mBundle = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sender_profile);
         ButterKnife.bind(this);
         setToolbar();
+
+        mBundle = getIntent().getExtras();
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -198,7 +203,9 @@ public class ProviderDetailActivity extends LocalizationActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new SenderDataFragment(), getString(R.string.info));
-        adapter.addFragment(new SenderDirectChatFragment(), getString(R.string.chats));
+        SenderDirectChatFragment senderDirectChatFragment = new SenderDirectChatFragment();
+        senderDirectChatFragment.setArguments(mBundle);
+        adapter.addFragment(senderDirectChatFragment, getString(R.string.chats));
         adapter.addFragment(new SenderLocationFragment(), getString(R.string.location));
 
         viewPager.setAdapter(adapter);

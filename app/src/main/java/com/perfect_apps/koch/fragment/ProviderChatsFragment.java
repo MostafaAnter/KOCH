@@ -97,6 +97,8 @@ public class ProviderChatsFragment extends Fragment {
     private String message_id;
     private String user_id;
     private String group_id;
+    private String user_name;
+    private String user_avatar;
 
     // for create items one time;
     private int dialogItemsCount = 0;
@@ -151,14 +153,12 @@ public class ProviderChatsFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Bundle b = new Bundle();
-                        b.putString("message_id", mDataset.get(position).getChat_id());
-                        b.putString("user_id", mDataset.get(position).getUser_id());
-                        b.putString("group_id", mDataset.get(position).getGroup_id());
-                        b.putString("user_name", mDataset.get(position).getChats_name());
-                        b.putString("user_avatar", mDataset.get(position).getChats_avatar());
                         Intent intent = new Intent(getActivity(), ConversationActivity.class);
-                        intent.putExtras(b);
+                        intent.putExtra("message_id", mDataset.get(position).getChat_id());
+                        intent.putExtra("user_id", mDataset.get(position).getUser_id());
+                        intent.putExtra("group_id", mDataset.get(position).getGroup_id());
+                        intent.putExtra("user_name", mDataset.get(position).getChats_name());
+                        intent.putExtra("user_avatar", mDataset.get(position).getChats_avatar());
                         startActivity(intent);
 
                     }
@@ -184,6 +184,8 @@ public class ProviderChatsFragment extends Fragment {
                             message_id = mDataset.get(rv.getChildAdapterPosition(childView)).getChat_id();
                             user_id = mDataset.get(rv.getChildAdapterPosition(childView)).getUser_id();
                             group_id = mDataset.get(rv.getChildAdapterPosition(childView)).getGroup_id();
+                            user_name = mDataset.get(rv.getChildAdapterPosition(childView)).getChats_name();
+                            user_avatar = mDataset.get(rv.getChildAdapterPosition(childView)).getChats_avatar();
                             normalListDialogCustomAttr();
 
                             return false;
@@ -389,10 +391,14 @@ public class ProviderChatsFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-                        Bundle b = new Bundle();
-                        b.putString(Constants.userId, user_id);
                         Intent intent = new Intent(getActivity(), ClientDetailActivity.class);
-                        intent.putExtras(b);
+                        intent.putExtra("message_id", message_id);
+                        intent.putExtra("user_id", user_id);
+                        intent.putExtra("group_id", group_id);
+                        intent.putExtra("user_name", user_name);
+                        intent.putExtra("user_avatar", user_avatar);
+                        Constants.sharedUserId = user_id;
+                        startActivity(intent);
                         break;
                     case 1:
                         block();

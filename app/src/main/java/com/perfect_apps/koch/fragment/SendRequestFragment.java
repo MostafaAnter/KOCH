@@ -53,6 +53,7 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
 
     private String title, details, cost;
 
+
     public SendRequestFragment(){
 
     }
