@@ -455,6 +455,7 @@ public class ClientDataFragment extends Fragment implements GoogleApiClient.Conn
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (getActivity() != null)
             updateCurrentLocationData();
 
         }
