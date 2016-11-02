@@ -130,7 +130,7 @@ public class JsonParser {
         String email = item.optString("email");
         String mobile = item.optString("mobile");/*dummy*/
         String desc = item.optString("desc");
-        String is_active = item.optString("is_active");
+        String is_active = item.optString("is_available");
         String image_full_path = item.optString("image_full_path");
 
         JSONArray jsonArray = item.optJSONArray("locations");

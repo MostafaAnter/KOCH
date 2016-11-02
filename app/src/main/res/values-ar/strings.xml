@@ -80,4 +80,17 @@
     <string name="location">الموقع</string>
     <string name="send">إرسال</string>
     <string name="title_of_request">عنوان الطلب</string>
+    <string name="block">حظر</string>
+    <string name="client_name">أسم العميل</string>
+    <string name="delete">حذف</string>
+    <string name="done">تم!</string>
+    <string name="no">لا يوجد خدمة توصيل</string>
+    <string name="rate_provider">تقيم المذود</string>
+    <string name="sender_info">عن الراسل!</string>
+    <string name="this_user_is_not_blocked">هذا المستخدم ليس فى قائمة الحظر</string>
+    <string name="un_block">إلغاء الحظر</string>
+    <string name="yes">نعم يوجد</string>
+    <string name="you_are_blocked_this_user">لقد قمت بحظر المستخدم من قبل</string>
+    <string name="you_are_unbloked_this_user">لقد قمت بإلغاء الحظر</string>
+    <string name="your_blocked_this_user">لقد قمت بحظر المستخدم</string>
 </resources>
