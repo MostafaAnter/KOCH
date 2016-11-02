@@ -131,6 +131,12 @@ public class JsonParser {
         String is_active = item.optString("is_active");
         String image_full_path = item.optString("image_full_path");
 
+        JSONArray jsonArray = item.optJSONArray("locations");
+        JSONObject locationInfo = jsonArray.optJSONObject(jsonArray.length() - 1);
+        String addressName = locationInfo.optString("name");
+        String lat = locationInfo.optString("lat");
+        String lng = locationInfo.optString("lng");
+
         JSONObject provider_info = item.optJSONObject("provider_info");
 
         String working_hours = provider_info.optString("working_hours");
@@ -153,7 +159,7 @@ public class JsonParser {
 
         return new ProviderInfo(id, name, email, mobile, is_active, desc, countryId, cityId, countryName, cityName,
                 working_hours, service_1, service_2, service_3, service_4, other_services, delivery, facebook_url,
-                twitter_url, picassa_url, image_full_path, null, null, null);
+                twitter_url, picassa_url, image_full_path, addressName, lat, lng);
     }
 
     public static ClientInfo parseClientInfo(String feed) {
