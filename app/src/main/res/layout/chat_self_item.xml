@@ -44,7 +44,7 @@
         android:maxWidth="170dp"
         android:padding="10dp"
         android:text=""
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/dark_gray" />
 
 
     <ImageView
@@ -52,7 +52,6 @@
         android:layout_width="20dp"
         android:layout_margin="3dp"
         android:layout_height="30dp"
-        android:contentDescription="@null"
-        android:src="@drawable/client_order_seen" />
+        android:contentDescription="@null" />
 
 </LinearLayout>

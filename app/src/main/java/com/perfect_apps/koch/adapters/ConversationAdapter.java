@@ -11,9 +11,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.interfaces.OnLoadMoreListener;
 import com.perfect_apps.koch.models.ConversationItem;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
 
 import java.util.List;
 
@@ -109,10 +116,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemViewType(int position) {
         if (mDataSet.get(position) == null) {
             return VIEW_TYPE_LOADING;
-        } else if (true/*mDataSet.get(position)*/) {
+        } else if (mDataSet.get(position)
+                .getMessageOwnerEmail()
+                .equalsIgnoreCase(new KochPrefStore(mContext)
+                        .getPreferenceValue(Constants.userEmail))) {
             return SELF;
         } else {
-
             return VIEW_TYPE_ITEM;
         }
     }
@@ -142,6 +151,37 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             Typeface makOnWayFont = Typeface.createFromAsset(mContext.getAssets(), "fonts/normal.ttf");
+            // set message text and font
+            viewHolder.getMessage().setText(mDataSet.get(position).getMessage() + "  " + mDataSet.get(position).getTimestamp());
+            viewHolder.getMessage().setTypeface(makOnWayFont);
+
+            if (mDataSet.get(position).isShow()) {
+                viewHolder.getShowFlag().setImageResource(R.drawable.client_order_seen);
+            }
+
+
+            // populate mainImage
+            Glide.with(mContext)
+                    .load(mDataSet.get(position).getUserAvatar())
+                    .placeholder(R.color.gray_btn_bg_color)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .crossFade()
+                    .dontAnimate()
+                    .thumbnail(0.1f)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            viewHolder.getProgressBar().setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(viewHolder.getAvatarImage());
 
         }else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
