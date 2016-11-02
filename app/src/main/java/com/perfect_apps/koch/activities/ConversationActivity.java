@@ -125,45 +125,49 @@ public class ConversationActivity extends LocalizationActivity implements View.O
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         TextView tv = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        tv.setText(mBundle.getString("user_name") != null ? mBundle.getString("user_name") : "");
-        tv.setTypeface(font);
-
-        ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
-        backIc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        CircleImageView circleImageView = (CircleImageView) toolbar.findViewById(R.id.user_avatar);
-        Glide.with(this)
-                .load(mBundle.getString("user_avatar"))
-                .placeholder(R.color.gray_btn_bg_color)
-                .centerCrop()
-                .crossFade()
-                .thumbnail(0.1f)
-                .into(circleImageView);
         LinearLayout linearLayout = (LinearLayout) toolbar.findViewById(R.id.send_request);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mStackLevel++;
-                FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-                Fragment prev1 = getSupportFragmentManager().findFragmentByTag("dialog");
-                if (prev1 != null) {
-                    ft1.remove(prev1);
-                }
-                ft1.addToBackStack(null);
+        if (mBundle != null) {
+            tv.setText(mBundle.getString("user_name") != null ? mBundle.getString("user_name") : "");
+            tv.setTypeface(font);
 
-                // Create and show the dialog.
-                DialogFragment newFragment1 = SendRequestDialog.newInstance(mStackLevel);
-                Bundle bundle1 = new Bundle();
-                bundle1.putString("user_id", mBundle.getString("user_id"));
-                newFragment1.setArguments(bundle1);
-                newFragment1.show(ft1, "dialog");
-            }
-        });
+            ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
+            backIc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+
+            CircleImageView circleImageView = (CircleImageView) toolbar.findViewById(R.id.user_avatar);
+            Glide.with(this)
+                    .load(mBundle.getString("user_avatar"))
+                    .placeholder(R.color.gray_btn_bg_color)
+                    .centerCrop()
+                    .crossFade()
+                    .thumbnail(0.1f)
+                    .into(circleImageView);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mStackLevel++;
+                    FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+                    Fragment prev1 = getSupportFragmentManager().findFragmentByTag("dialog");
+                    if (prev1 != null) {
+                        ft1.remove(prev1);
+                    }
+                    ft1.addToBackStack(null);
+
+                    // Create and show the dialog.
+                    DialogFragment newFragment1 = SendRequestDialog.newInstance(mStackLevel);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("user_id", mBundle.getString("user_id"));
+                    bundle1.putString("user_name", mBundle.getString("user_name"));
+                    bundle1.putString("user_avatar", mBundle.getString("user_avatar"));
+                    newFragment1.setArguments(bundle1);
+                    newFragment1.show(ft1, "dialog");
+                }
+            });
+        }
 
         if (new KochPrefStore(ConversationActivity.this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")){
             linearLayout.setVisibility(View.GONE);

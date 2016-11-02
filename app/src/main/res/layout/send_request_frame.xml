@@ -65,7 +65,7 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22/10/2016"
+                    android:text=""
                     android:textSize="10sp" />
 
                 <ImageView
@@ -85,7 +85,7 @@
                     android:id="@+id/timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10:00 AM"
+                    android:text=""
                     android:textSize="10sp" />
 
                 <ImageView

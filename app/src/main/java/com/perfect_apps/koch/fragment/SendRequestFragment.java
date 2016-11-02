@@ -11,10 +11,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
+import com.perfect_apps.koch.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -37,6 +51,8 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
     @BindView(R.id.button1)Button button1;
     @BindView(R.id.button2)Button button2;
 
+    private String title, details, cost;
+
     public SendRequestFragment(){
 
     }
@@ -55,6 +71,18 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         changeTextFont();
+
+        textViewDate.setText(Utils.returnDate());
+        textViewTime.setText(Utils.returnTime());
+        textViewName.setText(getArguments().getString("user_name", ""));
+
+        Glide.with(getActivity())
+                .load(getArguments().getString("user_avatar", ""))
+                .placeholder(R.color.gray_btn_bg_color)
+                .centerCrop()
+                .crossFade()
+                .thumbnail(0.1f)
+                .into(circleImageView);
     }
 
     private void changeTextFont() {
@@ -72,6 +100,95 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button1:
+                sendRequest();
+                break;
+            case R.id.button2:
+
+                break;
+        }
+    }
+
+    private void sendRequest(){
+        if (Utils.isOnline(getActivity())) {
+            if (attempData()) {
+                // Set up a progress dialog
+                final SweetDialogHelper sdh = new SweetDialogHelper(getActivity());
+                sdh.showMaterialProgress(getString(R.string.wait));
+
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = "http://services-apps.net/koch/api/set_request/provider";
+
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        sdh.dismissDialog();
+
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("تم")
+                                .setContentText("لقد قمت بأرسال طلب")
+                                .show();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        // show error message
+                        sdh.showErrorMessage(getString(R.string.error), getString(R.string.wrong_mail_or_password));
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("email", new KochPrefStore(getActivity()).getPreferenceValue(Constants.userEmail));
+                        params.put("password", new KochPrefStore(getActivity()).getPreferenceValue(Constants.userPassword));
+                        params.put("title", title);
+                        params.put("details", details);
+                        params.put("cost", cost);
+                        params.put("client_id", Constants.sharedUserId);
+                        return params;
+
+                    }
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
+    }
+
+    private boolean attempData(){
+        title = editText1.getText().toString().trim();
+        details = editText2.getText().toString().trim();
+        cost = editText3.getText().toString().trim();
+
+        if (title == null || title.trim().isEmpty()) {
+            new SweetDialogHelper(getActivity()).showErrorMessage(getString(R.string.error), getString(R.string.title_of_request));
+            return false;
+        }
+        if (details == null || details.trim().isEmpty()) {
+            new SweetDialogHelper(getActivity()).showErrorMessage(getString(R.string.error), getString(R.string.details_of_request));
+            return false;
+        }
+        if (cost == null || cost.trim().isEmpty()) {
+            new SweetDialogHelper(getActivity()).showErrorMessage(getString(R.string.error), getString(R.string.cost_of_request));
+            return false;
+        }
+
+        return true;
 
     }
 }
