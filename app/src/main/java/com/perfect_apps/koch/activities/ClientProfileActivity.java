@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,16 +27,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.fragment.ClientChatsFragment;
 import com.perfect_apps.koch.fragment.ClientDataFragment;
 import com.perfect_apps.koch.fragment.ClientRequestFragment;
+import com.perfect_apps.koch.services.NotificationEvent;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
+import com.perfect_apps.koch.utils.Utils;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +74,10 @@ public class ClientProfileActivity extends LocalizationActivity
             R.drawable.my_chat,
             R.drawable.my_order
     };
+
+    // for message count
+    LinearLayout messageCountView;
+    TextView messageCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +118,10 @@ public class ClientProfileActivity extends LocalizationActivity
         //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
+        messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
+        messageCount = (TextView) toolbar.findViewById(R.id.messageCount);
+        messageCountView.setVisibility(View.GONE);
 
         ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
@@ -328,4 +352,77 @@ public class ClientProfileActivity extends LocalizationActivity
         new KochPrefStore(this).addPreference(Constants.PREFERENCE_LANGUAGE, language);
     }
 
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // get Message count
+        getMessageCount(new KochPrefStore(this).getPreferenceValue(Constants.userEmail),
+                new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+    }
+
+    private void getMessageCount(String email, String password) {
+        String url = BuildConfig.API_BASE_URL + "message/show/count?email=" + email + "&password=" + password;
+
+
+        if (Utils.isOnline(this)) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    response = StringEscapeUtils.unescapeJava(response);
+                    // do some thing here
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String count = jsonObject.optString("count");
+                        if (Integer.valueOf(count) > 0) {
+                            messageCountView.setVisibility(View.VISIBLE);
+                            messageCount.setText(count);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("teeest", response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
+    }
+
+
+    @Subscribe
+    public void onMessageEvent(NotificationEvent event) {
+        getMessageCount(new KochPrefStore(this).getPreferenceValue(Constants.userEmail),
+                new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        messageCountView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 }

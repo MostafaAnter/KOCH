@@ -64,6 +64,7 @@ import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.models.ProviderInfo;
 import com.perfect_apps.koch.parser.JsonParser;
+import com.perfect_apps.koch.services.NotificationEvent;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
@@ -73,6 +74,10 @@ import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,6 +115,10 @@ public class ClientHomeActivity extends LocalizationActivity
 
     // for draw markers
     private List<Marker> markers;
+
+    // for message count
+    LinearLayout messageCountView;
+    TextView messageCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,6 +168,10 @@ public class ClientHomeActivity extends LocalizationActivity
         // setup markers
         this.markers = new ArrayList<>();
 
+        // get Message count
+        getMessageCount(new KochPrefStore(this).getPreferenceValue(Constants.userEmail),
+                new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+
         pushToken();
     }
 
@@ -179,6 +192,10 @@ public class ClientHomeActivity extends LocalizationActivity
         //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
+        messageCountView = (LinearLayout) toolbar.findViewById(R.id.messageCountView);
+        messageCount = (TextView) toolbar.findViewById(R.id.messageCount);
+        messageCountView.setVisibility(View.GONE);
 
         ImageView backIc = (ImageView) toolbar.findViewById(R.id.back);
         ImageView profileIc = (ImageView) toolbar.findViewById(R.id.profile);
@@ -340,10 +357,12 @@ public class ClientHomeActivity extends LocalizationActivity
 
     @Override
     protected void onStop() {
+        EventBus.getDefault().unregister(this);
         if (mGoogleApiClient != null)
         mGoogleApiClient.disconnect();
         super.onStop();
         if (mMap != null) {
+            mMap.clear();
             MapStateManager mgr = new MapStateManager(this);
             mgr.saveMapState(mMap);
         }
@@ -364,6 +383,9 @@ public class ClientHomeActivity extends LocalizationActivity
         }
 
         button1.setVisibility(View.GONE);
+        // get Message count
+        getMessageCount(new KochPrefStore(this).getPreferenceValue(Constants.userEmail),
+                new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
     }
 
 
@@ -701,5 +723,65 @@ public class ClientHomeActivity extends LocalizationActivity
 
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void getMessageCount(String email, String password) {
+        String url = BuildConfig.API_BASE_URL + "message/show/count?email=" + email + "&password=" + password;
+
+
+        if (Utils.isOnline(this)) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    response = StringEscapeUtils.unescapeJava(response);
+                    // do some thing here
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String count = jsonObject.optString("count");
+                        if (Integer.valueOf(count) > 0) {
+                            messageCountView.setVisibility(View.VISIBLE);
+                            messageCount.setText(count);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("teeest", response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        }
+    }
+
+
+    @Subscribe
+    public void onMessageEvent(NotificationEvent event) {
+        getMessageCount(new KochPrefStore(this).getPreferenceValue(Constants.userEmail),
+                new KochPrefStore(this).getPreferenceValue(Constants.userPassword));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        messageCountView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 }
