@@ -1,10 +1,12 @@
 package com.perfect_apps.koch.parser;
 
+import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.models.Cities;
 import com.perfect_apps.koch.models.ClientInfo;
 import com.perfect_apps.koch.models.ConversationItem;
 import com.perfect_apps.koch.models.Countries;
 import com.perfect_apps.koch.models.InboxItem;
+import com.perfect_apps.koch.models.OrderRequest;
 import com.perfect_apps.koch.models.ProviderInfo;
 import com.perfect_apps.koch.utils.Utils;
 
@@ -253,5 +255,37 @@ public class JsonParser {
         }
 
 
+    }
+
+    public static List<OrderRequest> parseOrderRequest(String feed) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(feed);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+       JSONArray jsonArray = jsonObject.optJSONArray("data");
+        List<OrderRequest> orderRequestList = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length() ; i++){
+            JSONObject data = jsonArray.optJSONObject(i);
+            String title = data.optString("title");
+            String detail = data.optString("details");
+            String cost = data.optString("cost");
+            String row_hash = data.optString("row_hash");
+            String status = data.optString("status");
+            String updated_at = Utils.manipulateDateFormat(data.optString("updated_at"));
+            JSONObject providerObj = data.optJSONObject("user");
+            String providerName = providerObj.optString("name");
+            String providerImage = BuildConfig.API_BASE_URL + "/koch/assets/uploads/users/" + providerObj.optString("image");
+            JSONObject clientObj = data.optJSONObject("client_user");
+
+            String clientName = clientObj.optString("name");
+            String clientImage = BuildConfig.API_BASE_URL + "/koch/assets/uploads/users/" + clientObj.optString("image");
+
+            orderRequestList.add(new OrderRequest(title, detail,cost, row_hash, status, updated_at, providerName, providerImage, clientName,
+                    clientImage));
+        }
+
+        return orderRequestList;
     }
 }
