@@ -1,10 +1,12 @@
 package com.perfect_apps.koch.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by mostafa_anter on 11/2/16.
  */
-
-public class OrderRequest {
+public class OrderRequest implements Parcelable {
     private String title;
     private String detail;
     private String cost;
@@ -111,4 +113,49 @@ public class OrderRequest {
     public void setClientImage(String clientImage) {
         this.clientImage = clientImage;
     }
+
+    protected OrderRequest(Parcel in) {
+        title = in.readString();
+        detail = in.readString();
+        cost = in.readString();
+        row_hash = in.readString();
+        status = in.readString();
+        updated_at = in.readString();
+        providerName = in.readString();
+        providerImage = in.readString();
+        clientName = in.readString();
+        clientImage = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(detail);
+        dest.writeString(cost);
+        dest.writeString(row_hash);
+        dest.writeString(status);
+        dest.writeString(updated_at);
+        dest.writeString(providerName);
+        dest.writeString(providerImage);
+        dest.writeString(clientName);
+        dest.writeString(clientImage);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<OrderRequest> CREATOR = new Parcelable.Creator<OrderRequest>() {
+        @Override
+        public OrderRequest createFromParcel(Parcel in) {
+            return new OrderRequest(in);
+        }
+
+        @Override
+        public OrderRequest[] newArray(int size) {
+            return new OrderRequest[size];
+        }
+    };
 }

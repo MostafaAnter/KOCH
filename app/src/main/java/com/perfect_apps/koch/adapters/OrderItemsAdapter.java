@@ -80,7 +80,9 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    mContext.startActivity(new Intent(mContext, RequestDetailActivity.class));
+                    Intent intent = new Intent(mContext, RequestDetailActivity.class);
+                    intent.putExtra("orderRequest", mDataSet.get(getPosition()));
+                    mContext.startActivity(intent);
                 }
             });
 
