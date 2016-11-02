@@ -90,4 +90,5 @@
     <string name="this_user_is_not_blocked">this user is not blocked before</string>
     <string name="un_block">Un Block</string>
     <string name="delete">Delete</string>
+    <string name="rate_provider">Rate provider</string>
 </resources>

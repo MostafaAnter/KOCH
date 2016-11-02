@@ -61,25 +61,24 @@
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
-                    <com.zcw.togglebutton.ToggleButton
-                        android:id="@+id/toggleButton"
-                        android:layout_width="60dp"
-                        android:layout_height="25dp"
-                        toggle:tbBorderWidth="2dp"
-                        toggle:tbOffBorderColor="#ddd"
-                        toggle:tbOffColor="#f00"
-                        toggle:tbOnColor="@color/colorAccent"
-                        toggle:tbSpotColor="#fff">
+                    <LinearLayout
+                        android:id="@+id/call"
+                        android:layout_width="@dimen/editTextHeight"
+                        android:layout_height="@dimen/editTextHeight"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/circle_green"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    </com.zcw.togglebutton.ToggleButton>
+                        <ImageView
+                            android:layout_width="@dimen/editTextHeight"
+                            android:layout_height="@dimen/editTextHeight"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_phone_in_talk_black_24dp_white" />
 
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/vertical_margin"
-                        android:text="متاح للعمل"
-                        android:textColor="@color/white" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
 

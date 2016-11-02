@@ -642,6 +642,10 @@ public class ClientHomeActivity extends LocalizationActivity
             @Override
             public void onMarkerDragStart(Marker marker) {
                 Toast.makeText(ClientHomeActivity.this, providerInfo.getUsername(), Toast.LENGTH_SHORT).show();
+                Constants.sharedUserId = providerInfo.getUserId();
+                Constants.sharedUserlat = providerInfo.getAddresslat();
+                Constants.sharedUserlng = providerInfo.getAddresslng();
+
                 marker.setPosition(new LatLng(Double.valueOf(providerInfo.getAddresslat()), Double.valueOf(providerInfo.getAddresslng())));
                 startActivity(new Intent(ClientHomeActivity.this, ProviderDetailActivity.class));
             }

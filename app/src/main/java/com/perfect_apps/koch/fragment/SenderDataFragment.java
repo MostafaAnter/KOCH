@@ -1,24 +1,53 @@
 package com.perfect_apps.koch.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.activities.SignUpActivity;
+import com.perfect_apps.koch.app.AppController;
+import com.perfect_apps.koch.models.ProviderInfo;
+import com.perfect_apps.koch.parser.JsonParser;
+import com.perfect_apps.koch.store.KochPrefStore;
+import com.perfect_apps.koch.utils.Constants;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
+import com.perfect_apps.koch.utils.Utils;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by mostafa_anter on 10/31/16.
  */
 
-public class SenderDataFragment extends Fragment{
+public class SenderDataFragment extends Fragment implements View.OnClickListener, RatingDialogFragment.OnRateDone{
+    private static int mStackLevel = 0;
 
     @BindView(R.id.text1)
     TextView textView1 ;
@@ -39,6 +68,20 @@ public class SenderDataFragment extends Fragment{
     @BindView(R.id.text16) TextView textView16 ;
     @BindView(R.id.text17) TextView textView17 ;
     @BindView(R.id.text18) TextView textView18 ;
+
+    @BindView(R.id.profileImage)ImageView imageView1;
+
+    @BindView(R.id.ratingBar)RatingBar rb;
+
+    @BindView(R.id.editProfile)
+    LinearLayout linearLayoutEditProfile;
+    @BindView(R.id.call)
+    LinearLayout linearLayoutCall;
+    @BindView(R.id.fac)ImageView imageViewFac;
+    @BindView(R.id.inst) ImageView imageViewInst;
+    @BindView(R.id.twi)ImageView imageViewTwi;
+
+    private ProviderInfo providerInfo;
 
     public SenderDataFragment (){
 
@@ -82,6 +125,191 @@ public class SenderDataFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         changeTextFont();
+        getProviderDate();
+        getRateInfo();
+
+        imageViewFac.setOnClickListener(this);
+        imageViewInst.setOnClickListener(this);
+        imageViewTwi.setOnClickListener(this);
+        linearLayoutCall.setOnClickListener(this);
+        rb.setOnClickListener(this);
+    }
+    private void getProviderDate(){
+        if (Utils.isOnline(getActivity())) {
+            // Set up a progress dialog
+            final SweetDialogHelper sdh = new SweetDialogHelper(getActivity());
+            sdh.showMaterialProgress(getString(R.string.wait));
+
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+            String url = Constants.getProviderInfo;
+
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    response = StringEscapeUtils.unescapeJava(response);
+                    providerInfo = JsonParser.parseProviderInfo(response);
+                    bindData();
+                    sdh.dismissDialog();
+                    Log.d("response", response);
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    sdh.dismissDialog();
+                    // show error message
+                    sdh.showErrorMessage(getString(R.string.error), getString(R.string.try_again));
+                }
+            }) {
+
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("user_id", Constants.sharedUserId);
+                    return params;
+
+                }
+            };
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
 
+    private void getRateInfo(){
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = Constants.providerRateInfo + Constants.sharedUserId;
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                response = StringEscapeUtils.unescapeJava(response);
+                Log.d("view all providers", response);
+                setRateBar(response);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error view providers", error.toString());
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void setRateBar(String response){
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONObject jsonObject1 = jsonObject.optJSONObject("rates");
+            double rate1 = jsonObject1.optDouble("1");
+            double rate2 = jsonObject1.optDouble("2");
+            double rate3 = jsonObject1.optDouble("3");
+            double rate4 = jsonObject1.optDouble("4");
+            double rate5 = jsonObject1.optDouble("5");
+
+            if ((rate1 + rate2 + rate3 + rate4 + rate5) != 0) {
+                double rate = (rate1 + 2*rate2 + 3*rate3 + 4*rate4 + 5*rate5)/(rate1 + rate2 + rate3 + rate4 + rate5);
+                float totalRate = (float) Math.round(rate * 10)/10;
+                rb.setRating(totalRate);
+                textView3.setText(String.valueOf(totalRate) + "/5");
+
+            }else {
+                rb.setRating(0);
+                textView3.setText("0/5");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void bindData(){
+
+        textView1.setText(providerInfo.getUsername());
+
+        if (providerInfo.getImage_full_path() != null && !providerInfo.getImage_full_path().trim().isEmpty())
+            Glide.with(getActivity())
+                    .load(providerInfo.getImage_full_path())
+                    .placeholder(R.color.gray_btn_bg_color)
+                    .centerCrop()
+                    .crossFade()
+                    .thumbnail(0.1f)
+                    .into(imageView1);
+        textView4.setText(providerInfo.getMobile());
+        textView5.setText(providerInfo.getEmail());
+        textView7.setText(providerInfo.getWorking_hours());
+        if (!providerInfo.getDelivery().trim().isEmpty()
+                && providerInfo.getDelivery().equalsIgnoreCase("1")){
+            textView9.setText(getString(R.string.yes));
+        }else {
+            textView9.setText(getString(R.string.no));
+        }
+
+        textView11.setText(providerInfo.getCountry_name());
+        textView13.setText(providerInfo.getCity_name());
+        textView15.setText(providerInfo.getDesc());
+        textView17.setText(providerInfo.getService_1() + " ," + providerInfo.getService_2()
+                + " ," + providerInfo.getService_3() + " ," + providerInfo.getService_4() + " ," + providerInfo.getOther_services());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fac:
+                if (!providerInfo.getFacebook_url().trim().isEmpty() && ! providerInfo.getFacebook_url().equalsIgnoreCase("null"))
+                    Utils.browse(getActivity(), providerInfo.getFacebook_url());
+                break;
+            case R.id.twi:
+                if (!providerInfo.getTwitter_url().trim().isEmpty() && ! providerInfo.getTwitter_url().equalsIgnoreCase("null"))
+                    Utils.browse(getActivity(), providerInfo.getTwitter_url());
+                break;
+            case R.id.inst:
+                if (!providerInfo.getPicassa_url().trim().isEmpty() && ! providerInfo.getPicassa_url().equalsIgnoreCase("null"))
+                    Utils.browse(getActivity(), providerInfo.getPicassa_url());
+                break;
+            case R.id.call:
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+providerInfo.getMobile()));
+                startActivity(callIntent);
+                break;
+            case R.id.ratingBar:
+
+                mStackLevel++;
+                FragmentTransaction ft1 = getFragmentManager().beginTransaction();
+                Fragment prev1 = getFragmentManager().findFragmentByTag("dialog");
+                if (prev1 != null) {
+                    ft1.remove(prev1);
+                }
+                ft1.addToBackStack(null);
+
+                // Create and show the dialog.
+                RatingDialogFragment newFragment1 = RatingDialogFragment.newInstance(mStackLevel);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("user_id", Constants.sharedUserId);
+                newFragment1.setArguments(bundle1);
+                newFragment1.setTargetFragment(this, 1);
+                newFragment1.show(ft1, "dialog");
+
+                break;
+        }
+    }
+
+    @Override
+    public void onRateComplete() {
+        getRateInfo();
+    }
 }
