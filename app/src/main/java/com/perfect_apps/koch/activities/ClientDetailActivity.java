@@ -209,7 +209,9 @@ public class ClientDetailActivity extends LocalizationActivity
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new SenderClientDataFragment(), getString(R.string.info));
+        SenderClientDataFragment senderClientDataFragment = new SenderClientDataFragment();
+        senderClientDataFragment.setArguments(mBundle);
+        adapter.addFragment(senderClientDataFragment, getString(R.string.info));
 
         SenderDirectChatFragment senderDirectChatFragment = new SenderDirectChatFragment();
         senderDirectChatFragment.setArguments(mBundle);

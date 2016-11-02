@@ -70,8 +70,7 @@
                         <ImageView
                             android:id="@+id/imageView1"
                             android:layout_width="?android:attr/listPreferredItemHeight"
-                            android:layout_height="?android:attr/listPreferredItemHeight"
-                            android:src="@drawable/user_avatar" />
+                            android:layout_height="?android:attr/listPreferredItemHeight" />
 
                         <TextView
                             android:id="@+id/text2"
@@ -79,7 +78,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="سامى محمد باشا" />
+                            android:text="" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -139,7 +138,7 @@
                         android:layout_gravity="center_vertical"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="0123456789" />
+                        android:text="" />
 
                 </LinearLayout>
 
@@ -168,7 +167,7 @@
                         android:layout_gravity="center_vertical"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="ga30000@gmail.com" />
+                        android:text="" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -193,12 +192,12 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="?actionBarSize"
-                android:background="@drawable/border_shape_green_radius_button"
+                android:background="@drawable/border_shape_gray"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="@string/see_service_providers"
+                android:text=""
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/colorPrimaryDark" />
         </FrameLayout>
 
 

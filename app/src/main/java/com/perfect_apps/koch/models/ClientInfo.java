@@ -11,12 +11,43 @@ public class ClientInfo {
     private String mobile;
     private String image_full_path;
 
-    public ClientInfo(String id, String name, String email, String mobile, String image_full_path) {
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public String getAddressLat() {
+        return addressLat;
+    }
+
+    public void setAddressLat(String addressLat) {
+        this.addressLat = addressLat;
+    }
+
+    public String getAddressLng() {
+        return addressLng;
+    }
+
+    public void setAddressLng(String addressLng) {
+        this.addressLng = addressLng;
+    }
+
+    private String addressName;
+    private String addressLat;
+    private String addressLng;
+
+    public ClientInfo(String id, String name, String email, String mobile, String image_full_path, String addressName, String addressLat, String addressLng) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.mobile = mobile;
         this.image_full_path = image_full_path;
+        this.addressName = addressName;
+        this.addressLat = addressLat;
+        this.addressLng = addressLng;
     }
 
     public String getId() {

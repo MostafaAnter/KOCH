@@ -539,7 +539,7 @@ public class ClientHomeActivity extends LocalizationActivity
         Log.e("address info", sb.toString());
 
         button1.setVisibility(View.VISIBLE);
-        // uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
+        uploadLocationToServer(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude), sb.toString());
     }
 
     private void uploadLocationToServer(final String lat,

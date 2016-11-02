@@ -179,7 +179,13 @@ public class JsonParser {
         String is_active = item.optString("is_active");
         String image_full_path = item.optString("image_full_path");
 
-        return new ClientInfo(id, name, email , mobile,image_full_path);
+        JSONArray jsonArray = item.optJSONArray("locations");
+        JSONObject locationInfo = jsonArray.optJSONObject(jsonArray.length() - 1);
+        String addressName = locationInfo.optString("name");
+        String lat = locationInfo.optString("lat");
+        String lng = locationInfo.optString("lng");
+
+        return new ClientInfo(id, name, email , mobile,image_full_path, addressName, lat, lng);
     }
 
     public static List<InboxItem> parseMyMessages(String feed){
