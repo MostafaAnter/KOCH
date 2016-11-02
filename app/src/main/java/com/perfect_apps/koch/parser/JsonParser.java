@@ -276,11 +276,11 @@ public class JsonParser {
             String updated_at = Utils.manipulateDateFormat(data.optString("updated_at"));
             JSONObject providerObj = data.optJSONObject("user");
             String providerName = providerObj.optString("name");
-            String providerImage = BuildConfig.API_BASE_URL + "/koch/assets/uploads/users/" + providerObj.optString("image");
+            String providerImage = "http://services-apps.net/koch/assets/uploads/users/" + providerObj.optString("image");
             JSONObject clientObj = data.optJSONObject("client_user");
 
             String clientName = clientObj.optString("name");
-            String clientImage = BuildConfig.API_BASE_URL + "/koch/assets/uploads/users/" + clientObj.optString("image");
+            String clientImage = "http://services-apps.net/koch/assets/uploads/users/" + clientObj.optString("image");
 
             orderRequestList.add(new OrderRequest(title, detail,cost, row_hash, status, updated_at, providerName, providerImage, clientName,
                     clientImage));

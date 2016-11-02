@@ -45,7 +45,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
      */
     public  class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.avatar)CircleImageView avatar;
+        @BindView(R.id.conversation_avatar)CircleImageView avatar;
         @BindView(R.id.progressBar)ProgressBar progressBar;
         @BindView(R.id.timestamp)TextView timestamp;
         @BindView(R.id.name)TextView name;
