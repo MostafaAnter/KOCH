@@ -282,7 +282,7 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
                     Utils.browse(getActivity(), providerInfo.getPicassa_url());
                 break;
             case R.id.call:
-                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(providerInfo.getMobile()));
+                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + providerInfo.getMobile()));
                 startActivity(callIntent);
                 break;
             case R.id.ratingBarContainer:
