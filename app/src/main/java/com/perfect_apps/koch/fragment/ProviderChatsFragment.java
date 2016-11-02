@@ -243,6 +243,9 @@ public class ProviderChatsFragment extends Fragment {
             initiateRefresh();
             if (mSwipeRefresh != null && !mSwipeRefresh.isRefreshing())
                 mSwipeRefresh.setRefreshing(true);
+
+            visibleHintGone = false;
+            onCreateGone = false;
         }
     }
 

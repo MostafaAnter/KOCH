@@ -157,6 +157,10 @@ public class ConversationActivity extends LocalizationActivity implements View.O
             }
         });
 
+        if (new KochPrefStore(ConversationActivity.this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")){
+            linearLayout.setVisibility(View.GONE);
+        }
+
     }
 
     private void setupRecyclerView() {

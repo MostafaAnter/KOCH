@@ -84,6 +84,10 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
 
     private ProviderInfo providerInfo;
 
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
+
     public SenderDataFragment (){
 
     }
@@ -125,8 +129,12 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         changeTextFont();
-        getProviderDate();
-        getRateInfo();
+
+        onCreateGone = true;
+        if (visibleHintGone) {
+            getProviderDate();
+            getRateInfo();
+        }
 
         imageViewFac.setOnClickListener(this);
         imageViewInst.setOnClickListener(this);
@@ -134,6 +142,22 @@ public class SenderDataFragment extends Fragment implements View.OnClickListener
         linearLayoutCall.setOnClickListener(this);
         frameLayout.setOnClickListener(this);
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            visibleHintGone = true;
+        }
+        if (isVisibleToUser && onCreateGone) {
+            getProviderDate();
+            getRateInfo();
+
+            visibleHintGone = false;
+            onCreateGone = false;
+        }
+    }
+
     private void getProviderDate(){
         if (Utils.isOnline(getActivity())) {
             // Set up a progress dialog

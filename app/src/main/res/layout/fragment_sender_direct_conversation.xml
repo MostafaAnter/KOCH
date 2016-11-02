@@ -7,10 +7,10 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/needCache"
         android:contentDescription="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg"
         android:scaleType="fitXY"
         android:isScrollContainer="false"
         />

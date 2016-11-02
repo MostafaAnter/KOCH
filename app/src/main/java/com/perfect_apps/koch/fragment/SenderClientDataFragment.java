@@ -44,6 +44,11 @@ public class SenderClientDataFragment extends Fragment implements OnMapReadyCall
     private GoogleMap mMap;
     private static final int GPS_ERRORDIALOG_REQUEST = 9001;
 
+
+    // for manage visibleHintFunc
+    private boolean visibleHintGone = false;
+    private boolean onCreateGone = false;
+
     public SenderClientDataFragment(){
 
     }
@@ -67,6 +72,25 @@ public class SenderClientDataFragment extends Fragment implements OnMapReadyCall
         }
 
         changeFontOfText();
+
+        onCreateGone = true;
+        if (visibleHintGone) {
+           // some work
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            visibleHintGone = true;
+        }
+        if (isVisibleToUser && onCreateGone) {
+           // do some thing
+
+            visibleHintGone = false;
+            onCreateGone = false;
+        }
     }
 
     private void changeFontOfText(){

@@ -19,6 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.perfect_apps.koch.BuildConfig;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.activities.ConversationActivity;
@@ -61,6 +63,7 @@ public class SenderDirectChatFragment extends Fragment implements View.OnClickLi
     @BindView(R.id.send_button)ImageView sendButton;
     @BindView(R.id.send_request)ImageView sendRequest;
     @BindView(R.id.messageInput)EditText editText1;
+    @BindView(R.id.needCache)ImageView imageView;
 
     // user id
     private String userId;
@@ -70,6 +73,15 @@ public class SenderDirectChatFragment extends Fragment implements View.OnClickLi
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
+    private void cacheBackground() {
+        Glide.with(this)
+                .load(R.drawable.bg)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .dontAnimate()
+                .into(imageView);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -124,6 +136,7 @@ public class SenderDirectChatFragment extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_sender_direct_conversation, container, false);
         ButterKnife.bind(this, view);
         setRecyclerView();
+        cacheBackground();
         return view;
     }
 

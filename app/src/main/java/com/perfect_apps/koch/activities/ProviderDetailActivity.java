@@ -107,14 +107,16 @@ public class ProviderDetailActivity extends LocalizationActivity
         profileIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(ProviderDetailActivity.this, ClientProfileActivity.class));
             }
         });
 
         messagesIc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProviderDetailActivity.this, ClientProfileActivity.class);
+                intent.putExtra("messageTab", true);
+                startActivity(intent);
             }
         });
     }

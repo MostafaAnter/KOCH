@@ -250,6 +250,9 @@ public class ClientChatsFragment extends Fragment {
             initiateRefresh();
             if (mSwipeRefresh != null && !mSwipeRefresh.isRefreshing())
                 mSwipeRefresh.setRefreshing(true);
+
+            visibleHintGone = false;
+            onCreateGone = false;
         }
     }
 
