@@ -580,6 +580,8 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        new SweetDialogHelper(SignUpActivity.this).showErrorMessage(getString(R.string.error),
+                                getString(R.string.try_again));
                         sdh.dismissDialog();
                         String errorServerMessage = "";
                         if (error.networkResponse.data != null) {

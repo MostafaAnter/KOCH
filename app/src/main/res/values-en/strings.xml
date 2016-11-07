@@ -93,4 +93,5 @@
     <string name="rate_provider">Rate provider</string>
     <string name="you_are_unbloked_this_user">you are unbloked this user</string>
     <string name="sender_info">Sender Info</string>
+    <string name="registeration_done">Reggestiration done</string>
 </resources>
