@@ -11,6 +11,9 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import com.perfect_apps.koch.R;
 
 import java.io.ByteArrayOutputStream;
@@ -145,5 +148,20 @@ public class Utils {
 
             }
         }.execute();
+    }
+
+    public static Long LongNationalNumber(String mNumberStr){
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        Phonenumber.PhoneNumber mNumberProto = null;
+        try {
+            mNumberProto = phoneUtil.parse(mNumberStr, "");
+        } catch (NumberParseException e) {
+            e.printStackTrace();
+        }
+        if(mNumberProto == null){
+            // there is no number show error message
+            return null;
+        }
+        return mNumberProto.getNationalNumber();
     }
 }

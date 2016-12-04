@@ -230,9 +230,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
         if (mobile == null || mobile.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
             return false;
-        }
-        if (!PhoneNumberUtils.isGlobalPhoneNumber(mobile)){
-            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_with));
+        }else if (!checkPhoneNumber(mobile)){
             return false;
         }
 
@@ -266,6 +264,20 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
             return false;
         }
         return true;
+
+    }
+
+    private boolean checkPhoneNumber(String phoneNumer) {
+        if (Utils.LongNationalNumber(phoneNumer) == null) {
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error),
+                    getString(R.string.enter_phone_with));
+            return false;
+        } else if (phoneNumer.charAt(0) != '+') {
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error),
+                    getString(R.string.enter_phone_with));
+            return false;
+        } else
+            return true;
 
     }
 

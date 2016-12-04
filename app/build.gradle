@@ -63,5 +63,7 @@ dependencies {
     compile 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
     // green bus
     compile 'org.greenrobot:eventbus:3.0.0'
+    // check phone number
+    compile 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
 }
 apply plugin: 'com.google.gms.google-services'
