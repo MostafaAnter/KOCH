@@ -73,7 +73,7 @@ public class CountriesAdapter extends ArrayAdapter {
             if (!mDataset.get(position).getName().equalsIgnoreCase("normal")){
                 label.setText(mDataset.get(position).getName());
             }else {
-                label.setText(mContext.getString(R.string.country));
+                label.setText(mContext.getString(R.string.country1));
             }
             label.setTextColor(Color.DKGRAY);
         }

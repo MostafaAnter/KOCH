@@ -6,8 +6,12 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
+
+import com.perfect_apps.koch.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -110,5 +114,36 @@ public class Utils {
 //        "K:mm a, z" ----------------------- 0:08 PM, PDT
 //        "h:mm a" -------------------------- 12:08 PM
 //        "EEE, MMM d, ''yy" ---------------- Wed, Jul 4, '01
+    }
+
+    public static void sleepAndSuccess(final FragmentActivity mContext, final String message){
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                new SweetDialogHelper(mContext)
+                        .showSuccessfulMessage(mContext.getString(R.string.done),
+                                message);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                mContext.finish();
+
+
+            }
+        }.execute();
     }
 }

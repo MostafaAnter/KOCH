@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,6 +66,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
 
 public class SignUpActivity extends LocalizationActivity implements View.OnClickListener {
+
+    @BindView(R.id.caution)
+    TextView caution;
     @BindView(R.id.text1)
     TextView textView1;
     @BindView(R.id.text2)
@@ -214,6 +218,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         //Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
+        caution.setTypeface(font);
         textView1.setTypeface(font);
         textView2.setTypeface(font);
         textView3.setTypeface(font);
@@ -362,88 +367,34 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
     }
 
     private void getCountries() {
-
         /**
          * this section for fetch country
          */
         String urlBrands = Constants.countriesListURL;
-        // We first check for cached request
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(urlBrands);
-        if (entry != null) {
-            // fetch the data from cache
-            try {
-                String data = new String(entry.data, "UTF-8");
-                // do some thing
-                populateSpinner1(JsonParser.parseCountriesFeed(data));
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+            @Override
+            public void onResponse(String response) {
+                List<Countries> spinnerItemList = JsonParser.parseCountriesFeed(response);
+                if (spinnerItemList != null) {
+                    populateSpinner1(spinnerItemList);
+                }
+                Log.d("response", response.toString());
+
             }
+        }, new Response.ErrorListener() {
 
-        } else {
-            // making fresh volley request and getting json
-            StringRequest jsonReq = new StringRequest(Request.Method.GET,
-                    urlBrands, new Response.Listener<String>() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+            }
+        });
 
-                @Override
-                public void onResponse(String response) {
-                    List<Countries> spinnerItemList = JsonParser.parseCountriesFeed(response);
-                    if (spinnerItemList != null) {
-                        populateSpinner1(spinnerItemList);
-                    }
-                    Log.d("response", response.toString());
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
 
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
-                }
-            }) {
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    try {
-                        Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
-                        if (cacheEntry == null) {
-                            cacheEntry = new Cache.Entry();
-                        }
-                        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
-                        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
-                        long now = System.currentTimeMillis();
-                        final long softExpire = now + cacheHitButRefreshed;
-                        final long ttl = now + cacheExpired;
-                        cacheEntry.data = response.data;
-                        cacheEntry.softTtl = softExpire;
-                        cacheEntry.ttl = ttl;
-                        String headerValue;
-                        headerValue = response.headers.get("Date");
-                        if (headerValue != null) {
-                            cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                        }
-                        headerValue = response.headers.get("Last-Modified");
-                        if (headerValue != null) {
-                            //cacheEntry. = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                        }
-                        cacheEntry.responseHeaders = response.headers;
-                        final String jsonString = new String(response.data,
-                                HttpHeaderParser.parseCharset(response.headers));
-                        return Response.success(jsonString, cacheEntry);
-                    } catch (UnsupportedEncodingException e) {
-                        return Response.error(new ParseError(e));
-                    }
-                }
-
-                @Override
-                protected void deliverResponse(String response) {
-                    super.deliverResponse(response);
-                }
-            };
-
-            // Adding request to volley request queue
-            AppController.getInstance().addToRequestQueue(jsonReq);
-        }
 
     }
 
@@ -566,7 +517,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            finish();
+                            Utils.sleepAndSuccess(SignUpActivity.this, getString(R.string.creatAccount));
 //                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
 //                            intent.putExtra("email", email);
 //                            intent.putExtra("password", password);
@@ -736,6 +687,12 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
             return false;
         }
+
+        if (!PhoneNumberUtils.isGlobalPhoneNumber(mobile)){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_with));
+            return false;
+        }
+
         if (email == null || email.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
@@ -750,6 +707,14 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
             return false;
         }
+
+        if (!password.matches("^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$") &&
+                !password.matches("^(?=.*[a-z])(?=.*[0-9])[a-z0-9]+$")){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password_should));
+            return false;
+
+        }
+
         if (desc == null || desc.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.short_description));
             return false;
@@ -923,7 +888,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            finish();
+                            Utils.sleepAndSuccess(SignUpActivity.this, getString(R.string.updateAccount));
 //                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
 //                            intent.putExtra("email", email);
 //                            intent.putExtra("password", password);

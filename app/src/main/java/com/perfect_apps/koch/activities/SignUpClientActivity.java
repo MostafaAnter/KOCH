@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,8 @@ import me.iwf.photopicker.PhotoPicker;
 
 public class SignUpClientActivity extends LocalizationActivity implements View.OnClickListener {
 
+    @BindView(R.id.caution)
+    TextView caution;
     @BindView(R.id.text1)
     TextView textView1;
     @BindView(R.id.text2)
@@ -139,6 +142,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
     private void changeTextFont() {
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         //Typeface fontBold = Typeface.createFromAsset(getAssets(), "fonts/bold.ttf");
+        caution.setTypeface(font);
         textView1.setTypeface(font);
         textView2.setTypeface(font);
         textView3.setTypeface(font);
@@ -227,6 +231,11 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_number));
             return false;
         }
+        if (!PhoneNumberUtils.isGlobalPhoneNumber(mobile)){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_phone_with));
+            return false;
+        }
+
         if (email == null || email.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.enter_email));
             return false;
@@ -239,6 +248,13 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
         if (password == null || password.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password));
             return false;
+        }
+
+        if (!password.matches("^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$") &&
+                !password.matches("^(?=.*[a-z])(?=.*[0-9])[a-z0-9]+$")){
+            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.password_should));
+            return false;
+
         }
 //        if (desc == null || desc.trim().isEmpty()){
 //            new SweetDialogHelper(this).showErrorMessage(getString(R.string.error), getString(R.string.short_description));
@@ -273,7 +289,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            finish();
+                            Utils.sleepAndSuccess(SignUpClientActivity.this, getString(R.string.creatAccount));
 //                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
 //                            intent.putExtra("email", email);
 //                            intent.putExtra("password", password);
@@ -480,7 +496,7 @@ public class SignUpClientActivity extends LocalizationActivity implements View.O
                         try {
                             JSONObject result = new JSONObject(resultResponse);
                             Log.d("response", resultResponse);
-                            finish();
+                            Utils.sleepAndSuccess(SignUpClientActivity.this, getString(R.string.updateAccount));
 //                            Intent intent = new Intent(RegisterTeacherMembershipActivity.this, LoginTeacherActivity.class);
 //                            intent.putExtra("email", email);
 //                            intent.putExtra("password", password);
