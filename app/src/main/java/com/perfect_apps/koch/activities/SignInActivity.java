@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class SignInActivity extends LocalizationActivity {
+public class SignInActivity extends LocalizationActivity  implements View.OnClickListener{
 
     @BindView(R.id.radioButton1)
     RadioButton radioButton1;
@@ -59,6 +59,8 @@ public class SignInActivity extends LocalizationActivity {
     @BindView(R.id.text4)
     TextView textView4;
 
+    @BindView(R.id.changePassword)TextView changePassword;
+
     private int signUpPageFlage = 0;
 
     private String email;
@@ -72,6 +74,8 @@ public class SignInActivity extends LocalizationActivity {
         setToolbar();
         changeTextFont();
         setRadioButtons();
+
+        changePassword.setOnClickListener(this);
     }
 
     private void setToolbar() {
@@ -322,6 +326,15 @@ public class SignInActivity extends LocalizationActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.changePassword:
+                startActivity(new Intent(this, ChangePasswordActivity.class));
+                break;
         }
     }
 }

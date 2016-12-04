@@ -62,7 +62,6 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:contentDescription="@null"
             android:src="@drawable/log_big_icon" />
 
@@ -71,7 +70,6 @@
             android:layout_height="35dp"
             android:layout_marginLeft="?android:attr/listPreferredItemHeightSmall"
             android:layout_marginRight="?android:attr/listPreferredItemHeightSmall"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_gray_edit_text"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -147,13 +145,21 @@
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/changePassword"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/for_get_password"
+            android:textColor="@color/colorPrimaryDark" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="?android:attr/listPreferredItemHeightSmall"
             android:layout_marginRight="?android:attr/listPreferredItemHeightSmall"
-            android:layout_marginTop="?android:attr/listPreferredItemHeightSmall"
             android:orientation="horizontal">
 
             <TextView

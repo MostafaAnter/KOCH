@@ -93,4 +93,11 @@
     <string name="you_are_blocked_this_user">لقد قمت بحظر المستخدم من قبل</string>
     <string name="you_are_unbloked_this_user">لقد قمت بإلغاء الحظر</string>
     <string name="your_blocked_this_user">لقد قمت بحظر المستخدم</string>
+    <string name="creatAccount">قمت بأنشاء حساب بنجاح</string>
+    <string name="enter_phone_with">ادخل كود الدولة قبل الهاتف</string>
+    <string name="for_get_password"><u>نسيت كلمة السر؟</u></string>
+    <string name="password_should">كلمة السر لابد ان تتكون من ارقام وحروف</string>
+    <string name="registeration_done">تم التسجيل بنجاح</string>
+    <string name="updateAccount">تم التعديل بنجاح</string>
+    <string name="will_used_as_user_name">(سيستخدم كأسم للمستخدم)</string>
 </resources>
