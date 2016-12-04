@@ -370,7 +370,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         /**
          * this section for fetch country
          */
-        String urlBrands = Constants.countriesListURL;
+        String urlBrands = Constants.countriesListURL + "?lng=" + getLanguage();
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
@@ -402,7 +402,7 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(Constants.citiesListURL + countryId);
+        Cache.Entry entry = cache.get(Constants.citiesListURL + countryId + "&lng=" + getLanguage());
         if (entry != null) {
             // fetch the data from cache
             try {
@@ -417,7 +417,8 @@ public class SignUpActivity extends LocalizationActivity implements View.OnClick
         } else {
             // making fresh volley request and getting json
             StringRequest jsonReq = new StringRequest(Request.Method.GET,
-                    Constants.citiesListURL + countryId, new Response.Listener<String>() {
+                    Constants.citiesListURL + countryId + "&lng=" + getLanguage()
+                    , new Response.Listener<String>() {
 
                 @Override
                 public void onResponse(String response) {
