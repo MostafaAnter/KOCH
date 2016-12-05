@@ -22,7 +22,7 @@
     <string name="enter_email">Enter Email</string>
     <string name="about_me">About me</string>
     <string name="short_description">Short description</string>
-    <string name="work_hour">Work hour</string>
+    <string name="work_hour">Work hour from - to</string>
     <string name="work_hour_number">Work hour number</string>
     <string name="services">Services</string>
     <string name="first_service">First Service</string>
@@ -115,6 +115,7 @@
     <string name="password_should">Password should contain digits and letters</string>
     <string name="enter_phone_with">Enter phone with country code</string>
     <string name="for_get_password"><u>Forget Password?</u></string>
-    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="title_activity_change_password" translatable="false">ChangePasswordActivity</string>
     <string name="there_is_no_internet">Open network connection</string>
+    <string name="loading">Loading...</string>
 </resources>

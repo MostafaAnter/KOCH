@@ -60,6 +60,7 @@ import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
 import com.perfect_apps.koch.utils.MapHelper;
 import com.perfect_apps.koch.utils.MapStateManager;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -135,7 +136,7 @@ public class ProviderHomeActivity extends LocalizationActivity
         // Check if has GPS
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+           // buildAlertMessageNoGps();
         }
 
 
@@ -231,16 +232,56 @@ public class ProviderHomeActivity extends LocalizationActivity
         } else if (id == R.id.nav_call_us) {
 
         } else if (id == R.id.sign_out) {
-            new KochPrefStore(this).clearPreference();
-            startActivity(new Intent(this, SplashActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+           changeState("0");
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void changeState(final String status){
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://services-apps.net/koch/api/set/status/provider";
+        final SweetDialogHelper sweetDialogHelper = new SweetDialogHelper(this);
+        sweetDialogHelper.showMaterialProgress(getString(R.string.loading));
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                sweetDialogHelper.dismissDialog();
+                Log.d("change_state", response);
+                new KochPrefStore(ProviderHomeActivity.this).clearPreference();
+                startActivity(new Intent(ProviderHomeActivity.this, SplashActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sweetDialogHelper.dismissDialog();
+                Log.d("error upload client loc", error.toString());
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userEmail));
+                params.put("password", new KochPrefStore(ProviderHomeActivity.this).getPreferenceValue(Constants.userPassword));
+                params.put("status", status);
+                return params;
+
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     //change font of drawer
