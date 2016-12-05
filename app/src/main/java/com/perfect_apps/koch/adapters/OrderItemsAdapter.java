@@ -121,6 +121,8 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
 
         if (Integer.valueOf(mDataSet.get(position).getStatus()) == 0){
             viewHolder.getContainer().setBackgroundResource(R.color.gray_btn_bg_color);
+        }else {
+            viewHolder.getContainer().setBackgroundResource(R.color.background);
         }
 
 

@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by mostafa_anter on 10/3/16.
  */
 
-public class ProviderRequestFragment extends Fragment{
+public class ProviderRequestFragment extends Fragment {
 
     @BindView(R.id.noData)
     LinearLayout noDataView;
@@ -73,7 +73,7 @@ public class ProviderRequestFragment extends Fragment{
     private boolean visibleHintGone = false;
     private boolean onCreateGone = false;
 
-    public ProviderRequestFragment(){
+    public ProviderRequestFragment() {
 
     }
 
@@ -115,7 +115,6 @@ public class ProviderRequestFragment extends Fragment{
                         getResources().getDisplayMetrics()));
 
 
-
         return view;
     }
 
@@ -135,7 +134,6 @@ public class ProviderRequestFragment extends Fragment{
             @Override
             public void onRefresh() {
                 Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-
                 initiateRefresh();
             }
         });
@@ -181,26 +179,26 @@ public class ProviderRequestFragment extends Fragment{
         switch (layoutManagerType) {
             case GRID_LAYOUT_MANAGER:
                 mLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
-                mCurrentLayoutManagerType =  LayoutManagerType.GRID_LAYOUT_MANAGER;
+                mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
                 break;
             case LINEAR_LAYOUT_MANAGER:
                 mLayoutManager = new LinearLayoutManager(getActivity());
-                mCurrentLayoutManagerType =  LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
                 break;
             default:
                 mLayoutManager = new LinearLayoutManager(getActivity());
-                mCurrentLayoutManagerType =  LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(scrollPosition);
     }
 
-    private void initiateRefresh(){
+    private void initiateRefresh() {
         loadDataProvider();
     }
 
-    private void onRefreshComplete(){
+    private void onRefreshComplete() {
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);
         }
@@ -213,67 +211,48 @@ public class ProviderRequestFragment extends Fragment{
 
     }
 
-    private void loadDataProvider(){
+    private void loadDataProvider() {
         String url = BuildConfig.API_BASE_URL + "get_request/provider?email="
                 + new KochPrefStore(getActivity()).getPreferenceValue(Constants.userEmail)
                 + "&password=" + new KochPrefStore(getActivity()).getPreferenceValue(Constants.userPassword);
 
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(url);
-        if (entry != null && !Utils.isOnline(getActivity())) {
-            try {
-                String data = new String(entry.data, "UTF-8");
-                data = StringEscapeUtils.unescapeJava(data);
-                clearDataSet();
-                for (OrderRequest item :
-                        JsonParser.parseOrderRequest(data)) {
-                    mDataset.add(item);
-                    mAdapter.notifyDataSetChanged();
+        if (Utils.isOnline(getActivity())) {
+            // Tag used to cancel the request
+            String tag_string_req = "string_req";
+
+            // Cached response doesn't exists. Make network call here
+            if (!mSwipeRefresh.isRefreshing())
+                mSwipeRefresh.setRefreshing(true);
+
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, response);
+                    response = StringEscapeUtils.unescapeJava(response);
+                    clearDataSet();
+                    for (OrderRequest item :
+                            JsonParser.parseOrderRequest(response)) {
+                        mDataset.add(item);
+                        mAdapter.notifyDataSetChanged();
+
+                    }
                     onRefreshComplete();
 
                 }
+            }, new Response.ErrorListener() {
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (Utils.isOnline(getActivity())) {
-                // Tag used to cancel the request
-                String tag_string_req = "string_req";
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
 
-                // Cached response doesn't exists. Make network call here
-                if (!mSwipeRefresh.isRefreshing())
-                    mSwipeRefresh.setRefreshing(true);
+                }
+            });
 
-                StringRequest strReq = new StringRequest(Request.Method.GET,
-                        url, new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(TAG, response);
-                        response = StringEscapeUtils.unescapeJava(response);
-                        clearDataSet();
-                        for ( OrderRequest item :
-                                JsonParser.parseOrderRequest(response)) {
-                            mDataset.add(item);
-                            mAdapter.notifyDataSetChanged();
-
-                        }
-                        onRefreshComplete();
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        onRefreshComplete();
-
-                    }
-                });
-
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-            }
+            strReq.setShouldCache(false);
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }
 
     }
