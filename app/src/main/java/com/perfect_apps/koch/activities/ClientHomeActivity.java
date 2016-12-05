@@ -591,7 +591,7 @@ public class ClientHomeActivity extends LocalizationActivity
     private void viewAllProviders(final String lat, final String lng) {
         // Tag used to cancel the request
         String tag_string_req = "string_req";
-        String url = Constants.viewAllProviders + "?lat=" + lat + "&lng=" + lng + "&distance=5";
+        String url = Constants.viewAllProviders + "?lat=" + lat + "&lng=" + lng + "&distance=20";
         final SweetDialogHelper sdh = new SweetDialogHelper(this);
         sdh.showMaterialProgress(getString(R.string.wait));
         StringRequest strReq = new StringRequest(Request.Method.GET,
