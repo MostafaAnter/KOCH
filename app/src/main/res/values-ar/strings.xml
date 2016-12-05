@@ -100,4 +100,5 @@
     <string name="registeration_done">تم التسجيل بنجاح</string>
     <string name="updateAccount">تم التعديل بنجاح</string>
     <string name="will_used_as_user_name">(سيستخدم كأسم للمستخدم)</string>
+    <string name="there_is_no_internet">قم بتشغيل شبكة الانترنت</string>
 </resources>

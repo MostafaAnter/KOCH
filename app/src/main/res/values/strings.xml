@@ -116,4 +116,5 @@
     <string name="enter_phone_with">Enter phone with country code</string>
     <string name="for_get_password"><u>Forget Password?</u></string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="there_is_no_internet">Open network connection</string>
 </resources>
