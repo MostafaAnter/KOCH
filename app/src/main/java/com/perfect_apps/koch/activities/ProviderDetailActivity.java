@@ -145,12 +145,25 @@ public class ProviderDetailActivity extends LocalizationActivity
 
         if (id == R.id.nav_about_app) {
             // Handle the camera action
+            startActivity(new Intent(this, AboutActivity.class));
         } else if (id == R.id.nav_share_app) {
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "KOCH");
+                String sAux = "\nLet me recommend you this application\n\n";
+                sAux = sAux + "https://play.google.com/store/apps/details?id=com.perfect_apps.koch \n\n";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "choose one"));
+            } catch (Exception e) {
+                //e.toString();
+            }
 
         } else if (id == R.id.nav_translate) {
             showSingleChoiceListLangaugeAlertDialog();
 
         } else if (id == R.id.nav_call_us) {
+            startActivity(new Intent(this, ContactUsActivity.class));
 
         }else if (id == R.id.sign_out) {
             new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)

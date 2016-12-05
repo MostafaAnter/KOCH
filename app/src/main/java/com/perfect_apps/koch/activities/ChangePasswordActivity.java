@@ -8,18 +8,19 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.perfect_apps.koch.R;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
 import butterknife.ButterKnife;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends LocalizationActivity {
 
     private static ProgressBar progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         ButterKnife.bind(this);

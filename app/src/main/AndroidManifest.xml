@@ -80,8 +80,8 @@
             android:label="@string/title_activity_provider_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:configChanges="screenSize|orientation"
             android:name=".activities.ClientProfileActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_client_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -133,7 +133,15 @@
             android:name=".activities.ChangePasswordActivity"
             android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_change_password"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ContactUsActivity"
+            android:label="@string/title_activity_contact_us"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

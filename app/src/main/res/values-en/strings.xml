@@ -109,4 +109,8 @@
     <string name="are_sure">Are you sure?</string>
     <string name="yess">Yes</string>
     <string name="noo">No</string>
+    <string name="be_in_touch">Be in touch</string>
+    <string name="full_name">Full name</string>
+    <string name="message_title">Message title</string>
+    <string name="message">Message</string>
 </resources>
