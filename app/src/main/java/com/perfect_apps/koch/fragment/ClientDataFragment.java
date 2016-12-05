@@ -226,10 +226,30 @@ public class ClientDataFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.exit:
-                new KochPrefStore(getActivity()).clearPreference();
-                startActivity(new Intent(getActivity(), SplashActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                getActivity().overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText(getString(R.string.are_sure))
+                        .setContentText(getString(R.string.exit))
+                        .setConfirmText(getString(R.string.yes))
+                        .setCancelText(getString(R.string.no))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                new KochPrefStore(getActivity()).clearPreference();
+                                startActivity(new Intent(getActivity(), SplashActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                getActivity().overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+
                 break;
             case R.id.editProfile:
                 Intent intent = new Intent(getActivity(), SignUpClientActivity.class);

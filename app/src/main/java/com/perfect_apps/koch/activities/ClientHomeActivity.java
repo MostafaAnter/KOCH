@@ -251,6 +251,30 @@ public class ClientHomeActivity extends LocalizationActivity
         } else if (id == R.id.nav_call_us) {
 
         } else if (id == R.id.sign_out) {
+            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText(getString(R.string.are_sure))
+                    .setContentText(getString(R.string.exit))
+                    .setConfirmText(getString(R.string.yes))
+                    .setCancelText(getString(R.string.no))
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                            new KochPrefStore(ClientHomeActivity.this).clearPreference();
+                            startActivity(new Intent(ClientHomeActivity.this, SplashActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                        }
+                    })
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismissWithAnimation();
+                        }
+                    })
+                    .show();
+
+
             new KochPrefStore(this).clearPreference();
             startActivity(new Intent(this, SplashActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -448,12 +472,11 @@ public class ClientHomeActivity extends LocalizationActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                // view all providers automatic
+                viewAllProviders(lat, lng);
             }
-            new UpdateCurrentLocTask().execute();
 
-            // view all providers automatic
-            viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
-                    String.valueOf(mLastLocation.getLongitude()));
+
         }
     }
 
@@ -464,26 +487,6 @@ public class ClientHomeActivity extends LocalizationActivity
                 viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
                         String.valueOf(mLastLocation.getLongitude()));
                 break;
-        }
-    }
-
-    private class UpdateCurrentLocTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            updateCurrentLocationData();
-
         }
     }
 
@@ -637,7 +640,7 @@ public class ClientHomeActivity extends LocalizationActivity
         Marker marker = mMap.addMarker(new MarkerOptions()
                 .title(providerInfo.getUsername())
                 .snippet(providerInfo.getDesc() + "\n" + providerInfo.getService_1() + "\n" + providerInfo.getService_2() +
-                "\n" + providerInfo.getService_3() + "\n" + providerInfo.getService_4() + "\n" + providerInfo.getOther_services())
+                "\n" + providerInfo.getService_3() + "\n" + providerInfo.getService_4())
                 .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.map_market_marker)))
                 .position(new LatLng(Double.valueOf(providerInfo.getAddresslat()),
                         Double.valueOf(providerInfo.getAddresslng()))).draggable(true));
@@ -653,15 +656,17 @@ public class ClientHomeActivity extends LocalizationActivity
 
                 LinearLayout info = new LinearLayout(ClientHomeActivity.this);
                 info.setOrientation(LinearLayout.VERTICAL);
+                info.setGravity(Gravity.CENTER_HORIZONTAL);
 
                 TextView title = new TextView(ClientHomeActivity.this);
                 title.setTextColor(Color.BLACK);
                 title.setGravity(Gravity.CENTER);
-                title.setTypeface(null, Typeface.BOLD);
+                title.setTypeface(null, Typeface.BOLD_ITALIC);
                 title.setText(marker.getTitle());
 
                 TextView snippet = new TextView(ClientHomeActivity.this);
-                snippet.setTextColor(Color.RED);
+                snippet.setTextColor(Color.BLUE);
+                snippet.setGravity(Gravity.CENTER);
                 snippet.setText(marker.getSnippet());
 
                 info.addView(title);
