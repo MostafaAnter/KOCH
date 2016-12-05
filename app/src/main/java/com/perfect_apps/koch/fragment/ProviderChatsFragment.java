@@ -154,11 +154,13 @@ public class ProviderChatsFragment extends Fragment {
                     public void onItemClick(View view, int position) {
 
                         Intent intent = new Intent(getActivity(), ConversationActivity.class);
-                        intent.putExtra("message_id", mDataset.get(position).getChat_id());
-                        intent.putExtra("user_id", mDataset.get(position).getUser_id());
-                        intent.putExtra("group_id", mDataset.get(position).getGroup_id());
-                        intent.putExtra("user_name", mDataset.get(position).getChats_name());
-                        intent.putExtra("user_avatar", mDataset.get(position).getChats_avatar());
+                        Bundle b = new Bundle();
+                        b.putString("message_id", mDataset.get(position).getChat_id());
+                        b.putString("user_id", mDataset.get(position).getUser_id());
+                        b.putString("group_id", mDataset.get(position).getGroup_id());
+                        b.putString("user_name", mDataset.get(position).getChats_name());
+                        b.putString("user_avatar", mDataset.get(position).getChats_avatar());
+                        intent.putExtras(b);
                         startActivity(intent);
 
                     }

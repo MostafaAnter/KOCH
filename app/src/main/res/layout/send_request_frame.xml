@@ -1,208 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeightLarge"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar"
-            android:layout_width="?android:attr/listPreferredItemHeight"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="4dp"
-            android:padding="5dp"
-            android:src="@drawable/log_user"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="1dp" />
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="5dip"
-            android:paddingRight="8dip">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Mostafa Anter Sfdsfsdfdsfsdfsdfffdsayd afjk"
-                    android:textAlignment="viewStart"
-                    android:textStyle="bold"
-                    tools:ignore="RtlCompat" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="10sp" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:src="@drawable/client_order_date" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/timestamp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="10sp" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:src="@drawable/pro_time" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F5F5F5"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text1"
-            style="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:text="@string/confirmation_client_oreder"
-            android:textColor="@color/red"
-            android:textStyle="bold" />
-
-        <RelativeLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:background="@drawable/border_shape_gray_rec">
+            android:layout_height="?android:attr/listPreferredItemHeightLarge"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/editTextHeight"
-                android:background="#00000000"
-                android:hint="@string/title_of_request"
-                android:inputType="text"
-                android:isScrollContainer="true"
-                android:padding="3dp"
-                android:text="" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:background="@drawable/border_shape_gray_rec">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="?android:attr/listPreferredItemHeight"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="4dp"
+                android:padding="5dp"
+                android:src="@drawable/log_user"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp" />
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightLarge"
-                android:background="#00000000"
-                android:gravity="top"
-                android:hint="@string/details_of_request"
-                android:inputType="text"
-                android:isScrollContainer="true"
-                android:padding="3dp"
-                android:text="" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:background="@drawable/border_shape_gray_rec">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="5dip"
+                android:paddingRight="8dip">
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/editTextHeight"
-                android:background="#00000000"
-                android:hint="@string/cost_of_request"
-                android:inputType="text"
-                android:isScrollContainer="true"
-                android:padding="3dp"
-                android:text="" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Mostafa Anter Sfdsfsdfdsfsdfsdfffdsayd afjk"
+                        android:textAlignment="viewStart"
+                        android:textStyle="bold"
+                        tools:ignore="RtlCompat" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/client_order_date" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/timestamp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/pro_time" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:orientation="horizontal">
+            android:background="#F5F5F5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
-            <Button
-                android:id="@+id/button1"
+            <TextView
+                android:id="@+id/text1"
+                style="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/editTextHeight"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:background="@color/colorAccent"
-                android:text="@string/send"
-                android:textColor="@color/white" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:text="@string/confirmation_client_oreder"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button2"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_shape_gray_rec">
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/editTextHeight"
+                    android:background="#00000000"
+                    android:hint="@string/title_of_request"
+                    android:inputType="text"
+                    android:isScrollContainer="true"
+                    android:padding="3dp"
+                    android:text="" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_shape_gray_rec">
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+                    android:background="#00000000"
+                    android:gravity="top"
+                    android:hint="@string/details_of_request"
+                    android:inputType="text"
+                    android:isScrollContainer="true"
+                    android:padding="3dp"
+                    android:text="" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_shape_gray_rec">
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/editTextHeight"
+                    android:background="#00000000"
+                    android:hint="@string/cost_of_request"
+                    android:inputType="text"
+                    android:isScrollContainer="true"
+                    android:padding="3dp"
+                    android:text="" />
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/editTextHeight"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:background="@color/red"
-                android:text="@string/discard"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:orientation="horizontal">
 
-                android:textColor="@color/white" />
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/editTextHeight"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@color/colorAccent"
+                    android:text="@string/send"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/editTextHeight"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@color/red"
+                    android:text="@string/discard"
+
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

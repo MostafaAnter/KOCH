@@ -11,7 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,6 +87,23 @@ public class ConversationActivity extends LocalizationActivity implements View.O
         }
     }
 
+    private void setImeActionButton() {
+        editText1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // do any thing here
+                    Utils.hideKeyboard(editText1, ConversationActivity.this);
+                    doNewMessage();
+
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+    }
+
     private enum LayoutManagerType {
         LINEAR_LAYOUT_MANAGER;
     }
@@ -106,6 +125,8 @@ public class ConversationActivity extends LocalizationActivity implements View.O
         mBundle = getIntent().getExtras();
         setToolbar();
         setupRecyclerView();
+
+        setImeActionButton();
 
         getConversationMessages();
         sendButton.setOnClickListener(this);

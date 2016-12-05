@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -37,6 +39,15 @@ public class Utils {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void hideKeyboard(EditText editText, Context context)
+    {
+        if(editText != null)
+        {
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         }
     }
 

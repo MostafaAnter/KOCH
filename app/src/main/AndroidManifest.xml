@@ -102,15 +102,18 @@
         <activity
             android:name=".activities.ConversationActivity"
             android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/title_activity_conversation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.RequestDetailActivity"
             android:label="@string/title_activity_request_detail"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ClientDetailActivity"
             android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/title_activity_client_detail"
             android:theme="@style/AppTheme.NoActionBar" />
 

@@ -199,7 +199,8 @@ public class JsonParser {
                 JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
                 String id = jsonObject.optString("id");
                 String message = jsonObject.optString("message");
-                String created_at = jsonObject.optString("created_at");
+                JSONObject createAt = jsonObject.optJSONObject("created_at");
+                String created_at = createAt.optString("date");
                 String new_count = jsonObject.optString("new_count");
                 JSONObject sender = jsonObject.optJSONObject("sender");
                 String name = sender.optString("name");
@@ -227,7 +228,9 @@ public class JsonParser {
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
                 JSONObject jsonObject = jsonMoviesArray.getJSONObject(i);
                 String message = jsonObject.optString("message");
-                String created_at = Utils.manipulateDateFormat(jsonObject.optString("created_at"));
+                JSONObject createAt = jsonObject.optJSONObject("created_at");
+                String created_at = Utils.manipulateDateFormat(createAt.optString("date"));
+
 
                 JSONObject sender = jsonObject.optJSONObject("sender");
                 String email = sender.optString("email");

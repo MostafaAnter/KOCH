@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +60,8 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
     @BindView(R.id.text10)
     TextView textView10;
 
+    @BindView(R.id.editText1)EditText editText;
+
     @BindView(R.id.user_avatar)
     CircleImageView avatar;
     @BindView(R.id.button1)
@@ -92,6 +95,7 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
         textView1.setTypeface(font);
         textView2.setTypeface(font);
         textView4.setTypeface(font);
+        editText.setTypeface(font);
         textView5.setTypeface(font);
         textView6.setTypeface(font);
         textView7.setTypeface(font);
@@ -177,18 +181,19 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                changeRequestState();
+                changeRequestState("1");
                 break;
             case R.id.button2:
+                changeRequestState("2");
                 break;
         }
     }
 
-    private void changeRequestState() {
+    private void changeRequestState(String status) {
         String url = BuildConfig.API_BASE_URL + "status_request/client?email="
                 + new KochPrefStore(this).getPreferenceValue(Constants.userEmail)
                 + "&password=" + new KochPrefStore(this).getPreferenceValue(Constants.userPassword) + "&row_hash="
-                + orderRequest.getRow_hash();
+                + orderRequest.getRow_hash() + "&status=" + status + "&notes=" + editText.getText().toString();
 
         if (Utils.isOnline(this)) {
             // Tag used to cancel the request

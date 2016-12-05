@@ -131,4 +131,5 @@
     <string name="full_name">Full name</string>
     <string name="message_title">Message title</string>
     <string name="message">Message</string>
+    <string name="reason">Reason of discard (optionaly)</string>
 </resources>
