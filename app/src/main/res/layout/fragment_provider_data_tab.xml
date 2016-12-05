@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/vertical_margin"
-                        android:text="متاح للعمل"
+                        android:text="@string/ready_to_recieve"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
