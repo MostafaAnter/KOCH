@@ -109,4 +109,8 @@
     <string name="are_sure">هل متأكد؟</string>
     <string name="noo">لا</string>
     <string name="yess">نعم</string>
+    <string name="be_in_touch">كن على تواصل دائما</string>
+    <string name="full_name">اسم المستخدم</string>
+    <string name="message">الرسالة</string>
+    <string name="message_title">عنوان الرسالة</string>
 </resources>

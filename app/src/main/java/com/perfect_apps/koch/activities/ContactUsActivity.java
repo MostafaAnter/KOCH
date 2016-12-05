@@ -126,7 +126,7 @@ public class ContactUsActivity extends LocalizationActivity implements View.OnCl
                 pDialog.show();
 
                 // Tag used to cancel the request
-                String url = BuildConfig.API_BASE_URL + "/contact_us";
+                String url = BuildConfig.API_BASE_URL + "contact_us";
 
                 StringRequest strReq = new StringRequest(Request.Method.POST,
                         url, new Response.Listener<String>() {
