@@ -58,6 +58,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ClientProfileActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -177,10 +178,29 @@ public class ClientProfileActivity extends LocalizationActivity
         } else if (id == R.id.nav_call_us) {
 
         }else if (id == R.id.sign_out) {
-            new KochPrefStore(this).clearPreference();
-            startActivity(new Intent(this, SplashActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText(getString(R.string.are_sure))
+                    .setContentText(getString(R.string.exit))
+                    .setConfirmText(getString(R.string.yess))
+                    .setCancelText(getString(R.string.noo))
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                            new KochPrefStore(ClientProfileActivity.this).clearPreference();
+                            startActivity(new Intent(ClientProfileActivity.this, SplashActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                        }
+                    })
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.dismissWithAnimation();
+                        }
+                    })
+                    .show();
+
 
         }
 

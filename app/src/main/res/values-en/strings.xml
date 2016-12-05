@@ -107,4 +107,6 @@
     <string name="cant_rate">You cant rate provider now</string>
     <string name="rate">Rate!</string>
     <string name="are_sure">Are you sure?</string>
+    <string name="yess">Yes</string>
+    <string name="noo">No</string>
 </resources>

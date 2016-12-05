@@ -230,8 +230,8 @@ public class ClientDataFragment extends Fragment implements View.OnClickListener
                 new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
                         .setTitleText(getString(R.string.are_sure))
                         .setContentText(getString(R.string.exit))
-                        .setConfirmText(getString(R.string.yes))
-                        .setCancelText(getString(R.string.no))
+                        .setConfirmText(getString(R.string.yess))
+                        .setCancelText(getString(R.string.noo))
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {

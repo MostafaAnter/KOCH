@@ -106,4 +106,7 @@
     <string name="cant_rate">لاتستطيع تقيم المزود الان</string>
     <string name="sorry">نأسف!</string>
     <string name="rate">التقييم!</string>
+    <string name="are_sure">هل متأكد؟</string>
+    <string name="noo">لا</string>
+    <string name="yess">نعم</string>
 </resources>

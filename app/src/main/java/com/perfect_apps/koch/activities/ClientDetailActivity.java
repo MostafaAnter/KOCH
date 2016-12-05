@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,7 +30,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.fragment.SendRequestFragment;
 import com.perfect_apps.koch.fragment.SenderClientDataFragment;
 import com.perfect_apps.koch.fragment.SenderDataFragment;
@@ -38,9 +44,12 @@ import com.perfect_apps.koch.fragment.SenderLocationFragment;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.CustomTypefaceSpan;
+import com.perfect_apps.koch.utils.SweetDialogHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -159,16 +168,55 @@ public class ClientDetailActivity extends LocalizationActivity
         } else if (id == R.id.nav_call_us) {
 
         }else if (id == R.id.sign_out) {
-            new KochPrefStore(this).clearPreference();
-            startActivity(new Intent(this, SplashActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-
+            changeState("0");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void changeState(final String status){
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://services-apps.net/koch/api/set/status/provider";
+        final SweetDialogHelper sweetDialogHelper = new SweetDialogHelper(this);
+        sweetDialogHelper.showMaterialProgress(getString(R.string.loading));
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                sweetDialogHelper.dismissDialog();
+                Log.d("change_state", response);
+                new KochPrefStore(ClientDetailActivity.this).clearPreference();
+                startActivity(new Intent(ClientDetailActivity.this, SplashActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sweetDialogHelper.dismissDialog();
+                Log.d("error upload client loc", error.toString());
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", new KochPrefStore(ClientDetailActivity.this).getPreferenceValue(Constants.userEmail));
+                params.put("password", new KochPrefStore(ClientDetailActivity.this).getPreferenceValue(Constants.userPassword));
+                params.put("status", status);
+                return params;
+
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     //change font of drawer
