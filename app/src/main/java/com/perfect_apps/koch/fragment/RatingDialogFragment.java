@@ -137,7 +137,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
             // Set up a progress dialog
             final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("جارى تنفيذ طلبك...");
+            pDialog.setTitleText(getString(R.string.loading));
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -171,8 +171,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
                     dismiss();
 
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("نأسف")
-                            .setContentText("يبدو انك قمت بتقييم هذا المعلم من قبل")
+                            .setTitleText(getString(R.string.sorry))
+                            .setContentText(getString(R.string.cant_rate))
                             .show();
                 }
             }) {
@@ -194,8 +194,8 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
         } else {
             // show error message
             new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("ناسف...")
-                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .setTitleText(getString(R.string.error))
+                    .setContentText(getString(R.string.there_is_no_internet))
                     .show();
         }
     }

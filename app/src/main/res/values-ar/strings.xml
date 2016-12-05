@@ -103,4 +103,7 @@
     <string name="there_is_no_internet">قم بتشغيل شبكة الانترنت</string>
     <string name="loading">جارى التحميل...</string>
     <string name="ready_to_recieve">أستلام الطلبات</string>
+    <string name="cant_rate">لاتستطيع تقيم المزود الان</string>
+    <string name="sorry">نأسف!</string>
+    <string name="rate">التقييم!</string>
 </resources>

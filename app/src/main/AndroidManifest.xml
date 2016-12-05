@@ -50,11 +50,13 @@
         </activity>
         <activity
             android:name=".activities.SignInActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.SignUpActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".activities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -74,26 +76,32 @@
         </activity>
         <activity
             android:name=".activities.ProviderProfileActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_provider_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:configChanges="screenSize|orientation"
             android:name=".activities.ClientProfileActivity"
             android:label="@string/title_activity_client_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ProviderHomeActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_provider_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ClientHomeActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_client_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ProviderDetailActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_sender_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ConversationActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_conversation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -102,6 +110,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ClientDetailActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_client_detail"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -122,6 +131,7 @@
 
         <activity
             android:name=".activities.ChangePasswordActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

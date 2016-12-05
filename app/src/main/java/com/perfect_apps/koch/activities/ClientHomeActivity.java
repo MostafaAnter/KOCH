@@ -150,7 +150,7 @@ public class ClientHomeActivity extends LocalizationActivity
         // Check if has GPS
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+            //buildAlertMessageNoGps();
         }
 
 
@@ -431,6 +431,10 @@ public class ClientHomeActivity extends LocalizationActivity
 
             // upload user location to server
 
+            // view all providers automatic
+            viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
+                    String.valueOf(mLastLocation.getLongitude()));
+
         } else {
             String lat = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLat);
             String lng = new KochPrefStore(this).getPreferenceValue(Constants.userLastLocationLng);
@@ -446,6 +450,10 @@ public class ClientHomeActivity extends LocalizationActivity
                 }
             }
             new UpdateCurrentLocTask().execute();
+
+            // view all providers automatic
+            viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
+                    String.valueOf(mLastLocation.getLongitude()));
         }
     }
 
@@ -455,7 +463,7 @@ public class ClientHomeActivity extends LocalizationActivity
             case R.id.button1:
                 viewAllProviders(String.valueOf(mLastLocation.getLatitude()),
                         String.valueOf(mLastLocation.getLongitude()));
-                ;
+                break;
         }
     }
 

@@ -119,4 +119,7 @@
     <string name="there_is_no_internet">Open network connection</string>
     <string name="loading">Loading...</string>
     <string name="ready_to_recieve">Recieve orders</string>
+    <string name="sorry">Sorry!</string>
+    <string name="cant_rate">You cant rate provider now</string>
+    <string name="rate">Rate!</string>
 </resources>
