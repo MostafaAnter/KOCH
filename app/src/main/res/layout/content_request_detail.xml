@@ -116,6 +116,37 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/text00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/Request_id"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:text="" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/editTextHeight"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
+            android:background="@drawable/border_shape_gray_fath"
+            android:gravity="center_vertical">
+
+            <TextView
                 android:id="@+id/text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,7 +172,7 @@
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/border_shape_gray_fath"
             android:gravity="center_vertical">
 
@@ -171,7 +202,7 @@
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin_plus"
             android:layout_marginRight="@dimen/activity_horizontal_margin_plus"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_plus"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:background="@drawable/border_shape_gray_fath"
             android:gravity="center_vertical">
 

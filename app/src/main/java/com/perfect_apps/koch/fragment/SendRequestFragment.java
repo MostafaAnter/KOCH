@@ -23,6 +23,9 @@ import com.perfect_apps.koch.utils.Constants;
 import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +106,25 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button1:
-                sendRequest();
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText(getString(R.string.are_sure))
+                        .setContentText(getString(R.string.send_request))
+                        .setConfirmText(getString(R.string.yess))
+                        .setCancelText(getString(R.string.noo))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                sendRequest();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
                 break;
             case R.id.button2:
 
@@ -129,9 +150,19 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
                     public void onResponse(String response) {
                         sdh.dismissDialog();
 
+                        JSONObject rootObject = null;
+                        String row_hash = "";
+                        try {
+                            rootObject = new JSONObject(response);
+                            JSONObject jsonObject = rootObject.optJSONObject("item");
+                            row_hash = jsonObject.optString("row_hash");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("تم")
-                                .setContentText("لقد قمت بأرسال طلب")
+                                .setContentText("قمت بأرسال فاتوره برقم"+ " " + row_hash)
                                 .show();
                     }
                 }, new Response.ErrorListener() {

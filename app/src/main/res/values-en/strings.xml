@@ -114,4 +114,5 @@
     <string name="message_title">Message title</string>
     <string name="message">Message</string>
     <string name="reason">Reason of discard (optionaly)</string>
+    <string name="Request_id">Order ID</string>
 </resources>

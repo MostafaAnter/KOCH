@@ -128,7 +128,11 @@ public class ConversationActivity extends LocalizationActivity implements View.O
 
         setImeActionButton();
 
-        getConversationMessages();
+        if (mBundle != null) {
+            getConversationMessages();
+        }else {
+            finish();
+        }
         sendButton.setOnClickListener(this);
 
     }

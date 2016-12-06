@@ -45,6 +45,12 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
     TextView textView1;
     @BindView(R.id.text2)
     TextView textView2;
+
+    @BindView(R.id.text00)
+    TextView textView00;
+    @BindView(R.id.text0)
+    TextView textView0;
+
     @BindView(R.id.text4)
     TextView textView4;
     @BindView(R.id.text5)
@@ -85,6 +91,7 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
         if (!new KochPrefStore(this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")) {
             button1.setVisibility(View.GONE);
             button2.setVisibility(View.GONE);
+            editText.setVisibility(View.GONE);
         }
 
         bindData();
@@ -94,6 +101,8 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/normal.ttf");
         textView1.setTypeface(font);
         textView2.setTypeface(font);
+        textView00.setTypeface(font);
+        textView0.setTypeface(font);
         textView4.setTypeface(font);
         editText.setTypeface(font);
         textView5.setTypeface(font);
@@ -151,6 +160,7 @@ public class RequestDetailActivity extends LocalizationActivity implements View.
     private void bindData() {
         textView4.setText(orderRequest.getUpdated_at());
         textView6.setText(orderRequest.getTitle());
+        textView0.setText(orderRequest.getRow_hash());
         textView8.setText(orderRequest.getDetail());
         textView10.setText(orderRequest.getCost());
         if (new KochPrefStore(this).getPreferenceValue(Constants.userGroupId).equalsIgnoreCase("3")) {

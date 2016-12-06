@@ -20,8 +20,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.perfect_apps.koch.R;
+import com.perfect_apps.koch.activities.ClientProfileActivity;
 import com.perfect_apps.koch.activities.ProviderHomeActivity;
 import com.perfect_apps.koch.activities.SignInActivity;
+import com.perfect_apps.koch.activities.SplashActivity;
 import com.perfect_apps.koch.app.AppController;
 import com.perfect_apps.koch.store.KochPrefStore;
 import com.perfect_apps.koch.utils.Constants;
@@ -29,6 +31,8 @@ import com.perfect_apps.koch.utils.SweetDialogHelper;
 import com.perfect_apps.koch.utils.Utils;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -142,7 +146,25 @@ public class SendRequestDialog extends DialogFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button1:
-                sendRequest();
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText(getString(R.string.are_sure))
+                        .setContentText(getString(R.string.send_request))
+                        .setConfirmText(getString(R.string.yess))
+                        .setCancelText(getString(R.string.noo))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                sendRequest();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
                 break;
             case R.id.button2:
                 dismiss();
@@ -171,9 +193,19 @@ public class SendRequestDialog extends DialogFragment implements View.OnClickLis
                         response = StringEscapeUtils.unescapeJava(response);
                         Log.d("send request", response);
 
+                        JSONObject rootObject = null;
+                        String row_hash = "";
+                        try {
+                            rootObject = new JSONObject(response);
+                            JSONObject jsonObject = rootObject.optJSONObject("item");
+                            row_hash = jsonObject.optString("row_hash");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("تم")
-                                .setContentText("لقد قمت بأرسال طلب")
+                                .setContentText("قمت بأرسال فاتوره برقم"+ " " + row_hash)
                                 .show();
 
                         dismiss();

@@ -113,4 +113,6 @@
     <string name="full_name">اسم المستخدم</string>
     <string name="message">الرسالة</string>
     <string name="message_title">عنوان الرسالة</string>
+    <string name="Request_id">رقم الفاتورة</string>
+    <string name="reason">سبب الرفض (اختيارى)</string>
 </resources>
