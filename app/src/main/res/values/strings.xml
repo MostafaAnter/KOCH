@@ -17,7 +17,7 @@
     <string name="provider_name">Provider Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="enter_your_name">Enter Your Name</string>
-    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="enter_phone_number">Enter(+ code) Phone Number</string>
     <string name="email">Email</string>
     <string name="enter_email">Enter Email</string>
     <string name="about_me">About me</string>

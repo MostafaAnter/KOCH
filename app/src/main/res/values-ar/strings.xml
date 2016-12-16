@@ -17,7 +17,7 @@
     <string name="enter_email">ضع البريد الالكتروني</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="enter_password_again">تأكيد كلمة المرور</string>
-    <string name="enter_phone_number">ضع الهاتف</string>
+    <string name="enter_phone_number">ضع الهاتف الدولى يبدأ ب(+)</string>
     <string name="enter_url_here">ضع الرابط هنا</string>
     <string name="enter_your_name">ضع الأسم هنا</string>
     <string name="first_service">الخدمة الأولى</string>
